@@ -17,19 +17,21 @@ const locationSchema = new mongoose.Schema({
     validate: (typesArray) => Array.isArray(typesArray) && typesArray.length > 0
   },
   name: { type: String, required: true },
-  timings: { type: String, required: false },
-  startDate: { type: Date, required: false },
-  endDate: { type: Date, required: false },
+  timings: { type: String },
+  startDate: { type: Date },
+  endDate: { type: Date },
   address: { type: String, required: true },
+  city: { type: String, required: true },
   postcode: { type: String, required: true },
-  longitude: { type: String, required: false },
-  latitude: { type: String, required: false },
-  website: { type: String, required: false },
-  email: { type: String, required: false },
-  phone: { type: Number, required: false },
-  bio: { type: String, required: false },
-  image: { type: String, required: false },
-  comments: [ commentSchema ]
+  longitude: { type: String },
+  latitude: { type: String },
+  website: { type: String },
+  email: { type: String },
+  phone: { type: String },
+  bio: { type: String },
+  image: { type: String },
+  comments: [ commentSchema ],
+  user: { type: mongoose.Schema.ObjectId, ref: 'User', required: true }
 })
 
 locationSchema.plugin(uniqueValidator)
