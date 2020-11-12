@@ -30,7 +30,7 @@ const App = () => {
       <Route exact path='/locations/new-location' component={AddLocation}/>
       <Route exact path='/locations/edit-location/:locationId' component={EditLocation}/>
       <Route exact path='/locations/:locationId' component={SingleLocation}/>
-      <Route exact path='/locations/edit-comment/:locationId' component={EditComment}/>
+      <Route exact path='/locations/edit-comment/:locationId/:commentId/:commentIndex' component={EditComment}/>
     </Switch>
   </BrowserRouter>
   
