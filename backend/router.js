@@ -12,8 +12,8 @@ router.route('/locations')
 // // router.route('/location-proxy/:name')
 // //   .get(locationController.singleProxyLocation)
 
-// router.route('/locations/:locationId')
-//   .get(locationController.singleLocation)
+router.route('/locations/:locationId')
+  .get(locationController.singleLocation)
 //   .delete(secureRoute, locationController.removeLocation)
 //   .put(secureRoute, locationController.updateLocation)
 

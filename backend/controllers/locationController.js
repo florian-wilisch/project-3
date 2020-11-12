@@ -1,12 +1,11 @@
-const { default: Axios } = require('axios')
 const Locations = require('../models/locations')
-const axios = require('axios')
 
+
+// Get all locations
 
 function getLocations(req, res) {
   Locations
     .find()
-    // ! This is going to 'fill in' the fields of my user
     .populate('user')
     .then(locationList => {
       res.send(locationList)
@@ -14,6 +13,24 @@ function getLocations(req, res) {
     .catch(error => res.send(error))
 }
 
+
+// Get a single location
+
+function singleLocation(req, res) {
+  
+  Locations
+    .findById(req.params.locationId)
+    .populate('comments.user')
+    .then(location => {
+      res.send(location)
+    })
+    .catch(error => res.send(error))
+
+}
+
+//  Export the functions
+
 module.exports = {
-  getLocations
+  getLocations,
+  singleLocation
 }
