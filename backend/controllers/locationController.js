@@ -1,4 +1,3 @@
-const { findById } = require('../models/locations')
 const Locations = require('../models/locations')
 
 
@@ -83,6 +82,78 @@ function removeLocation(req, res) {
     .catch(error => res.send(error))
 }
 
+//  Create a comment
+
+function createComment(req, res) {
+
+  const comment = req.body
+
+  comment.user = req.currentUser
+
+
+  Locations
+    .findById(req.params.locationId)
+    .populate('comments.user')
+    .then(location => {
+      if (!location) return res.status(404).send({ message: 'Not found' })
+
+      location.comments.push(comment)
+
+      return location.save()
+    })
+    .then(location => res.send(location))
+    .catch(err => res.send(err))
+}
+
+//  Update a comment
+
+function updateComment(req, res) {
+  
+  Locations
+    .findById(req.params.locationId)
+    .populate('comments.user')
+    .then(location => {
+
+      if (!location) return res.status(404).send({ message: 'Not found' })
+
+      const comment = location.comments.id(req.params.commentId)
+
+      if (!comment.user.equals(req.currentUser._id)) {
+        return res.status(401).send({ message: 'Unauthorized' })
+      }
+
+      comment.set(req.body)
+      return location.save()
+    })
+    .then(location => res.send(location))
+    .catch(err => res.send(err))
+}
+
+//  Delete a comment
+
+function deleteComment(req, res) {
+
+  Locations
+    .findById(req.params.locationId)
+    .populate('comments.user')
+    .then(location => {
+
+      if (!location) return res.status(404).send({ message: 'Not found' })
+
+      const comment = location.comments.id(req.params.commentId)
+
+      if (!comment.user.equals(req.currentUser._id)) {
+        return res.status(401).send({ message: 'Unauthorized' })
+      }
+
+      comment.remove()
+
+      return location.save()
+    })
+    .then(location => res.send(location))
+    .catch(err => res.send(err))
+}
+
 //  Export the functions
 
 module.exports = {
@@ -90,5 +161,8 @@ module.exports = {
   singleLocation,
   addLocation,
   updateLocation,
-  removeLocation
+  removeLocation,
+  createComment,
+  updateComment,
+  deleteComment
 }

@@ -20,12 +20,12 @@ router.route('/signup')
 router.route('/login')
   .post(userController.loginUser)
 
-// router.route('/locations/:locationId/comments')
-//   .post(secureRoute, locationController.createComment)
+router.route('/locations/:locationId/comments')
+  .post(secureRoute, locationController.createComment)
 
-// router.route('/locations/:locationId/comments/:commentId')
-//   .put(secureRoute, locationController.updateComment)
-//   .delete(secureRoute, locationController.deleteComment)
+router.route('/locations/:locationId/comments/:commentId')
+  .put(secureRoute, locationController.updateComment)
+  .delete(secureRoute, locationController.deleteComment)
 
 // router.route('/users/:userId')
 //   .get(secureRoute, userController.getUser)
