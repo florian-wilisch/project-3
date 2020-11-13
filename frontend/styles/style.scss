@@ -3,6 +3,8 @@
 // Import a Google Font
 @import url("https://fonts.googleapis.com/css?family=Nunito:400,700");
 
+@import '../../node_modules/react-datepicker/dist/react-datepicker.css';
+
 // Set your brand colors
 $purple: #8a4d76;
 $pink: #fa7c91;
@@ -29,6 +31,13 @@ $navbar-breakpoint: 400px;
   }
 }
 
+// .addLocation-form {
+//   padding: 10px;
+//   {
+//     margin: 5px;
+//   }
+// }
+
 // Update some of Bulma's component variables
 $body-background-color: $beige-lighter;
 $control-border-width: 2px;
@@ -36,3 +45,4 @@ $input-border-color: transparent;
 $input-shadow: none;
 
 @import "../../node_modules/bulma/bulma.sass";
+

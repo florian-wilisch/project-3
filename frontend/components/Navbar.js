@@ -34,7 +34,7 @@ const NavBar = (props) => {
         <div className="navbar-item">
           {!localStorage.getItem('token') && <Link className='button is-light' to='/register'>Register</Link>}
           {!localStorage.getItem('token') && <Link to="/login" className="button is-light">Login</Link>}
-          {localStorage.getItem('token') && <Link to='/players/new-location' className="button is-info is-light">Add Location</Link>}
+          {localStorage.getItem('token') && <Link to='/locations/new-location' className="button is-link">Add Location</Link>}
           {localStorage.getItem('token') && <button
             className="button"
             onClick={handleLogout}
