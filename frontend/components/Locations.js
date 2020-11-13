@@ -6,7 +6,7 @@ const Locations = () => {
   const [locationData, updateLocationData] = useState([])
 
   useEffect(() => {
-    axios.get('/api/greenWorldDb')
+    axios.get('/api/locations')
       .then(axiosResp => {
         updateLocationData(axiosResp.data)
       })
