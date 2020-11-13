@@ -2,22 +2,66 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 
+// The API is at '/api/locations' 
+
 const Locations = () => {
   const [locationData, updateLocationData] = useState([])
+  const [locationFilter, updateLocationFilter] = useState('')
+  const [selectedCategory, updateSelectedCategory] = useState('')
 
   useEffect(() => {
-    axios.get('/api/greenWorldDb')
+    axios.get('/api/locations')
       .then(axiosResp => {
         updateLocationData(axiosResp.data)
       })
   }, [])
 
-  return <section className="section">
+  function filterLocations() {
+    const filteredLocations = locationData.filter(location => {
+      const name = location.name.toLowerCase()
+      const filterText = locationFilter.toLowerCase()
+      return name.includes(filterText)
+        && (selectedCategory === '' || location.category[0] === selectedCategory)
+    })
+    return filteredLocations
+  }
+
+  function getCategories() {
+    const mappedCategories = locationData.map(location => location.category[0])
+    const uniqueCategories = new Set(mappedCategories)
+    const arrayLocations = Array.from(uniqueCategories)
+    console.log(mappedCategories)
+    console.log(uniqueCategories)
+    console.log(arrayLocations)
+    return arrayLocations
+  }
+
+  return <div className="section">
     <div className="container">
+      <input
+        className="input"
+        placeholder="Search..."
+        onChange={(event) => updateLocationFilter(event.target.value)}
+        value={locationFilter}
+      />
+      <div className="buttons">
+        {getCategories().map(category => {
+          return <button
+            onClick={(event) => updateSelectedCategory(event.target.innerHTML) }
+            className="button"
+          >
+            {category}
+          </button>
+        })}
+      </div>
       <div className="columns is-multiline is-mobile">
-        {locationData.map((location, index) => {
-          return <div key={index} className="column is-one-third-desktop is-half-tablet is-half-mobile">
-            <Link to={`/locations/${location.name}`}>
+        {filterLocations().map((location, index) => {
+          console.log(location)
+          return <div
+            className="column is-one-third-desktop is-half-tablet is-half-mobile"
+            key={index}
+          >
+            <Link to={`/locations/${location._id}`}>
               <div className="card">
                 <div className="card-content">
                   <div className="media">
@@ -47,7 +91,7 @@ const Locations = () => {
         })}
       </div>
     </div>
-  </section>
+  </div>
 }
 
 export default Locations 
