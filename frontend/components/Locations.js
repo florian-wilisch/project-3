@@ -15,6 +15,7 @@ const Locations = () => {
         updateLocationData(axiosResp.data)
       })
   }, [])
+<<<<<<< HEAD
 
   function filterLocations() {
     const filteredLocations = locationData.filter(location => {
@@ -37,6 +38,9 @@ const Locations = () => {
   }
 
   return <div className="section">
+=======
+  return <section className="section">
+>>>>>>> development
     <div className="container">
       <input
         className="input"
@@ -55,12 +59,17 @@ const Locations = () => {
         })}
       </div>
       <div className="columns is-multiline is-mobile">
+<<<<<<< HEAD
         {filterLocations().map((location, index) => {
           console.log(location)
           return <div
             className="column is-one-third-desktop is-half-tablet is-half-mobile"
             key={index}
           >
+=======
+        {locationData.map((location, index) => {
+          return <div key={index} className="column is-one-third-desktop is-half-tablet is-half-mobile">
+>>>>>>> development
             <Link to={`/locations/${location._id}`}>
               <div className="card">
                 <div className="card-content">

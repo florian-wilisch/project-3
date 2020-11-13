@@ -3,10 +3,13 @@
 // Import a Google Font
 @import url("https://fonts.googleapis.com/css?family=Nunito:400,700");
 
+@import '../../node_modules/react-datepicker/dist/react-datepicker.css';
+
 // Set your brand colors
 $purple: #8a4d76;
 $pink: #fa7c91;
 $brown: #757763;
+$green: rgb(0, 99, 0);
 $beige-light: #d0d1cd;
 $beige-lighter: #eff0eb;
 
@@ -15,7 +18,7 @@ $family-sans-serif: "Nunito", sans-serif;
 $grey-dark: $brown;
 $grey-light: $beige-light;
 $primary: $purple;
-$link: $pink;
+$link: $green;
 $widescreen-enabled: false;
 $fullhd-enabled: false;
 $navbar-breakpoint: 400px;
@@ -28,6 +31,13 @@ $navbar-breakpoint: 400px;
   }
 }
 
+// .addLocation-form {
+//   padding: 10px;
+//   {
+//     margin: 5px;
+//   }
+// }
+
 // Update some of Bulma's component variables
 $body-background-color: $beige-lighter;
 $control-border-width: 2px;
@@ -35,3 +45,4 @@ $input-border-color: transparent;
 $input-shadow: none;
 
 @import "../../node_modules/bulma/bulma.sass";
+
