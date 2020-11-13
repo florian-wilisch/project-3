@@ -56,13 +56,7 @@ const AddLocation = () => {
 
 
 
-
-  return <form onSubmit={handleSubmit}>
-    <select name="category" onChange={handleTypes}>
-      <option value="fire">fire</option>
-      <option value="normal">normal</option>
-      <option value="electric">electric</option>
-    </select>  
+  return <form className='addLocation-form' onSubmit={handleSubmit}>
     
     <label>Category</label>
     <Select options={categories} isMulti />
@@ -73,15 +67,18 @@ const AddLocation = () => {
       isClearable
       placeholderText="Select start date"
       dateFormat='dd/MM/yyyy'
-      className='ml-6'
+      className=''
+
     />
     <Datepicker selected={endDate}
       onChange={date => setEndDate(date)}
       isClearable
       placeholderText="Select end date"
       dateFormat='dd/MM/yyyy'
-      className='ml-6'
+      className=''
     />
+
+
 
     {inputFields.map((field, i) => {
       return <div key={i}>
@@ -95,7 +92,7 @@ const AddLocation = () => {
       </div>
     })}
     
-    <button>Login</button>
+    <button className='button'>Submit</button>
   </form>
 
 }
