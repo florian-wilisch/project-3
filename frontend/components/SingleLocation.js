@@ -5,17 +5,43 @@ import { isCreator } from '../lib/auth'
 
 const SingleLocation = (props) => {
   console.log(props)
-  const locationId = props.match.params._id
+  const locationId = props.match.params.locationId
+  console.log(locationId)
   const [location, updateLocation] = useState([])
+  const [text, setText] = useState('')
 
-  // const token = localStorage.getItem('token')
+  const token = localStorage.getItem('token')
 
   useEffect(() => {
-    axios.get('/api/locations/5fadb8edd9e5eb1717407c54')
+    axios.get(`/api/locations/${locationId}`)
       .then(resp => {
         updateLocation(resp.data)
       })
   }, [])
+
+  function handleDelete() {
+    axios.delete(`/api/locations/${locationId}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(() => {
+        props.history.push('/locations')
+      })
+  }
+
+  function handleComment() {
+    axios.post(`/api/locations/${locationId}/comments`, { text }, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+  }
+
+  function handleDeleteComment(commentId) {
+    axios.delete(`/api/locations/${locationId}/comments/${commentId}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(resp => {
+        updateLocation(resp.data)
+      })
+  }
 
   if (!location.category) {
     return <div className="section">
@@ -27,11 +53,16 @@ const SingleLocation = (props) => {
       </div>
     </div>
   }
-
   console.log(location)
+
   return <div className="container">
     <div className="level">
       <h1 className="title is-1 is-primary">{location.name}</h1>
+
+      <div className="level-item buttons">
+        {isCreator(location.user) && <Link to={`/locations/edit-location/${location.name}`} className="button is-warning">🛠 Edit Location</Link>}
+        {isCreator(location.user) && <button onClick={handleDelete} className="button is-danger">✂️ Delete Shop</button>}
+      </div>
 
     </div>
 
@@ -110,15 +141,62 @@ const SingleLocation = (props) => {
             <p className="content">📲 {location.phone}</p>
           </article>
         </div>
+
+        {/* Comments box */}
         <div className="tile is-parent is-8">
           <article className="tile is-child box">
             <p className="title">Comments</p>
             <p className="subtitle">With some content</p>
             <div className="content">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
+              {location.comments && location.comments.map(comment => {
+                return <div key={comment._id} className="media">
+                  <div className="media-content">
+                    <div className="content">
+                      <p className="subtitle">
+                        {comment.user.username}
+                      </p>
+                      <p>{comment.text}</p>
+                    </div>
+                  </div>
+                  {isCreator(comment.user._id) && <div className="media-right">
+                    <button className="delete"
+                      onClick={() => handleDeleteComment(comment._id)}></button>
+                  </div>}
+                </div>
+              })}
+            </div>
+
+            {/* POST comment */}
+
+            <div className="media">
+              <div className="media-content">
+                <div className="field">
+                  <p className="control">
+                    <textarea
+                      className="textarea"
+                      placeholder="Make a comment.."
+                      onChange={event => setText(event.target.value)}
+                      value={text}
+                    >
+                      {text}
+                    </textarea>
+                  </p>
+                </div>
+                <div className="field">
+                  <p className="control">
+                    <button
+                      onClick={handleComment}
+                      className="button is-info"
+                    >
+                      Submit
+                  </button>
+                  </p>
+                </div>
+              </div>
             </div>
           </article>
         </div>
+
       </div>
     </div >
 
