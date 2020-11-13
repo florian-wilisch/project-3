@@ -6,18 +6,17 @@ const Locations = () => {
   const [locationData, updateLocationData] = useState([])
 
   useEffect(() => {
-    axios.get('/api/greenWorldDb')
+    axios.get('/api/locations')
       .then(axiosResp => {
         updateLocationData(axiosResp.data)
       })
   }, [])
-
   return <section className="section">
     <div className="container">
       <div className="columns is-multiline is-mobile">
         {locationData.map((location, index) => {
           return <div key={index} className="column is-one-third-desktop is-half-tablet is-half-mobile">
-            <Link to={`/locations/${location.name}`}>
+            <Link to={`/locations/${location._id}`}>
               <div className="card">
                 <div className="card-content">
                   <div className="media">
