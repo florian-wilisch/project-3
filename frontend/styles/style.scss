@@ -18,9 +18,14 @@ $primary: $purple;
 $link: $pink;
 $widescreen-enabled: false;
 $fullhd-enabled: false;
+$navbar-breakpoint: 400px;
 
-.body {
-  background-color: $pink;
+.navbar {
+  .button {
+    max-height: 30px;
+    margin: 0 5px;
+    border-radius: 3px;;
+  }
 }
 
 // Update some of Bulma's component variables

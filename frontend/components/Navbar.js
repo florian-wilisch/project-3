@@ -10,33 +10,34 @@ const NavBar = (props) => {
   
   
   return <nav className="navbar ">
-    {/* <div className="navbar-brand">
-      <a role="button" className="navbar-burger is-active" aria-label="menu" aria-expanded="false" data-target='navbar-menu'>
+    <div className="navbar-brand">
+      <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target='navbar-menu'>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
       </a>
-    </div> */}
+    </div>
     
-    <div className="navbar-menu is-active" id='navbar-menu'>
+    <div className="navbar-menu" id='navbar-menu'>      
+      <div className="navbar-start">          
+        <Link to="/" className="navbar-item">
+          <strong>Home</strong>
+        </Link>
+        <Link to="/locations" className="navbar-item">Locations</Link>
+      </div>
       <div className="navbar-end">
         <div className="navbar-item">
-          <div className="buttons">
-            <Link to="/" className="button is-dark">
-              <strong>Home</strong>
-            </Link>
-            <Link to="/players" className="button is-light">Locations</Link>
-            {!localStorage.getItem('token') && <Link className='button is-light' to='/signup'>Sign Up</Link>}
-            {!localStorage.getItem('token') && <Link to="/login" className="button is-light">Login</Link>}
-            {localStorage.getItem('token') && <Link to='/players/new-location' className="button is-info is-light">Add Location</Link>}
-            {localStorage.getItem('token') && <button
-              className="button"
-              onClick={handleLogout}
-            >Logout</button>}
-          </div>
+          {!localStorage.getItem('token') && <Link className='button is-light' to='/signup'>Sign Up</Link>}
+          {!localStorage.getItem('token') && <Link to="/login" className="button is-light">Login</Link>}
+          {localStorage.getItem('token') && <Link to='/players/new-location' className="button is-info is-light">Add Location</Link>}
+          {localStorage.getItem('token') && <button
+            className="button"
+            onClick={handleLogout}
+          >Logout</button>}
         </div>
       </div>
     </div>
+    
   </nav>
 }
 
