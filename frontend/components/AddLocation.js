@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import Select from 'react-select'
 import Datepicker from 'react-datepicker'
+import Axios from 'axios'
+// import { ProgressPlugin } from 'webpack'
 
-const AddLocation = () => {
+const AddLocation = (props) => {
   
   const [formData, updateFormData] = useState({
     category: [],
@@ -25,8 +27,8 @@ const AddLocation = () => {
   const inputFields = [
     'name',
     'timings',
-    'startDate',
-    'endDate',
+    // 'startDate',
+    // 'endDate',
     'address',
     'city',
     'postcode',
@@ -40,61 +42,106 @@ const AddLocation = () => {
   ]
 
   const categories = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
+    { value: 'Farmers Market', label: 'Farmers Market' },
+    { value: 'Farm Shop', label: 'Farm Shop' },
+    { value: 'Zero Waste Shop', label: 'Zero Waste Shop' },
+    { value: 'Restaurant', label: 'Restaurant' },
+    { value: 'EV Charging Station', label: 'EV Charging Station' },
+    { value: 'Recycling/Upcycling/Repair', label: 'Recycling/Upcycling/Repair' },
+    { value: 'Charity Shop', label: 'Charity Shop' }
   ]
 
   const [startDate, setStartDate] = useState('')
-  const [endDate, setEndDate] = useState('')
+  const [endDate, setEndDate] = useState(null)
 
-  function handleSubmit(){}
+  function handleCategory(event) {
+    console.log(event.target.value)
+    const data = {
+      ...formData,
+      category: [event.target.value]
+    }
+    console.log(data)
+    updateFormData(data)
+  }
 
-  function handleTypes(){}
+  function handleChange(event) {
+    const data = {
+      ...formData,
+      [event.target.name]: event.target.value
+    }
+    console.log(data)
+    updateFormData(data)
+  }
 
-  function handleChange(){}
+  function handleSubmit(event) {
+    event.preventDefault()
+    const token = localStorage.getItem('token')
+    Axios.post('/api/locations', formData, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(resp => {
+        props.history
+      })
+  }
 
-
-
-  return <form className='addLocation-form' onSubmit={handleSubmit}>
-    
-    <label>Category</label>
-    <Select options={categories} isMulti />
-    
-    <label>Dates</label>
-    <Datepicker selected={startDate}
-      onChange={date => setStartDate(date)}
-      isClearable
-      placeholderText="Select start date"
-      dateFormat='dd/MM/yyyy'
-      className=''
-
-    />
-    <Datepicker selected={endDate}
-      onChange={date => setEndDate(date)}
-      isClearable
-      placeholderText="Select end date"
-      dateFormat='dd/MM/yyyy'
-      className=''
-    />
+  // const handleDates = dates => {
+  //   const [start, end] = dates
+  //   setStartDate(start)
+  //   setEndDate(end)
+  // }
 
 
-
-    {inputFields.map((field, i) => {
-      return <div key={i}>
-        <label>{field}</label>
-        <input
-          type="text"
-          onChange={handleChange}
-          value={formData[field]}
-          name={field}
-        />
+  return <div className="container is-fluid mt-5">
+    <form className='' onSubmit={handleSubmit}>
+      <div className="field">
+        <label className='label'>Category*</label>
+        <div className="control">
+          <Select options={categories} isMulti 
+          // onChange={handleCategory}
+          />
+        </div>
       </div>
-    })}
-    
-    <button className='button'>Submit</button>
-  </form>
-
+      <div className="field">
+        <label className='label'>Dates</label>
+        <div className="control">
+          <Datepicker selected={startDate}
+            onChange={date => setStartDate(date)}
+            // onChange={handleDates}
+            // isClearable
+            placeholderText="Select start date"
+            dateFormat='dd/MM/yyyy'
+            className='input'
+            startDate={startDate}
+            endDate={endDate}
+            // selectsRange
+            // inline
+          />
+          <Datepicker selected={endDate}
+            onChange={date => setEndDate(date)}
+            // isClearable
+            placeholderText="Select end date"
+            dateFormat='dd/MM/yyyy'
+            className='input ml-2'
+          />
+        </div>
+      </div>
+      {inputFields.map((field, i) => {
+        return <div className='field' key={i}>
+          <label className='label'>{field}</label>
+          <div className="control">
+            <input
+              className='input'
+              type="text"
+              onChange={handleChange}
+              value={formData[field]}
+              name={field}
+            />
+          </div>
+        </div>
+      })}      
+      <button className='button'>Submit</button>
+    </form>
+  </div>
 }
 
 export default AddLocation
