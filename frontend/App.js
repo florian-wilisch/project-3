@@ -1,15 +1,15 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
-import Home from './components/Home'
-import SingleLocation from './components/SingleLocation'
+// import Home from './components/Home'
+// import SingleLocation from './components/SingleLocation'
 import Locations from './components/Locations'
-import Register from './components/Register'
-import Login from './components/Login'
-import Navbar from './components/Navbar'
-import AddLocation from './components/AddLocation'
-import EditLocation from './components/EditLocation'
-import EditComment from './components/EditComment'
+// import Register from './components/Register'
+// import Login from './components/Login'
+// import Navbar from './components/Navbar'
+// import AddLocation from './components/AddLocation'
+// import EditLocation from './components/EditLocation'
+// import EditComment from './components/EditComment'
 
 import './styles/style.scss'
 
