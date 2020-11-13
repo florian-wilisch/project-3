@@ -23,7 +23,8 @@ router.route('/login')
 router.route('/locations/:locationId/comments')
   .post(secureRoute, locationController.createComment)
 
-router.route('/locations/:locationId/comments/:commentId')
+router.route('/locations/:locationId/comments/:commentIndex')
+  .get(locationController.getComment)
   .put(secureRoute, locationController.updateComment)
   .delete(secureRoute, locationController.deleteComment)
 

@@ -105,10 +105,26 @@ function createComment(req, res) {
     .catch(err => res.send(err))
 }
 
+// Get single comment
+
+function getComment(req, res) {
+
+  Locations
+    .findById(req.params.locationId)
+    .populate('comments.user')
+    .then(location => {
+      const comment = location.comments[req.params.commentIndex]
+      res.send(comment)
+    })
+    .catch(error => res.send(error))
+
+
+}
+
 //  Update a comment
 
 function updateComment(req, res) {
-  
+
   Locations
     .findById(req.params.locationId)
     .populate('comments.user')
@@ -164,5 +180,6 @@ module.exports = {
   removeLocation,
   createComment,
   updateComment,
-  deleteComment
+  deleteComment,
+  getComment
 }
