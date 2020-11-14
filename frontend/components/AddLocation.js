@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Select from 'react-select'
 import Datepicker from 'react-datepicker'
 import Axios from 'axios'
+import { set } from 'mongoose'
 // import { ProgressPlugin } from 'webpack'
+
 
 const AddLocation = (props) => {
   
@@ -51,18 +53,26 @@ const AddLocation = (props) => {
     { value: 'Charity Shop', label: 'Charity Shop' }
   ]
 
+  const [selectedCategories, setSelectedCategories] = useState([])
+  // console.log(selectedCategories)
+
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState(null)
-
-  function handleCategory(event) {
-    console.log(event.target.value)
+  
+  useEffect(() => {
+    // Map catergories to only keep the value property
+    const categoryArray = selectedCategories.map(one => {
+      return one.value
+    })
     const data = {
       ...formData,
-      category: [event.target.value]
-    }
-    console.log(data)
+      startDate: startDate,
+      endDate: endDate,
+      category: categoryArray
+    }  
     updateFormData(data)
-  }
+    console.log(data)
+  }, [selectedCategories, startDate, endDate])
 
   function handleChange(event) {
     const data = {
@@ -80,31 +90,40 @@ const AddLocation = (props) => {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(resp => {
-        props.history
+        props.history.push('/locations')
       })
   }
 
-  // const handleDates = dates => {
-  //   const [start, end] = dates
-  //   setStartDate(start)
-  //   setEndDate(end)
-  // }
-
+  const [isVisible, setIsVisible] = useState(false)
 
   return <div className="container is-fluid mt-5">
     <form className='' onSubmit={handleSubmit}>
-      <div className="field">
-        <label className='label'>Category*</label>
-        <div className="control">
-          <Select options={categories} isMulti 
-          // onChange={handleCategory}
-          />
+      <div className="field is-horizontal">
+        <div className="field">
+          <label className='label' onClick={() => setIsVisible(!isVisible)}>Category*
+          </label>
         </div>
+        {/* <div className="field">
+          <input className='control'/>
+        </div> */}
+        
+        {/* <span className="icon">
+            <i className=""></i>
+          </span> */}
+        {isVisible && <div className="control">
+          <Select
+            options={categories} 
+            isMulti 
+            onChange={setSelectedCategories}
+            isSearchable
+          />
+        </div>}
       </div>
       <div className="field">
         <label className='label'>Dates</label>
         <div className="control">
-          <Datepicker selected={startDate}
+          <Datepicker 
+            selected={startDate}
             onChange={date => setStartDate(date)}
             // onChange={handleDates}
             // isClearable
@@ -116,7 +135,8 @@ const AddLocation = (props) => {
             // selectsRange
             // inline
           />
-          <Datepicker selected={endDate}
+          <Datepicker 
+            selected={endDate}
             onChange={date => setEndDate(date)}
             // isClearable
             placeholderText="Select end date"

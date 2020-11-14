@@ -5,6 +5,8 @@
 
 @import '../../node_modules/react-datepicker/dist/react-datepicker.css';
 
+@import '../../node_modules/@fortawesome/fontawesome-free';
+
 // Set your brand colors
 $purple: #8a4d76;
 $pink: #fa7c91;
@@ -30,13 +32,6 @@ $navbar-breakpoint: 400px;
     border-radius: 3px;;
   }
 }
-
-// .addLocation-form {
-//   padding: 10px;
-//   {
-//     margin: 5px;
-//   }
-// }
 
 // Update some of Bulma's component variables
 $body-background-color: $beige-lighter;
