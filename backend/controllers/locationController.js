@@ -113,8 +113,13 @@ function getComment(req, res) {
     .findById(req.params.locationId)
     .populate('comments.user')
     .then(location => {
-      const comment = location.comments[req.params.commentIndex]
+
+      if (!location) return res.status(404).send({ message: 'Not found' })
+
+      const comment = location.comments.id(req.params.commentId)
+
       res.send(comment)
+
     })
     .catch(error => res.send(error))
 
