@@ -61,7 +61,7 @@ mongoose.connect(
             email: 'sarah@shopzero.co.uk',
             phone: '',
             bio: 'We are here to help you shop more consciously and reduce your environmental impact. Bring your own containers for bulk, unpackaged food, lower impact personal care, on the-go items, sustainable household goods and gifts.',
-            image: '',
+            image: 'https://i.imgur.com/69AV8Kt.jpg',
             user: users[0]
           },
           {
@@ -97,7 +97,7 @@ mongoose.connect(
             email: '',
             phone: '07913318832',
             bio: 'We are a single use plastic free zero waste shop. You can buy as much or as little as you need and you only pay by weight for the loose items and refills. We stock a range of products from whole foods to refill liquids to personal household items.',
-            image: '',
+            image: 'https://i.imgur.com/P6wgj4g.jpg',
             user: users[0]
           },
           {
@@ -151,7 +151,7 @@ mongoose.connect(
             email: 'info@hampshirefarmersmarkets.co.uk',
             phone: '',
             bio: '',
-            image: '',
+            image: 'https://i.imgur.com/Rx0B0fS.jpg',
             user: users[0]
           },
           {
@@ -169,7 +169,7 @@ mongoose.connect(
             email: '',
             phone: '',
             bio: '',
-            image: '',
+            image: 'https://i.imgur.com/mcQ5FSX.jpg',
             user: users[0]
           },
           {
@@ -187,7 +187,7 @@ mongoose.connect(
             email: 'info@hampshirefarmersmarkets.co.uk',
             phone: '',
             bio: '',
-            image: '',
+            image: 'https://i.imgur.com/uevt3lW.jpg',
             user: users[0]
           },
           {
@@ -205,7 +205,7 @@ mongoose.connect(
             email: 'info@hampshirefarmersmarkets.co.uk',
             phone: '',
             bio: '',
-            image: '',
+            image: 'https://i.imgur.com/pK83J4j.jpg',
             user: users[0]
           },
           {
@@ -223,7 +223,7 @@ mongoose.connect(
             email: 'info@hampshirefarmersmarkets.co.uk',
             phone: '',
             bio: '',
-            image: '',
+            image: 'https://i.imgur.com/kc22xdP.jpg',
             user: users[0]
           },
           {
@@ -241,7 +241,7 @@ mongoose.connect(
             email: 'info@hampshirefarmersmarkets.co.uk',
             phone: '',
             bio: '',
-            image: '',
+            image: 'https://i.imgur.com/6IOOJ8a.jpg',
             user: users[0]
           },
           {
@@ -259,7 +259,7 @@ mongoose.connect(
             email: 'info@hampshirefarmersmarkets.co.uk',
             phone: '',
             bio: '',
-            image: '',
+            image: 'https://i.imgur.com/yihkmgM.jpg',
             user: users[0]
           },
           {
@@ -277,7 +277,7 @@ mongoose.connect(
             email: 'info@hampshirefarmersmarkets.co.uk',
             phone: '',
             bio: '',
-            image: '',
+            image: 'https://i.imgur.com/kOdlsys.jpg',
             user: users[0]
           },
           {
@@ -295,7 +295,7 @@ mongoose.connect(
             email: 'info@wellingtonfarmshop.co.uk',
             phone: '',
             bio: 'Wellington Farm Shop opens daily and stocks a range of fresh meat such as lamb, pork, poultry, sausages and game. You ll find all of this as well as fruit and veg, local bread and fresh cakes.',
-            image: '',
+            image: 'https://i.imgur.com/xewOsUv.jpg',
             user: users[0]
           },
           {
@@ -313,7 +313,7 @@ mongoose.connect(
             email: 'info@newlyns.com',
             phone: '',
             bio: 'Newlyns stock their own home-produced meat as well as offering items such as fresh fruit and vegetables, not forgetting the delicatessen counters full of goodies',
-            image: '',
+            image: 'https://i.imgur.com/WnrmKZ3.jpg',
             user: users[0]
           },
           {
@@ -331,7 +331,7 @@ mongoose.connect(
             email: 'shop@durleighmarshfarmshop.co.uk',
             phone: '',
             bio: 'As well as a good offering of local meat and dairy produce Durleighmarsh also grow their own fruit and vegetables which are all ready-picked in season.',
-            image: '',
+            image: 'https://i.imgur.com/WsocMnu.jpg',
             user: users[0]
           },
           {
@@ -349,7 +349,7 @@ mongoose.connect(
             email: 'winchestershop@cobbsfarmshops.co.uk',
             phone: '',
             bio: 'With a farm shop, cafe and butchery on site, Cobbs certainly have all the bases covered when it comes to food and drink. Having been in the heart of the local community for more than thirty years they pride themselves in serving up quality food with provenance.',
-            image: '',
+            image: 'https://i.imgur.com/wN2NC27.jpg',
             user: users[0]
           },
           {
@@ -366,7 +366,7 @@ mongoose.connect(
             website: '',
             email: 'info@beechcroftdirect.co.uk',
             bio: 'Winner of Best Farm Shop at the 2013 and 2014 Hampshire Life Food and Drink Awards, Beechcroft offer fresh cuts of lamb, beef and pork, as well as turkey at Christmas. All the animals are free range and left to slowly mature on Beechcrofts chalkland fields.',
-            image: '',
+            image: 'https://i.imgur.com/Ba11TwB.jpg',
             user: users[0]
           },
           {
@@ -384,7 +384,7 @@ mongoose.connect(
             email: 'hello@allgoodthingseco.co.uk',
             phone: '',
             bio: 'Whether you re new to reducing your environmental impact, or a hard-core eco warrior All Good Things is the perfect shop for you. We have packaging-free and zero waste alternatives for many of your regular household purchases.',
-            image: '',
+            image: 'https://i.imgur.com/adqEg7X.jpg',
             user: users[0]
           },
           {
@@ -400,7 +400,7 @@ mongoose.connect(
             email: 'hello@earthianzerowasteshop.co.uk',
             phone: '',
             bio: 'We specialise in plastic-free, organic and low waste products. You can bring your own containers to the store to stock up on food staples such as grains beans pasta and cereals.',
-            image: '',
+            image: 'https://i.imgur.com/iiFwGhe.jpg',
             user: users[0]
           },
           {
@@ -416,7 +416,7 @@ mongoose.connect(
             email: '',
             phone: '02392 528 096',
             bio: 'We stock over 280 loose food products, plastic free and ethical our aim is to sell 95% Organic food by the end of 2020.',
-            image: '',
+            image: 'https://i.imgur.com/3w59U2S.jpg',
             user: users[0]
           },
           {
@@ -432,7 +432,7 @@ mongoose.connect(
             email: '',
             phone: '01962 844 001',
             bio: 'There is plenty to choose from on our vegan and vegetarian menu at ONeills Winchester. So, whether you are in for breakfast, a quick bite at lunchtime, or to share some tapas with your mates, we have got something delicious and nutritious especially for you.',
-            image: '',
+            image: 'https://i.imgur.com/Ce9Ddum.jpg',
             user: users[0]
           },
           {
@@ -448,7 +448,7 @@ mongoose.connect(
             email: 'southampton@offbeetfood.com',
             phone: '',
             bio: 'We take popular classic dishes, pull them apart, throw the rule book away and remodel those dishes into something new, exciting and mind blowing.',
-            image: '',
+            image: 'https://i.imgur.com/ySOWnOD.jpg',
             user: users[0]
           },
           {
@@ -464,7 +464,7 @@ mongoose.connect(
             email: '',
             phone: '01252 624891',
             bio: 'Our vision is a world free from the fear of heart and circulatory diseases. A world without heartbreak.',
-            image: '',
+            image: 'https://i.imgur.com/7u546Dh.png',
             user: users[0]
           },
           {
@@ -480,7 +480,7 @@ mongoose.connect(
             email: '',
             phone: '0300 777 1635',
             bio: 'Our charity shops sell a mixture of donated clothes, books, toys, household goods and soft furnishings.',
-            image: '',
+            image: 'https://i.imgur.com/txf5p0t.jpg',
             user: users[0]
           },
           {
@@ -496,7 +496,7 @@ mongoose.connect(
             email: '',
             phone: '01252 628 575',
             bio: 'Welcome to Pedal Heaven. Hampshire s most innovative and modern bicycle experience destination.',
-            image: '',
+            image: 'https://i.imgur.com/3TmbWIW.jpg',
             user: users[0]
           },
           {
@@ -512,7 +512,7 @@ mongoose.connect(
             email: '',
             phone: '01252 723888',
             bio: 'East Street Cycles journey began long before our doors opened in the Summer of 2004. At the start it was myself and one full time employee and a bit of a rota on Saturdays cajoling friends into helping out…',
-            image: '',
+            image: 'https://i.imgur.com/sGUpWhd.jpg',
             user: users[0]
           }
         ])
