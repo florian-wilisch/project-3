@@ -105,10 +105,31 @@ function createComment(req, res) {
     .catch(err => res.send(err))
 }
 
+// Get single comment
+
+function getComment(req, res) {
+
+  Locations
+    .findById(req.params.locationId)
+    .populate('comments.user')
+    .then(location => {
+
+      if (!location) return res.status(404).send({ message: 'Not found' })
+
+      const comment = location.comments.id(req.params.commentId)
+
+      res.send(comment)
+
+    })
+    .catch(error => res.send(error))
+
+
+}
+
 //  Update a comment
 
 function updateComment(req, res) {
-  
+
   Locations
     .findById(req.params.locationId)
     .populate('comments.user')
@@ -164,5 +185,6 @@ module.exports = {
   removeLocation,
   createComment,
   updateComment,
-  deleteComment
+  deleteComment,
+  getComment
 }
