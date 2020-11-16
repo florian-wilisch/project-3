@@ -15,7 +15,7 @@ import EditComment from './components/EditComment'
 import './styles/style.scss'
 
 // For environment varibles
-// console.log(process.env.hello)
+console.log(process.env.hello)
 
 const App = () => (
 

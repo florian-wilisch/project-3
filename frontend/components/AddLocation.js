@@ -4,9 +4,9 @@ import Datepicker from 'react-datepicker'
 import Axios from 'axios'
 // import { set } from 'mongoose'
 // import { ProgressPlugin } from 'webpack'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
-import Geocode from 'react-geocode'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faEdit } from '@fortawesome/free-solid-svg-icons'
+// import Geocode from 'react-geocode'
 
 
 const AddLocation = (props) => {
@@ -97,18 +97,20 @@ const AddLocation = (props) => {
       })
   }
 
-  // Geocode.setApiKey('AIzaSyC6bRnHd5tsxEi2FqVjHSMwAl5sLWMXkL8')
-  // Geocode.fromAddress('London').then(
-  //   response => {
-  //     const { lat, lng } = response.results[0].geometry.location
-  //     console.log(lat, lng)
-  //   },
-  //   error => {
-  //     console.error(error)
-  //   }
-  // )
+  console.log(process.env.MapBoxKey)
+
+  function handleCoordinates() {
+    console.log(process.env.MapBoxKey)
+    Axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${formData.postcode}.json?access_token=pk.eyJ1Ijoibmlja2hheWVzIiwiYSI6ImNrYmh2dW56NDA5ZnIyenB2MHJ4MGFnaWYifQ.IHXzZRvdxBtuH9Ro6nLKmQ`)
+      .then(resp => {
+        console.log('Longitude is ' + resp.data.features[0].center[0])
+        console.log('Latitude is ' + resp.data.features[0].center[1])
+      })
+  }
+
+
   
-  
+
 
   const [isVisible, setIsVisible] = useState(false)
 
@@ -129,7 +131,7 @@ const AddLocation = (props) => {
       <div className="field">
         <label className='label' onClick={() => setIsVisible(!isVisible)}>Category*</label>
       </div>
-      {/* <FontAwesomeIcon icon={faEdit} className='label' />         */}
+      {/* <FontAwesomeIcon icon={faEdit} color='' />         */}
       {/* {isVisible &&  */}
       <div className="control">
         <Select
@@ -157,7 +159,12 @@ const AddLocation = (props) => {
             label='postcode'
             className='input'
             type="text"
-            onChange={handleChange}
+            onChange={
+              // () => {
+              handleChange
+              // handleCoordinates
+            // }
+            }
             value={formData['postcode']}
             name='postcode'
             placeholder='Postcode'
