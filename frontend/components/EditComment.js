@@ -38,6 +38,7 @@ const EditComment = (props) => {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(resp => {
+        console.log(resp)
         props.history.push('/locations')
       })
   }

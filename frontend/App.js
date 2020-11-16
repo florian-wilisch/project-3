@@ -10,6 +10,7 @@ import Navbar from './components/Navbar'
 import AddLocation from './components/AddLocation'
 import EditLocation from './components/EditLocation'
 import EditComment from './components/EditComment'
+import MapPage from './components/MapPage'
 
 
 import './styles/style.scss'
@@ -24,6 +25,7 @@ const App = () => (
     <Switch>
       <Route exact path='/' component={Home} />
       <Route exact path='/locations' component={Locations} />
+      <Route exact path='/Map' component={MapPage} />
       <Route exact path='/register' component={Register} />
       <Route exact path='/login' component={Login} />
       <Route exact path='/locations/new-location' component={AddLocation} />
