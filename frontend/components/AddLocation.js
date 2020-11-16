@@ -74,7 +74,7 @@ const AddLocation = (props) => {
       category: categoryArray
     }  
     updateFormData(data)
-    console.log(data)
+    // console.log(data)
   }, [selectedCategories, startDate, endDate])
 
   function handleChange(event) {
@@ -82,31 +82,81 @@ const AddLocation = (props) => {
       ...formData,
       [event.target.name]: event.target.value
     }
-    console.log(data)
+    // console.log(data)
     updateFormData(data)
   }
 
+  // function handleSubmit(event) {
+  //   event.preventDefault()
+  //   const token = localStorage.getItem('token')
+  //   Axios.post('/api/locations', formData, {
+  //     headers: { Authorization: `Bearer ${token}` }
+  //   })
+  //     .then(resp => {
+  //       props.history.push('/locations')
+  //     })
+  // }
+
+  // console.log(process.env.MapBoxKey)
+
+  // const [send, setSend] = useState(false)
+
+//----
+  // function handleSubmit(event) {
+  //   console.log('handle submit')
+  //   event.preventDefault()
+  //   handleApiCalls
+  // }  
+
+  // async function handleApiCalls() {    
+  //   console.log('handle API calls')
+  //   const { data: coordinates } = await Axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${formData.postcode}.json?access_token=${process.env.MapBoxKey}`)
+  //   const data = {
+  //     ...formData,
+  //     longitude: coordinates.features[0].center[0],
+  //     latitude: coordinates.features[0].center[1]
+  //   }
+  //   updateFormData(data)
+  //   const token = localStorage.getItem('token')
+  //   const { data: fullForm } = await Axios.post('/api/locations', formData, {
+  //     headers: { Authorization: `Bearer ${token}` }
+  //   })
+  //   props.history.push('/locations')
+  // }
+//---
+
   function handleSubmit(event) {
     event.preventDefault()
-    const token = localStorage.getItem('token')
-    Axios.post('/api/locations', formData, {
-      headers: { Authorization: `Bearer ${token}` }
-    })
+    Axios
+      .get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${formData.postcode}.json?access_token=${process.env.MapBoxKey}`)
       .then(resp => {
-        props.history.push('/locations')
+        const data = {
+          ...formData,
+          longitude: resp.data.features[0].center[0],
+          latitude: resp.data.features[0].center[1]
+        }
+        // updateFormData(data)
+        console.log(data)
+        const token = localStorage.getItem('token')
+        
+        return Axios.post('/api/locations', data, {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+          .then((resp) => {
+            console.log(resp.data)
+            props.history.push('/locations')
+          })
       })
+      .catch(error => console.log(error.response))
   }
 
-  console.log(process.env.MapBoxKey)
+  // console.log(formData)
 
-  function handleCoordinates() {
-    console.log(process.env.MapBoxKey)
-    Axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${formData.postcode}.json?access_token=pk.eyJ1Ijoibmlja2hheWVzIiwiYSI6ImNrYmh2dW56NDA5ZnIyenB2MHJ4MGFnaWYifQ.IHXzZRvdxBtuH9Ro6nLKmQ`)
-      .then(resp => {
-        console.log('Longitude is ' + resp.data.features[0].center[0])
-        console.log('Latitude is ' + resp.data.features[0].center[1])
-      })
-  }
+  // const postData
+
+  // useEffect((event) => {
+  
+  // }, [send])
 
 
   
