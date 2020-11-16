@@ -83,6 +83,10 @@ const SingleLocation = (props) => {
         if (resp.data.errors) {
           updateErrors(resp.data.errors)
         } else {
+          updateFormData({
+            text: '',
+            rating: null
+          })
           updateLocation(resp.data)
         }
       })
@@ -115,7 +119,7 @@ const SingleLocation = (props) => {
 
       <div className="level-item buttons are-small">
         {isCreator(location.user) &&
-          <Link to={`/locations/edit-location/${location.name}`} className="button is-warning is-light">🛠 Edit Location</Link>}
+          <Link to={`/locations/edit-location/${locationId}`} className="button is-warning is-light">🛠 Edit Location</Link>}
         {isCreator(location.user) &&
           <button onClick={handleDelete} className="button is-danger is-light">✂️ Delete Shop</button>}
       </div>
@@ -164,7 +168,7 @@ const SingleLocation = (props) => {
             <article className="tile is-child box">
               <p className="title">📍</p>
 
-              <Map location={location} />
+              {location.latitude && <Map location={location} />}
             </article>
           </div>
         </div>
@@ -179,7 +183,8 @@ const SingleLocation = (props) => {
               <div className="content">
                 <p className="title">Events</p>
 
-                <p>{location.endDate}</p>
+                <p>{new Date(location.endDate).toLocaleDateString()}</p>
+
               </div>
             </div>
           </article>

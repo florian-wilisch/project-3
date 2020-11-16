@@ -1,142 +1,53 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Select from 'react-select'
+import makeAnimated from 'react-select/animated'
 import Datepicker from 'react-datepicker'
-import Axios from 'axios'
-// import { set } from 'mongoose'
-// import { ProgressPlugin } from 'webpack'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
-import Geocode from 'react-geocode'
 
 
-const AddLocation = (props) => {
+const LocationForm = ({ handleSubmit, handleChange, inputFields, formData,
+  selectedCategories, setselectedCategories, options
+  // setStartDate, setEndDate, startDate, endDate 
+}) => {
 
-  const [formData, updateFormData] = useState({
-    category: [],
-    address: '',
-    name: '',
-    timings: '',
-    startDate: '',
-    endDate: '',
-    city: '',
-    postcode: '',
-    longitude: '',
-    latitude: '',
-    website: '',
-    email: '',
-    phone: '',
-    bio: '',
-    image: ''
-  })
-
-  const inputFields = [
-    'name',
-    'timings',
-    // 'startDate',
-    // 'endDate',
-    'address',
-    'city',
-    'postcode',
-    'longitude',
-    'latitude',
-    'website',
-    'email',
-    'phone',
-    'bio',
-    'image'
-  ]
-
-  const categories = [
-    { value: 'Farmers Market', label: 'Farmers Market' },
-    { value: 'Farm Shop', label: 'Farm Shop' },
-    { value: 'Zero Waste Shop', label: 'Zero Waste Shop' },
-    { value: 'Restaurant', label: 'Restaurant' },
-    { value: 'EV Charging Station', label: 'EV Charging Station' },
-    { value: 'Recycling/Upcycling/Repair', label: 'Recycling/Upcycling/Repair' },
-    { value: 'Charity Shop', label: 'Charity Shop' }
-  ]
-
-  const [selectedCategories, setSelectedCategories] = useState([])
-  // console.log(selectedCategories)
-
-  const [startDate, setStartDate] = useState('')
-  const [endDate, setEndDate] = useState(null)
-
-  useEffect(() => {
-    // Map catergories to only keep the value property
-    const categoryArray = selectedCategories.map(one => {
-      return one.value
-    })
-    const data = {
-      ...formData,
-      startDate: startDate,
-      endDate: endDate,
-      category: categoryArray
-    }
-    updateFormData(data)
-    console.log(data)
-  }, [selectedCategories, startDate, endDate])
-
-  function handleChange(event) {
-    const data = {
-      ...formData,
-      [event.target.name]: event.target.value
-    }
-    console.log(data)
-    updateFormData(data)
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault()
-    const token = localStorage.getItem('token')
-    Axios.post('/api/locations', formData, {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-      .then(resp => {
-        props.history.push('/locations')
-      })
-  }
-
-  // Geocode.setApiKey('AIzaSyC6bRnHd5tsxEi2FqVjHSMwAl5sLWMXkL8')
-  // Geocode.fromAddress('London').then(
-  //   response => {
-  //     const { lat, lng } = response.results[0].geometry.location
-  //     console.log(lat, lng)
-  //   },
-  //   error => {
-  //     console.error(error)
-  //   }
-  // )
-
-
-
-  const [isVisible, setIsVisible] = useState(false)
 
   return <div className="container is-fluid mt-5">
     <form className='' onSubmit={handleSubmit}>
-      <div className='field'>
-        <label className='label'>Name*</label>
-        <div className="control">
-          <input
-            className='input'
-            type="text"
-            onChange={handleChange}
-            value={formData[name]}
-            name='name'
-          />
+      {inputFields.map((field, index) => {
+        return <div key={index} className='field'>
+          <label className='label'>{field}</label>
+          <div className="control">
+            <input
+              className='input'
+              type="text"
+              onChange={handleChange}
+              value={formData[field]}
+              name={field}
+            />
+          </div>
         </div>
-      </div>
-      <div className="field">
+
+      })}
+
+
+
+      {/* <div className="field">
         <label className='label' onClick={() => setIsVisible(!isVisible)}>Category*</label>
-      </div>
+      </div> */}
       {/* <FontAwesomeIcon icon={faEdit} className='label' />         */}
       {/* {isVisible &&  */}
-      <div className="control">
+      <div className="is-multiple control">
         <Select
-          options={categories}
+          closeMenuOnSelect={false}
+          value={selectedCategories}
+          onChange={setselectedCategories}
+          components={makeAnimated()}
+          options={options}
           isMulti
-          onChange={setSelectedCategories}
+          autoFocus
           isSearchable
+          placeholder="Select the category available"
+          className="basic-multi-select"
+
         />
       </div>
       {/* } */}
@@ -241,7 +152,7 @@ const AddLocation = (props) => {
       </div>
 
 
-      <div className="field">
+      {/* <div className="field">
         <label className='label'>Dates</label>
         <div className="control">
           <Datepicker
@@ -266,24 +177,25 @@ const AddLocation = (props) => {
             className='input ml-2'
           />
         </div>
-      </div>
+      </div> */}
       {/* {inputFields.map((field, i) => {
-        return <div className='field' key={i}>
-          <label className='label'>{field}</label>
-          <div className="control">
-            <input
-              className='input'
-              type="text"
-              onChange={handleChange}
-              value={formData[field]}
-              name={field}
-            />
-          </div>
+      return <div className='field' key={i}>
+        <label className='label'>{field}</label>
+        <div className="control">
+          <input
+            className='input'
+            type="text"
+            onChange={handleChange}
+            value={formData[field]}
+            name={field}
+          />
         </div>
-      })}       */}
+      </div>
+    })}       */}
       <button className='button'>Submit</button>
     </form>
   </div>
+
 }
 
-export default AddLocation
+export default LocationForm
