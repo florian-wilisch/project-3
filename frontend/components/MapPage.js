@@ -1,0 +1,133 @@
+import React, { useState, useEffect } from 'react'
+
+import MapGL, { Marker } from 'react-map-gl'
+
+import axios from 'axios'
+
+import { Link } from 'react-router-dom'
+
+import { usePosition } from 'use-position'
+
+const MapPage = (props) => {
+
+
+  const [locationData, updateLocationData] = useState([])
+
+  const { latitude, longitude, error } = usePosition()
+
+  const [currentLatitude, updateCurrentLatitude] = useState(51.515)
+
+  const [currentLongitude, updateCurrentLongitude] = useState(-0.078)
+
+  console.log(currentLatitude)
+  console.log(currentLongitude)
+  console.log(error)
+  console.log(latitude)
+
+  useEffect(() => {
+    axios.get('/api/locations')
+      .then(axiosResp => {
+        updateLocationData(axiosResp.data)
+        console.log(axiosResp.data)
+
+      })
+  }, [])
+
+  const [viewPort, setViewPort] = useState({
+    height: '100vh',
+    width: '100vw',
+    zoom: 10,
+    latitude: currentLatitude,
+    longitude: currentLongitude
+  })
+
+  function useLocation() {
+    updateCurrentLatitude(latitude)
+    updateCurrentLongitude(longitude)
+  }
+
+  if (!locationData[1]) {
+    return <div className="section">
+      <div className="container">
+        <div className="title">
+          Loading ...
+        </div>
+        <progress className="progress is-small is-link" max="100">60%</progress>
+      </div>
+    </div>
+  }
+
+
+  return <div className="has-navbar-fixed-top">
+    <MapGL
+      mapboxApiAccessToken={'pk.eyJ1Ijoibmlja2hheWVzIiwiYSI6ImNrYmh2dW56NDA5ZnIyenB2MHJ4MGFnaWYifQ.IHXzZRvdxBtuH9Ro6nLKmQ'}
+
+      {...viewPort}
+      onViewportChange={(viewPort) => setViewPort(viewPort)}
+    >
+
+      {locationData.map(location => {
+        if (location.latitude) {
+          return <Marker
+            key={location._id}
+            latitude={location.latitude}
+            longitude={location.longitude}
+          >
+            <Link className="card" to={`/locations/${location._id}`}>
+              <div className="card">
+                <div className="card-content p-2">
+                  <div className="media">
+                    <div className="media-left">
+                      <figure className="image is-32x32">
+                        <img src={location.image} alt={location.name} />
+                      </figure>
+                    </div>
+                    <div className="media-content">
+                      <p className="title is-size-6">{location.name}</p>
+                      <p className="subtitle is-size-7">{location.category[0]}</p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </Link>
+          </Marker>
+        }
+
+      })}
+
+    </MapGL >
+    <nav className="navbar p-5 is-fixed-bottom">
+      <div className="navbar-start">
+        <div className="navbar-item">
+          <form>
+            <div className="field has-addons is-justify-content-center">
+              <div className="control">
+                <input className="input" type="text" placeholder="Find by postcode" />
+              </div>
+              <div className="control">
+                <button className="button is-link">
+                  Search
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div className="navbar-end">
+        <div className="navbar-item">
+          <button onClick={useLocation} className="button is-link">
+            Use my location
+          </button>
+        </div>
+      </div>
+
+
+
+
+
+    </nav>
+  </div>
+}
+
+export default MapPage

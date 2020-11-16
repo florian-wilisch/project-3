@@ -10,14 +10,14 @@ import Axios from 'axios'
 
 
 const AddLocation = (props) => {
-  
+
   const [formData, updateFormData] = useState({
     category: [],
     address: '',
     name: '',
     timings: '',
     startDate: '',
-    endDate: '', 
+    endDate: '',
     city: '',
     postcode: '',
     longitude: '',
@@ -61,7 +61,7 @@ const AddLocation = (props) => {
 
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState(null)
-  
+
   useEffect(() => {
     // Map catergories to only keep the value property
     const categoryArray = selectedCategories.map(one => {
@@ -72,7 +72,7 @@ const AddLocation = (props) => {
       startDate: startDate,
       endDate: endDate,
       category: categoryArray
-    }  
+    }
     updateFormData(data)
     // console.log(data)
   }, [selectedCategories, startDate, endDate])
@@ -150,6 +150,7 @@ const AddLocation = (props) => {
       .catch(error => console.log(error.response))
   }
 
+<<<<<<< HEAD
   // console.log(formData)
 
   // const postData
@@ -160,12 +161,26 @@ const AddLocation = (props) => {
 
 
   
+=======
+  // Geocode.setApiKey('AIzaSyC6bRnHd5tsxEi2FqVjHSMwAl5sLWMXkL8')
+  // Geocode.fromAddress('London').then(
+  //   response => {
+  //     const { lat, lng } = response.results[0].geometry.location
+  //     console.log(lat, lng)
+  //   },
+  //   error => {
+  //     console.error(error)
+  //   }
+  // )
+
+
+>>>>>>> development
 
 
   const [isVisible, setIsVisible] = useState(false)
 
   return <div className="container is-fluid mt-5">
-    <form className='' onSubmit={handleSubmit}>      
+    <form className='' onSubmit={handleSubmit}>
       <div className='field'>
         <label className='label'>Name*</label>
         <div className="control">
@@ -177,7 +192,7 @@ const AddLocation = (props) => {
             name='name'
           />
         </div>
-      </div>     
+      </div>
       <div className="field">
         <label className='label' onClick={() => setIsVisible(!isVisible)}>Category*</label>
       </div>
@@ -185,8 +200,8 @@ const AddLocation = (props) => {
       {/* {isVisible &&  */}
       <div className="control">
         <Select
-          options={categories} 
-          isMulti 
+          options={categories}
+          isMulti
           onChange={setSelectedCategories}
           isSearchable
         />
@@ -301,7 +316,7 @@ const AddLocation = (props) => {
       <div className="field">
         <label className='label'>Dates</label>
         <div className="control">
-          <Datepicker 
+          <Datepicker
             selected={startDate}
             onChange={date => setStartDate(date)}
             // onChange={handleDates}
@@ -311,10 +326,10 @@ const AddLocation = (props) => {
             className='input'
             startDate={startDate}
             endDate={endDate}
-            // selectsRange
-            // inline
+          // selectsRange
+          // inline
           />
-          <Datepicker 
+          <Datepicker
             selected={endDate}
             onChange={date => setEndDate(date)}
             // isClearable

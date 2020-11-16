@@ -10,7 +10,7 @@ const NavBar = (props) => {
   }
   
   
-  return <nav className="navbar">
+  return <nav className="navbar" id="navbar">
     <div className="navbar-brand">
       <a className="navbar-item" href="/">
         <img src="../styles/favicon.png" alt="Bulma: a modern CSS framework based on Flexbox" height="28"/>
@@ -29,6 +29,7 @@ const NavBar = (props) => {
           <strong>Home</strong>
         </Link> */}
         <Link to="/locations" className="navbar-item">Locations</Link>
+        <Link to="/map" className="navbar-item">Map</Link>
       </div>
       <div className="navbar-end">
         <div className="navbar-item">
