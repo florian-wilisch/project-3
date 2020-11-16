@@ -11,6 +11,7 @@ import AddLocation from './components/AddLocation'
 import EditLocation from './components/EditLocation'
 import EditComment from './components/EditComment'
 
+
 import './styles/style.scss'
 
 // For environment varibles

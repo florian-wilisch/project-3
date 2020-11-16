@@ -3,6 +3,12 @@
 // Import a Google Font
 @import url("https://fonts.googleapis.com/css?family=Nunito:400,700");
 
+@import "../../node_modules/react-datepicker/dist/react-datepicker.css";
+
+@import "../../node_modules/react-rater/lib/react-rater.css";
+
+// @import '../../node_modules/@fortawesome/fontawesome-free';
+
 // Set your brand colors
 $purple: #8a4d76;
 $pink: #fa7c91;
@@ -25,7 +31,7 @@ $navbar-breakpoint: 400px;
   .button {
     max-height: 30px;
     margin: 0 5px;
-    border-radius: 3px;;
+    border-radius: 3px;
   }
 }
 
@@ -34,5 +40,9 @@ $body-background-color: $beige-lighter;
 $control-border-width: 2px;
 $input-border-color: transparent;
 $input-shadow: none;
+
+$react-rater-link: rgb(191, 246, 191); // color of star not rated
+$react-rater-hover: rgb(110, 235, 79); // color of star on hover
+$react-rater-active: rgb(123, 251, 4); // color of star rated
 
 @import "../../node_modules/bulma/bulma.sass";
