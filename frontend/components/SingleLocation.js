@@ -60,8 +60,10 @@ const SingleLocation = (props) => {
       <h1 className="title is-1 is-primary">{location.name}</h1>
 
       <div className="level-item buttons">
-        {isCreator(location.user) && <Link to={`/locations/edit-location/${location.name}`} className="button is-warning">🛠 Edit Location</Link>}
-        {isCreator(location.user) && <button onClick={handleDelete} className="button is-danger">✂️ Delete Shop</button>}
+        {/* {isCreator(location.user) && } */}
+        <Link to={`/locations/edit-location/${location.name}`} className="button is-warning">🛠 Edit Location</Link>
+        {/* {isCreator(location.user) && } */}
+        <button onClick={handleDelete} className="button is-danger">✂️ Delete Shop</button>
       </div>
 
     </div>
@@ -156,6 +158,7 @@ const SingleLocation = (props) => {
                         {comment.user.username}
                       </p>
                       <p>{comment.text}</p>
+                      <p>{comment.rating}</p>
                     </div>
                   </div>
                   {isCreator(comment.user._id) && <div className="media-right">
@@ -171,16 +174,23 @@ const SingleLocation = (props) => {
             <div className="media">
               <div className="media-content">
                 <div className="field">
-                  <p className="control">
+                  <form className="control"
+                    onSubmit={handleComment}>
                     <textarea
                       className="textarea"
+
                       placeholder="Make a comment.."
-                      onChange={event => setText(event.target.value)}
-                      value={text}
+                    // onChange={handleChange}
                     >
                       {text}
                     </textarea>
-                  </p>
+                    <input
+                      type="number"
+                      // onChange={handleChange}
+                      className="number"
+
+                    />
+                  </form>
                 </div>
                 <div className="field">
                   <p className="control">
@@ -189,7 +199,7 @@ const SingleLocation = (props) => {
                       className="button is-info"
                     >
                       Submit
-                  </button>
+                    </button>
                   </p>
                 </div>
               </div>
