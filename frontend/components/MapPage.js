@@ -15,15 +15,6 @@ const MapPage = (props) => {
 
   const { latitude, longitude, error } = usePosition()
 
-  const [currentLatitude, updateCurrentLatitude] = useState(51.515)
-
-  const [currentLongitude, updateCurrentLongitude] = useState(-0.078)
-
-  console.log(currentLatitude)
-  console.log(currentLongitude)
-  console.log(error)
-  console.log(latitude)
-
   useEffect(() => {
     axios.get('/api/locations')
       .then(axiosResp => {
@@ -37,13 +28,17 @@ const MapPage = (props) => {
     height: '100vh',
     width: '100vw',
     zoom: 10,
-    latitude: currentLatitude,
-    longitude: currentLongitude
+    latitude: 51.515,
+    longitude: -0.078
   })
 
   function useLocation() {
-    updateCurrentLatitude(latitude)
-    updateCurrentLongitude(longitude)
+    const newViewport = {
+      ...viewPort,
+      latitude: latitude,
+      longitude: longitude
+    }
+    setViewPort(newViewport)
   }
 
   if (!locationData[1]) {
