@@ -16,7 +16,7 @@ import MapPage from './components/MapPage'
 import './styles/style.scss'
 
 // For environment varibles
-console.log(process.env.hello)
+console.log(process.env.MapBoxKey)
 
 const App = () => (
 
