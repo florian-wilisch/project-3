@@ -60,7 +60,7 @@ const AddLocation = (props) => {
   // console.log(selectedCategories)
 
   const [startDate, setStartDate] = useState('')
-  const [endDate, setEndDate] = useState(null)
+  const [endDate, setEndDate] = useState('')
 
   useEffect(() => {
     // Map catergories to only keep the value property
@@ -99,7 +99,7 @@ const AddLocation = (props) => {
         // updateFormData(data)
         console.log(data)
         const token = localStorage.getItem('token')
-        
+
         return Axios.post('/api/locations', data, {
           headers: { Authorization: `Bearer ${token}` }
         })
@@ -110,7 +110,6 @@ const AddLocation = (props) => {
       })
       .catch(error => console.log(error.response))
   }
-
 
   const [isVisible, setIsVisible] = useState(false)
 
