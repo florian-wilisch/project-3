@@ -10,41 +10,69 @@ import { usePosition } from 'use-position'
 
 const MapPage = (props) => {
 
+  //  Data from our API
 
   const [locationData, updateLocationData] = useState([])
 
+  // Capturing browser location using usePosition
+
   const { latitude, longitude, error } = usePosition()
 
-  const [currentLatitude, updateCurrentLatitude] = useState(51.515)
+  // Capturing input from postcode search
 
-  const [currentLongitude, updateCurrentLongitude] = useState(-0.078)
+  const [searchText, updateSearchText] = useState('')
 
-  console.log(currentLatitude)
-  console.log(currentLongitude)
-  console.log(error)
-  console.log(latitude)
+  // Fetching data from our API to display locations on map
 
   useEffect(() => {
     axios.get('/api/locations')
       .then(axiosResp => {
         updateLocationData(axiosResp.data)
-        console.log(axiosResp.data)
 
       })
   }, [])
+
+
+  //  Setting iniitial position of map on page load
+
 
   const [viewPort, setViewPort] = useState({
     height: '100vh',
     width: '100vw',
     zoom: 10,
-    latitude: currentLatitude,
-    longitude: currentLongitude
+    latitude: 51.515,
+    longitude: -0.078
   })
 
+  // Updating position of map based on browser location
+
   function useLocation() {
-    updateCurrentLatitude(latitude)
-    updateCurrentLongitude(longitude)
+    const newViewport = {
+      ...viewPort,
+      latitude: latitude,
+      longitude: longitude
+    }
+    setViewPort(newViewport)
   }
+
+  // Updating position of map based on postcode search
+
+  function handleSubmit() {
+    event.preventDefault()
+    axios
+      .get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${searchText}.json?access_token=${process.env.MapBoxKey}`)
+      .then(resp => {
+        const postCodeViewPort = {
+          ...viewPort,
+          longitude: resp.data.features[0].center[0],
+          latitude: resp.data.features[0].center[1]
+        }
+        setViewPort(postCodeViewPort)
+
+      })
+  }
+
+  // Loading screen while waiting for fetch data
 
   if (!locationData[1]) {
     return <div className="section">
@@ -65,6 +93,7 @@ const MapPage = (props) => {
       {...viewPort}
       onViewportChange={(viewPort) => setViewPort(viewPort)}
     >
+      {/* Mapping data from our API to display locations - NOT FINISHED!! */}
 
       {locationData.map(location => {
         if (location.latitude) {
@@ -100,10 +129,16 @@ const MapPage = (props) => {
     <nav className="navbar p-5 is-fixed-bottom">
       <div className="navbar-start">
         <div className="navbar-item">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="field has-addons is-justify-content-center">
               <div className="control">
-                <input className="input" type="text" placeholder="Find by postcode" />
+                <input
+                  className="input"
+                  type="text"
+                  placeholder="Find by postcode"
+                  onChange={(event) => updateSearchText(event.target.value)}
+                  value={searchText}
+                />
               </div>
               <div className="control">
                 <button className="button is-link">
@@ -121,11 +156,6 @@ const MapPage = (props) => {
           </button>
         </div>
       </div>
-
-
-
-
-
     </nav>
   </div>
 }

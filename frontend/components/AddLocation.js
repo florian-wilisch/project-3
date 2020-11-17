@@ -86,45 +86,6 @@ const AddLocation = (props) => {
     updateFormData(data)
   }
 
-  // function handleSubmit(event) {
-  //   event.preventDefault()
-  //   const token = localStorage.getItem('token')
-  //   Axios.post('/api/locations', formData, {
-  //     headers: { Authorization: `Bearer ${token}` }
-  //   })
-  //     .then(resp => {
-  //       props.history.push('/locations')
-  //     })
-  // }
-
-  // console.log(process.env.MapBoxKey)
-
-  // const [send, setSend] = useState(false)
-
-  //----
-  // function handleSubmit(event) {
-  //   console.log('handle submit')
-  //   event.preventDefault()
-  //   handleApiCalls
-  // }  
-
-  // async function handleApiCalls() {    
-  //   console.log('handle API calls')
-  //   const { data: coordinates } = await Axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${formData.postcode}.json?access_token=${process.env.MapBoxKey}`)
-  //   const data = {
-  //     ...formData,
-  //     longitude: coordinates.features[0].center[0],
-  //     latitude: coordinates.features[0].center[1]
-  //   }
-  //   updateFormData(data)
-  //   const token = localStorage.getItem('token')
-  //   const { data: fullForm } = await Axios.post('/api/locations', formData, {
-  //     headers: { Authorization: `Bearer ${token}` }
-  //   })
-  //   props.history.push('/locations')
-  // }
-  //---
-
   function handleSubmit(event) {
     event.preventDefault()
     Axios
@@ -152,7 +113,7 @@ const AddLocation = (props) => {
 
   const [isVisible, setIsVisible] = useState(false)
 
-  return <div className="container is-fluid mt-5">
+  return <div className="container is-fluid my-5">
     <form className='' onSubmit={handleSubmit}>
       <div className='field'>
         <label className='label'>Name*</label>
@@ -169,7 +130,6 @@ const AddLocation = (props) => {
       <div className="field">
         <label className='label' onClick={() => setIsVisible(!isVisible)}>Category*</label>
       </div>
-      {/* <FontAwesomeIcon icon={faEdit} color='' />         */}
       {/* {isVisible &&  */}
       <div className="control">
         <Select
@@ -197,12 +157,7 @@ const AddLocation = (props) => {
             label='postcode'
             className='input'
             type="text"
-            onChange={
-              // () => {
-              handleChange
-              // handleCoordinates
-              // }
-            }
+            onChange={handleChange}
             value={formData['postcode']}
             name='postcode'
             placeholder='Postcode'
@@ -292,7 +247,6 @@ const AddLocation = (props) => {
           <Datepicker
             selected={startDate}
             onChange={date => setStartDate(date)}
-            // onChange={handleDates}
             // isClearable
             placeholderText="Select start date"
             dateFormat='dd/MM/yyyy'
