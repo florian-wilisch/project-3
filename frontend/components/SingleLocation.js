@@ -3,9 +3,11 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { isCreator } from '../lib/auth'
 import Rater from 'react-rater'
-import 'react-rater/lib/react-rater.css'
 import Map from './Map'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { far, faEdit } from '@fortawesome/free-solid-svg-icons'
 
+import '../../node_modules/react-rater/lib/react-rater.css'
 
 const SingleLocation = (props) => {
   console.log(props)
@@ -182,7 +184,9 @@ const SingleLocation = (props) => {
               </div>
               <div className="content">
                 <p className="title">Events</p>
-
+                <p>Start date</p>
+                <p>{new Date(location.startDate).toLocaleDateString()}</p>
+                <p>End date</p>
                 <p>{new Date(location.endDate).toLocaleDateString()}</p>
 
               </div>
@@ -204,8 +208,8 @@ const SingleLocation = (props) => {
         {/* Comments box */}
         <div className="tile is-parent is-8">
           <article className="tile is-child box">
-            <p className="title">Comments</p>
-            <p className="subtitle">With some content</p>
+            <p className="title">Reviews</p>
+            {/* <p className="subtitle">With some content</p> */}
             <div className="content">
               {location.comments && location.comments.map(comment => {
                 return <div key={comment._id} className="media">
@@ -230,6 +234,10 @@ const SingleLocation = (props) => {
                     </div>
                   </div>
                   {isCreator(comment.user._id) && <div className="media-right">
+                    <Link to={`/locations/edit-comment/${locationId}/${comment._id}`} className="edit">
+                      <FontAwesomeIcon icon={faEdit} />
+                    </Link>
+
                     <button className="delete"
                       onClick={() => handleDeleteComment(comment._id)}></button>
                   </div>}
@@ -238,6 +246,15 @@ const SingleLocation = (props) => {
             </div>
 
             {/* POST comment */}
+            {/* {location.comments && <div className="media-right">
+              <Link to={`/locations/edit-comment/${locationId}/${comment._id}`} className="edit">
+                <FontAwesomeIcon icon={faEdit} />
+              </Link>
+
+              <button className="delete"
+                onClick={() => handleDeleteComment(comment._id)}></button>
+            </div>} */}
+
             <div className="media"></div>
             <div className="media">
               <figure className="media-left">

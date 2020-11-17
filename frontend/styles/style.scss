@@ -8,6 +8,9 @@
 @import "../../node_modules/react-rater/lib/react-rater.css";
 
 // @import '../../node_modules/@fortawesome/fontawesome-free';
+$react-rater-link: rgb(191, 246, 191) !default; // color of star not rated
+$react-rater-hover: rgb(110, 235, 79) !default; // color of star on hover
+$react-rater-active: rgb(123, 251, 4) !default; // color of star rated
 
 // Set your brand colors
 $purple: #8a4d76;
@@ -41,8 +44,8 @@ $control-border-width: 2px;
 $input-border-color: transparent;
 $input-shadow: none;
 
-$react-rater-link: rgb(191, 246, 191); // color of star not rated
-$react-rater-hover: rgb(110, 235, 79); // color of star on hover
-$react-rater-active: rgb(123, 251, 4); // color of star rated
+$react-rater-link: rgb(191, 246, 191) !default; // color of star not rated
+$react-rater-hover: rgb(110, 235, 79) !default; // color of star on hover
+$react-rater-active: rgb(123, 251, 4) !default; // color of star rated
 
 @import "../../node_modules/bulma/bulma.sass";

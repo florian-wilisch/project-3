@@ -63,8 +63,7 @@ const EditLocation = (props) => {
   // const [selectedCategories, setSelectedCategories] = useState([])
   // // console.log(selectedCategories)
 
-  // const [startDate, setStartDate] = useState('')
-  // const [endDate, setEndDate] = useState(null)
+
 
   // useEffect(() => {
   //   // Map catergories to only keep the value property
@@ -109,25 +108,35 @@ const EditLocation = (props) => {
     updateFormData(newData)
   }
 
-  const startDate = formData.startDate
-  const endDate = formData.startDate
+  // const [startDate, setStartDate] = useState('')
+  // const [endDate, setEndDate] = useState(null)
 
 
-  function setStartDate() {
-    const newData = {
-      ...formData,
-      startDate: startDate
-    }
-    updateFormData(newData)
-  }
 
-  function setEndDate() {
-    const newData = {
-      ...formData,
-      endDate: endDate
-    }
-    updateFormData(newData)
-  }
+  const [startDate, setStartDate] = useState('')
+  const [endDate, setEndDate] = useState('')
+  console.log(endDate)
+  console.log(startDate)
+
+  // const startDate = formData.startDate
+  // const endDate = formData.startDate
+
+
+  // function setStartDate() {
+  //   const newData = {
+  //     ...formData,
+  //     startDate: startDate
+  //   }
+  //   updateFormData(newData)
+  // }
+
+  // function setEndDate() {
+  //   const newData = {
+  //     ...formData,
+  //     endDate: endDate
+  //   }
+  //   updateFormData(newData)
+  // }
 
 
   function handleChange(event) {
@@ -141,9 +150,12 @@ const EditLocation = (props) => {
 
   function handleSubmit(event) {
     event.preventDefault()
+    console.log(event)
     const token = localStorage.getItem('token')
     const newFormData = {
       ...formData,
+      startDate: startDate,
+      endDate: endDate,
       category: formData.category.map(selected => {
         return selected.value
       })
@@ -153,7 +165,7 @@ const EditLocation = (props) => {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(resp => {
-        props.history.push('/locations')
+        props.history.push(`/locations/${locationId}`)
       })
   }
 

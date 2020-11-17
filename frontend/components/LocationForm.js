@@ -5,8 +5,9 @@ import Datepicker from 'react-datepicker'
 
 
 const LocationForm = ({ handleSubmit, handleChange, inputFields, formData,
-  selectedCategories, setselectedCategories, options
-  // setStartDate, setEndDate, startDate, endDate 
+  selectedCategories, setselectedCategories, options,
+  setStartDate, setEndDate,
+  startDate, endDate
 }) => {
 
 
@@ -151,33 +152,47 @@ const LocationForm = ({ handleSubmit, handleChange, inputFields, formData,
         </div>
       </div>
 
+      <label className='label'>Dates</label>
 
-      {/* <div className="field">
-        <label className='label'>Dates</label>
-        <div className="control">
-          <Datepicker
-            selected={startDate}
-            onChange={date => setStartDate(date)}
-            // onChange={handleDates}
-            // isClearable
-            placeholderText="Select start date"
-            dateFormat='dd/MM/yyyy'
-            className='input'
-            startDate={startDate}
-            endDate={endDate}
-          // selectsRange
-          // inline
-          />
-          <Datepicker
-            selected={endDate}
-            onChange={date => setEndDate(date)}
-            // isClearable
-            placeholderText="Select end date"
-            dateFormat='dd/MM/yyyy'
-            className='input ml-2'
-          />
+      <div className="tile is-ancestor is-centered">
+        <div className="control field is-grouped is-grouped-multiline">
+          <div className="tile is-parent">
+            <div className="tile is-child box">
+              <label className='label'>Original Start Dates <strong>{new Date(formData.startDate).toLocaleDateString()}</strong></label>
+              <label className='label'>Choose the new Start date</label>
+
+              <Datepicker
+                selected={startDate}
+                onChange={date => setStartDate(date)}
+                isClearable
+                placeholderText="Select start date"
+                dateFormat='dd/MM/yyyy'
+                className='input'
+                // startDate={startDate}
+                // endDate={endDate}
+                inline
+              />
+            </div>
+          </div>
+          <div className="tile is-parent">
+            <div className="tile is-child box">
+              <label className='label'>Original End Date <strong>{new Date(formData.endDate).toLocaleDateString()}</strong></label>
+              <label className='label'>Choose the new End Date</label>
+
+              <Datepicker
+                selected={endDate}
+                onChange={date => setEndDate(date)}
+                isClearable
+                placeholderText="Select end date"
+                dateFormat='dd/MM/yyyy'
+                className='input ml-2'
+                inline
+              />
+            </div>
+          </div>
+
         </div>
-      </div> */}
+      </div>
       {/* {inputFields.map((field, i) => {
       return <div className='field' key={i}>
         <label className='label'>{field}</label>

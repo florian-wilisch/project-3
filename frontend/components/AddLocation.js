@@ -60,7 +60,7 @@ const AddLocation = (props) => {
   // console.log(selectedCategories)
 
   const [startDate, setStartDate] = useState('')
-  const [endDate, setEndDate] = useState(null)
+  const [endDate, setEndDate] = useState('')
 
   useEffect(() => {
     // Map catergories to only keep the value property
@@ -101,7 +101,7 @@ const AddLocation = (props) => {
 
   // const [send, setSend] = useState(false)
 
-//----
+  //----
   // function handleSubmit(event) {
   //   console.log('handle submit')
   //   event.preventDefault()
@@ -123,7 +123,7 @@ const AddLocation = (props) => {
   //   })
   //   props.history.push('/locations')
   // }
-//---
+  //---
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -138,7 +138,7 @@ const AddLocation = (props) => {
         // updateFormData(data)
         console.log(data)
         const token = localStorage.getItem('token')
-        
+
         return Axios.post('/api/locations', data, {
           headers: { Authorization: `Bearer ${token}` }
         })
@@ -149,34 +149,6 @@ const AddLocation = (props) => {
       })
       .catch(error => console.log(error.response))
   }
-
-<<<<<<< HEAD
-  // console.log(formData)
-
-  // const postData
-
-  // useEffect((event) => {
-  
-  // }, [send])
-
-
-  
-=======
-  // Geocode.setApiKey('AIzaSyC6bRnHd5tsxEi2FqVjHSMwAl5sLWMXkL8')
-  // Geocode.fromAddress('London').then(
-  //   response => {
-  //     const { lat, lng } = response.results[0].geometry.location
-  //     console.log(lat, lng)
-  //   },
-  //   error => {
-  //     console.error(error)
-  //   }
-  // )
-
-
->>>>>>> development
-
-
   const [isVisible, setIsVisible] = useState(false)
 
   return <div className="container is-fluid mt-5">
@@ -228,7 +200,7 @@ const AddLocation = (props) => {
               // () => {
               handleChange
               // handleCoordinates
-            // }
+              // }
             }
             value={formData['postcode']}
             name='postcode'
