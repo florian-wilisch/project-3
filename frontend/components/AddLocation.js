@@ -4,20 +4,20 @@ import Datepicker from 'react-datepicker'
 import Axios from 'axios'
 // import { set } from 'mongoose'
 // import { ProgressPlugin } from 'webpack'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
-import Geocode from 'react-geocode'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faEdit } from '@fortawesome/free-solid-svg-icons'
+// import Geocode from 'react-geocode'
 
 
 const AddLocation = (props) => {
-  
+
   const [formData, updateFormData] = useState({
     category: [],
     address: '',
     name: '',
     timings: '',
     startDate: '',
-    endDate: '', 
+    endDate: '',
     city: '',
     postcode: '',
     longitude: '',
@@ -60,8 +60,8 @@ const AddLocation = (props) => {
   // console.log(selectedCategories)
 
   const [startDate, setStartDate] = useState('')
-  const [endDate, setEndDate] = useState(null)
-  
+  const [endDate, setEndDate] = useState('')
+
   useEffect(() => {
     // Map catergories to only keep the value property
     const categoryArray = selectedCategories.map(one => {
@@ -72,9 +72,9 @@ const AddLocation = (props) => {
       startDate: startDate,
       endDate: endDate,
       category: categoryArray
-    }  
+    }
     updateFormData(data)
-    console.log(data)
+    // console.log(data)
   }, [selectedCategories, startDate, endDate])
 
   function handleChange(event) {
@@ -82,38 +82,78 @@ const AddLocation = (props) => {
       ...formData,
       [event.target.name]: event.target.value
     }
-    console.log(data)
+    // console.log(data)
     updateFormData(data)
   }
 
+  // function handleSubmit(event) {
+  //   event.preventDefault()
+  //   const token = localStorage.getItem('token')
+  //   Axios.post('/api/locations', formData, {
+  //     headers: { Authorization: `Bearer ${token}` }
+  //   })
+  //     .then(resp => {
+  //       props.history.push('/locations')
+  //     })
+  // }
+
+  // console.log(process.env.MapBoxKey)
+
+  // const [send, setSend] = useState(false)
+
+  //----
+  // function handleSubmit(event) {
+  //   console.log('handle submit')
+  //   event.preventDefault()
+  //   handleApiCalls
+  // }  
+
+  // async function handleApiCalls() {    
+  //   console.log('handle API calls')
+  //   const { data: coordinates } = await Axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${formData.postcode}.json?access_token=${process.env.MapBoxKey}`)
+  //   const data = {
+  //     ...formData,
+  //     longitude: coordinates.features[0].center[0],
+  //     latitude: coordinates.features[0].center[1]
+  //   }
+  //   updateFormData(data)
+  //   const token = localStorage.getItem('token')
+  //   const { data: fullForm } = await Axios.post('/api/locations', formData, {
+  //     headers: { Authorization: `Bearer ${token}` }
+  //   })
+  //   props.history.push('/locations')
+  // }
+  //---
+
   function handleSubmit(event) {
     event.preventDefault()
-    const token = localStorage.getItem('token')
-    Axios.post('/api/locations', formData, {
-      headers: { Authorization: `Bearer ${token}` }
-    })
+    Axios
+      .get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${formData.postcode}.json?access_token=${process.env.MapBoxKey}`)
       .then(resp => {
-        props.history.push('/locations')
-      })
-  }
+        const data = {
+          ...formData,
+          longitude: resp.data.features[0].center[0],
+          latitude: resp.data.features[0].center[1]
+        }
+        // updateFormData(data)
+        console.log(data)
+        const token = localStorage.getItem('token')
 
-  // Geocode.setApiKey('AIzaSyC6bRnHd5tsxEi2FqVjHSMwAl5sLWMXkL8')
-  // Geocode.fromAddress('London').then(
-  //   response => {
-  //     const { lat, lng } = response.results[0].geometry.location
-  //     console.log(lat, lng)
-  //   },
-  //   error => {
-  //     console.error(error)
-  //   }
-  // )
-  
-  
+        return Axios.post('/api/locations', data, {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+          .then((resp) => {
+            console.log(resp.data)
+            props.history.push('/locations')
+          })
+      })
+      .catch(error => console.log(error.response))
+  }
 
   const [isVisible, setIsVisible] = useState(false)
 
   return <div className="container is-fluid mt-5">
-    <form className='' onSubmit={handleSubmit}>      
+    <form className='' onSubmit={handleSubmit}>
       <div className='field'>
         <label className='label'>Name*</label>
         <div className="control">
@@ -125,16 +165,16 @@ const AddLocation = (props) => {
             name='name'
           />
         </div>
-      </div>     
+      </div>
       <div className="field">
         <label className='label' onClick={() => setIsVisible(!isVisible)}>Category*</label>
       </div>
-      {/* <FontAwesomeIcon icon={faEdit} className='label' />         */}
+      {/* <FontAwesomeIcon icon={faEdit} color='' />         */}
       {/* {isVisible &&  */}
       <div className="control">
         <Select
-          options={categories} 
-          isMulti 
+          options={categories}
+          isMulti
           onChange={setSelectedCategories}
           isSearchable
         />
@@ -157,7 +197,12 @@ const AddLocation = (props) => {
             label='postcode'
             className='input'
             type="text"
-            onChange={handleChange}
+            onChange={
+              // () => {
+              handleChange
+              // handleCoordinates
+              // }
+            }
             value={formData['postcode']}
             name='postcode'
             placeholder='Postcode'
@@ -244,7 +289,7 @@ const AddLocation = (props) => {
       <div className="field">
         <label className='label'>Dates</label>
         <div className="control">
-          <Datepicker 
+          <Datepicker
             selected={startDate}
             onChange={date => setStartDate(date)}
             // onChange={handleDates}
@@ -254,10 +299,10 @@ const AddLocation = (props) => {
             className='input'
             startDate={startDate}
             endDate={endDate}
-            // selectsRange
-            // inline
+          // selectsRange
+          // inline
           />
-          <Datepicker 
+          <Datepicker
             selected={endDate}
             onChange={date => setEndDate(date)}
             // isClearable

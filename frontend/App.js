@@ -16,7 +16,7 @@ import MapPage from './components/MapPage'
 import './styles/style.scss'
 
 // For environment varibles
-// console.log(process.env.hello)
+console.log(process.env.hello)
 
 const App = () => (
 
@@ -31,7 +31,7 @@ const App = () => (
       <Route exact path='/locations/new-location' component={AddLocation} />
       <Route exact path='/locations/edit-location/:locationId' component={EditLocation} />
       <Route exact path='/locations/:locationId' component={SingleLocation} />
-      <Route exact path='/locations/edit-comment/:locationId/:commentId/' component={EditComment} />
+      <Route exact path='/locations/edit-comment/:locationId/:commentId' component={EditComment} />
     </Switch>
   </BrowserRouter>
 
