@@ -28,8 +28,11 @@ router.route('/locations/:locationId/comments/:commentId')
   .put(secureRoute, locationController.updateComment)
   .delete(secureRoute, locationController.deleteComment)
 
-// router.route('/users/:userId')
-//   .get(secureRoute, userController.getUser)
+router.route('/users')
+  .get(userController.getUsers)
+
+router.route('/users/:userId')
+  .get(userController.getUser)
 // !! might need an additional route to pull all comments of one user
 
 module.exports = router

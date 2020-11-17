@@ -40,7 +40,30 @@ function loginUser(req, res) {
     })
 }
 
+function getUsers(req, res) {
+  User
+    .find()
+    .populate('user')
+    .then(userList => {
+      res.send(userList)
+    })
+    .catch(error => res.send(error))
+}
+
+function getUser(req, res) {
+  User
+    .findById(req.params.userId)
+    .populate('user')
+    .then(user => {
+      res.send(user)
+    })
+    .catch(error => res.send(error))
+  console.log('test')
+}
+
 module.exports = {
   createUser,
-  loginUser
+  loginUser,
+  getUser,
+  getUsers
 }

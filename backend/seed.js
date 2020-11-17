@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 const Locations = require('./models/locations')
 const User = require('./models/user')
-const seedData = require('./seedData')
 
 mongoose.connect(
   'mongodb://localhost/greenWorldDb',
