@@ -187,8 +187,6 @@ function getAllComments(req, res) {
         for (let i = 0; i < location.comments.length; i++) {
           if (JSON.stringify(location.comments[i].user) === `"${user}"`) {
             allComments.push(location.comments[i])
-            console.log(JSON.stringify(location.comments[i].user))
-            console.log(user)
           } 
         }
       })
