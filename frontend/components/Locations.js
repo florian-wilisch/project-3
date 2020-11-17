@@ -56,7 +56,7 @@ const Locations = () => {
         })}
       </div>
       <div className="columns is-multiline is-mobile">
-        {locationData.map((location, index) => {
+        {filterLocations().map((location, index) => {
           return <div key={index} className="column is-one-third-desktop is-half-tablet is-half-mobile">
             <Link to={`/locations/${location._id}`}>
               <div className="card">
