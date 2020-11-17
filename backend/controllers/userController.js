@@ -32,7 +32,16 @@ function loginUser(req, res) {
         secret,
         { expiresIn: '6h' }
       )
-      res.status(202).send({ token, message: 'Login was succesful!' })
+
+      const userId = user._id
+      const userName = user.username
+      const userBio = user.bio
+      const userCity = user.city
+      const userEmail = user.email
+      const userAvatar = user.avatar
+
+
+      res.status(202).send({ token, userId, userName, userBio, userCity, userEmail, userAvatar, message: 'Login was succesful!' })
     })
     .catch(error => {
       console.log(error)
