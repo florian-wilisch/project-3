@@ -175,6 +175,25 @@ function deleteComment(req, res) {
     .catch(err => res.send(err))
 }
 
+// Get all of a user's comments
+
+function getAllComments(req, res) {
+  Locations
+    .find()
+    .then(locationList => {
+      const allComments = []
+      const user = req.params.userId
+      locationList.forEach(location => {
+        for (let i = 0; i < location.comments.length; i++) {
+          if (JSON.stringify(location.comments[i].user) === `"${user}"`) {
+            allComments.push(location.comments[i])
+          } 
+        }
+      })
+      res.send(allComments)
+    })
+    .catch(error => res.send(error))
+}
 //  Export the functions
 
 module.exports = {
@@ -186,5 +205,6 @@ module.exports = {
   createComment,
   updateComment,
   deleteComment,
-  getComment
+  getComment,
+  getAllComments
 }
