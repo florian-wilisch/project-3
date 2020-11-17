@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 const Locations = require('./models/locations')
 const User = require('./models/user')
-const seedData = require('./seedData')
+const axios = require('axios')
+require('dotenv').config()
 
 mongoose.connect(
   'mongodb://localhost/greenWorldDb',
@@ -39,9 +40,8 @@ mongoose.connect(
         console.log(`${users.length} users have been created!`)
         return users
       })
-      // ! Chaining a second then, once the users have been created
       .then((users) => {
-        return Locations.create([
+        const seedData = [
           {
             category: ['Zero Waste Shop'],
             name: 'Dash Vegan',
@@ -547,7 +547,30 @@ mongoose.connect(
             image: 'https://www.naturalproductsonline.co.uk/wp-content/uploads/2017/11/Planet-Organic-800x506.jpg',
             user: users[0]
           }
-        ])
+        ]
+        const newData = []
+        for (let i = 0; i < seedData.length; i++) {
+          const timeoutInterval = 500 * (i + 1)
+          newData.push(new Promise((resolve) => {
+            setTimeout(() => {
+              axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${seedData[i].postcode}.json?access_token=${process.env.MapBoxKey}`)
+                .then(resp => {
+                  const location = {
+                    ...seedData[i],
+                    longitude: resp.data.features[0].center[0],
+                    latitude: resp.data.features[0].center[1]
+                  }
+                  console.log(location)
+                  resolve(location)            
+                })
+            }, timeoutInterval)
+          }))
+        }
+        return Promise.all(newData)
+      })
+      // ! Chaining a second then, once the users have been created
+      .then((fullData) => {
+        return Locations.create(fullData)
       })
       .then(location => {
         console.log(`${location.length} locations have been created!`)
