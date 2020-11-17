@@ -14,7 +14,7 @@ const Home = () => {
         <p className='subtitle'>
           Are you trying to live a <strong>greener life</strong>, but don&apos;t know where to start? Well, you&apos;re in the right place!
         </p>
-        <p  className='subtitle'>
+        <p className='subtitle'>
           Search your area for <strong>shops</strong>, <strong>services</strong> and <strong>events</strong> that will help you make the first steps.
         </p>
         <Link className="button is-primary mt-2" to='/locations'>Start Here</Link>
