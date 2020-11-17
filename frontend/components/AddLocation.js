@@ -149,6 +149,7 @@ const AddLocation = (props) => {
       })
       .catch(error => console.log(error.response))
   }
+
   const [isVisible, setIsVisible] = useState(false)
 
   return <div className="container is-fluid mt-5">
