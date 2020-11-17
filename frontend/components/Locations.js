@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 
+// The API is at '/api/locations' 
+
 const Locations = () => {
   const [locationData, updateLocationData] = useState([])
+  const [locationFilter, updateLocationFilter] = useState('')
+  const [selectedCategory, updateSelectedCategory] = useState('')
 
   useEffect(() => {
     axios.get('/api/locations')
@@ -32,17 +36,28 @@ const Locations = () => {
     return arrayLocations
   }
 
-
-
-  return <section className="section">
+  return <div className="section">
     <div className="container">
+      <input
+        className="input"
+        placeholder="Search..."
+        onChange={(event) => updateLocationFilter(event.target.value)}
+        value={locationFilter}
+      />
+      <div className="buttons">
+        {getCategories().map((category, index) => {
+          return <button
+            key = {index}
+            onClick={(event) => updateSelectedCategory(event.target.innerHTML) }
+            className="button"
+          >
+            {category}
+          </button>
+        })}
+      </div>
       <div className="columns is-multiline is-mobile">
         {locationData.map((location, index) => {
-          console.log(location)
-          return <div
-            className="column is-one-third-desktop is-half-tablet is-half-mobile"
-            key={index}
-          >
+          return <div key={index} className="column is-one-third-desktop is-half-tablet is-half-mobile">
             <Link to={`/locations/${location._id}`}>
               <div className="card">
                 <div className="card-content">
@@ -73,7 +88,7 @@ const Locations = () => {
         })}
       </div>
     </div>
-  </section>
+  </div>
 }
 
 export default Locations 
