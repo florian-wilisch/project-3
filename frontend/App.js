@@ -11,12 +11,12 @@ import AddLocation from './components/AddLocation'
 import EditLocation from './components/EditLocation'
 import EditComment from './components/EditComment'
 import MapPage from './components/MapPage'
+import User from './components/User'
 
 
 import './styles/style.scss'
 
-// For environment varibles
-console.log(process.env.MapBoxKey)
+
 
 const App = () => (
 
@@ -29,6 +29,7 @@ const App = () => (
       <Route exact path='/register' component={Register} />
       <Route exact path='/login' component={Login} />
       <Route exact path='/locations/new-location' component={AddLocation} />
+      <Route exact path='/users/:userId' component={User} />
       <Route exact path='/locations/edit-location/:locationId' component={EditLocation} />
       <Route exact path='/locations/:locationId' component={SingleLocation} />
       <Route exact path='/locations/edit-comment/:locationId/:commentId' component={EditComment} />
