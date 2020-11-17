@@ -23,14 +23,14 @@ const locationSchema = new mongoose.Schema({
   address: { type: String, required: true },
   city: { type: String, required: true },
   postcode: { type: String, required: true },
-  longitude: { type: String },
-  latitude: { type: String },
+  longitude: { type: Number },
+  latitude: { type: Number },
   website: { type: String },
   email: { type: String },
   phone: { type: String },
   bio: { type: String },
   image: { type: String },
-  comments: [ commentSchema ],
+  comments: [commentSchema],
   user: { type: mongoose.Schema.ObjectId, ref: 'User', required: true }
 })
 

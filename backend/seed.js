@@ -17,7 +17,20 @@ mongoose.connect(
             email: 'flow@flow.com',
             password: 'flow',
             passwordConfirmation: 'flow',
-            isAdmin: true
+            isAdmin: true,
+            bio: '',
+            city: '',
+            avatar: ''
+          },
+          {
+            username: 'balta',
+            email: 'balta@balta.com',
+            password: 'balta',
+            passwordConfirmation: 'balta',
+            isAdmin: true,
+            bio: 'I am a web developer',
+            city: 'london',
+            avatar: 'https://pbs.twimg.com/profile_images/2624763257/lz5pautt5yimot9nwqow.png'
           }
         ])
       })
@@ -52,7 +65,7 @@ mongoose.connect(
             timings: 'THURSDAYS , FRIDAYS , SATURDAYS & MONDAYS : 12-3PM',
             startDate: '',
             endDate: '',
-            address: `Shop Zero, Front Shop, Malt Cross, 16 St James Street, Nottingham`,
+            address: 'Shop Zero, Front Shop, Malt Cross, 16 St James Street, Nottingham',
             city: 'Nottingham',
             postcode: 'NG1 6FG',
             longitude: '',
@@ -513,6 +526,24 @@ mongoose.connect(
             phone: '01252 723888',
             bio: 'East Street Cycles journey began long before our doors opened in the Summer of 2004. At the start it was myself and one full time employee and a bit of a rota on Saturdays cajoling friends into helping out…',
             image: 'https://i.imgur.com/sGUpWhd.jpg',
+            user: users[0]
+          },
+          {
+            category: [
+              'Zero waste shop',
+              'Organic Food'
+            ],
+            name: 'Planet Organic',
+            address: '64 Essex Road, Islington, London, UNITED KINGDOM',
+            postcode: 'N1 8LR',
+            phone: '0207 288 9460',
+            city: 'london',
+            email: '',
+            timings: 'Open Monday to Saturday from 8am to 9pm, Sundays from 9am to 9pm',
+            latitude: 51.537880,
+            longitude: -0.099460,
+            bio: 'The UKs largest fully certified organic supermarket, Planet Organic are getting in on the zero waste act.Four of its stores now offer the Unpackaged zero waste way of buying legumes, grains, dry goods and so on with your own containers.Find them in Muswell Hill, Westbourne Grove, Islington and Torrington Place.',
+            image: 'https://www.naturalproductsonline.co.uk/wp-content/uploads/2017/11/Planet-Organic-800x506.jpg',
             user: users[0]
           }
         ])

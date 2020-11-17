@@ -2,13 +2,28 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { isCreator } from '../lib/auth'
+import Rater from 'react-rater'
+import 'react-rater/lib/react-rater.css'
+import Map from './Map'
+
 
 const SingleLocation = (props) => {
   console.log(props)
   const locationId = props.match.params.locationId
   console.log(locationId)
+
   const [location, updateLocation] = useState([])
-  const [text, setText] = useState('')
+
+  const [formData, updateFormData] = useState({
+    text: '',
+    rating: null
+  })
+
+
+  const [errors, updateErrors] = useState({
+    text: '',
+    rating: undefined
+  })
 
   const token = localStorage.getItem('token')
 
@@ -28,10 +43,53 @@ const SingleLocation = (props) => {
       })
   }
 
-  function handleComment() {
-    axios.post(`/api/locations/${locationId}/comments`, { text }, {
+  function setRating(rating) {
+    const newData = {
+      ...formData,
+      rating: rating.rating
+    }
+    updateFormData(newData)
+    console.log(newData)
+  }
+
+  function handleChange(event) {
+    console.log(event)
+    console.log(event.rating)
+    const name = event.target.name
+    const value = event.target.value
+    const data = {
+      ...formData,
+      [name]: value
+    }
+    const newErrors = {
+      ...errors,
+      [name]: ''
+    }
+    //! Finally update the formData
+    updateFormData(data)
+    updateErrors(newErrors)
+    console.log(errors)
+
+  }
+  console.log(formData)
+
+  function handleComment(event) {
+    event.preventDefault()
+
+    axios.post(`/api/locations/${locationId}/comments`, formData, {
       headers: { Authorization: `Bearer ${token}` }
     })
+      .then(resp => {
+        if (resp.data.errors) {
+          updateErrors(resp.data.errors)
+        } else {
+          updateFormData({
+            text: '',
+            rating: null
+          })
+          updateLocation(resp.data)
+        }
+      })
   }
 
   function handleDeleteComment(commentId) {
@@ -49,7 +107,7 @@ const SingleLocation = (props) => {
         <div className="title">
           Loading ...
         </div>
-        <progress className="progress is-small is-primary" max="100">60%</progress>
+        <progress className="progress is-small is-link" max="100">60%</progress>
       </div>
     </div>
   }
@@ -59,9 +117,11 @@ const SingleLocation = (props) => {
     <div className="level">
       <h1 className="title is-1 is-primary">{location.name}</h1>
 
-      <div className="level-item buttons">
-        {isCreator(location.user) && <Link to={`/locations/edit-location/${location.name}`} className="button is-warning">🛠 Edit Location</Link>}
-        {isCreator(location.user) && <button onClick={handleDelete} className="button is-danger">✂️ Delete Shop</button>}
+      <div className="level-item buttons are-small">
+        {isCreator(location.user) &&
+          <Link to={`/locations/edit-location/${locationId}`} className="button is-warning is-light">🛠 Edit Location</Link>}
+        {isCreator(location.user) &&
+          <button onClick={handleDelete} className="button is-danger is-light">✂️ Delete Shop</button>}
       </div>
 
     </div>
@@ -106,11 +166,9 @@ const SingleLocation = (props) => {
           </div>
           <div className="tile is-parent">
             <article className="tile is-child box">
-              <p className="title">Map</p>
-              <p className="subtitle">Aligned with the right column</p>
-              <div className="content">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
-              </div>
+              <p className="title">📍</p>
+
+              {location.latitude && <Map location={location} />}
             </article>
           </div>
         </div>
@@ -125,7 +183,8 @@ const SingleLocation = (props) => {
               <div className="content">
                 <p className="title">Events</p>
 
-                <p>{location.endDate}</p>
+                <p>{new Date(location.endDate).toLocaleDateString()}</p>
+
               </div>
             </div>
           </article>
@@ -150,12 +209,24 @@ const SingleLocation = (props) => {
             <div className="content">
               {location.comments && location.comments.map(comment => {
                 return <div key={comment._id} className="media">
+                  <figure className="media-left">
+                    <p className="subtitle">
+                      <strong>{comment.user.username}</strong>
+                    </p>
+                    <p className="image is-64x64">
+                      <img src={comment.user.avatar} />
+                    </p>
+                  </figure>
                   <div className="media-content">
                     <div className="content">
-                      <p className="subtitle">
-                        {comment.user.username}
-                      </p>
-                      <p>{comment.text}</p>
+                      <Rater
+                        total={5}
+                        rating={comment.rating}
+                        interactive={false}
+                        className="react-rater"
+                      />
+
+                      <p>{comment.text} - I give {comment.rating} stars</p>
                     </div>
                   </div>
                   {isCreator(comment.user._id) && <div className="media-right">
@@ -167,31 +238,51 @@ const SingleLocation = (props) => {
             </div>
 
             {/* POST comment */}
-
+            <div className="media"></div>
             <div className="media">
+              <figure className="media-left">
+                <p className="image is-64x64">
+                  <img src="Current User" />
+                </p>
+              </figure>
               <div className="media-content">
                 <div className="field">
-                  <p className="control">
+                  <form className="control"
+                    onSubmit={handleComment}
+                  >
+                    <Rater
+                      total={5}
+                      onRate={setRating}
+                      className="react-rater"
+
+                    />
+                    {errors.rating && <p style={{ color: 'red' }}>
+                      {`There was a problem with your ${errors.rating.path}`}
+                    </p>}
                     <textarea
                       className="textarea"
+                      value={formData.text}
+                      name="text"
                       placeholder="Make a comment.."
-                      onChange={event => setText(event.target.value)}
-                      value={text}
+                      onChange={handleChange}
                     >
-                      {text}
+                      {errors.text && <p style={{ color: 'red' }}>
+                        {`There was a problem with your ${errors.text.path}`}
+                      </p>}
                     </textarea>
-                  </p>
+
+                    <div className="field">
+                      <p className="control">
+                        <button
+                          className="button is-info"
+                        >
+                          Submit
+                        </button>
+                      </p>
+                    </div>
+                  </form>
                 </div>
-                <div className="field">
-                  <p className="control">
-                    <button
-                      onClick={handleComment}
-                      className="button is-info"
-                    >
-                      Submit
-                  </button>
-                  </p>
-                </div>
+
               </div>
             </div>
           </article>
