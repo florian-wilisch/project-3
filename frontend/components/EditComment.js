@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 const EditComment = (props) => {
-
+  console.log(process.env.MapBoxKey)
   console.log(props)
   const [fetchedData, updatefetchedData] = useState({})
   const [formData, updateFormData] = useState({

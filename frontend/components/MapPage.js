@@ -28,7 +28,6 @@ const MapPage = (props) => {
     axios.get('/api/locations')
       .then(axiosResp => {
         updateLocationData(axiosResp.data)
-        console.log(axiosResp.data)
 
       })
   }, [])
@@ -56,16 +55,21 @@ const MapPage = (props) => {
     setViewPort(newViewport)
   }
 
-  // Updating position of map based on postcode search (Not finished!!!)
+  // Updating position of map based on postcode search
 
   function handleSubmit() {
     event.preventDefault()
-    console.log(searchText)
+    axios
+      .get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${searchText}.json?access_token=${process.env.MapBoxKey}`)
+      .then(resp => {
+        const postCodeViewPort = {
+          ...viewPort,
+          longitude: resp.data.features[0].center[0],
+          latitude: resp.data.features[0].center[1]
+        }
+        setViewPort(postCodeViewPort)
 
-    // use searchText to search map API for co-ordinates
-    // Create a new viewport const using clone + new co-ords
-    // use setViewPort(-pass new viewport const here-)
-
+      })
   }
 
   // Loading screen while waiting for fetch data
