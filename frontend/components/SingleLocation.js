@@ -28,7 +28,14 @@ const SingleLocation = (props) => {
   })
 
   const token = localStorage.getItem('token')
+  const userId = localStorage.getItem('userId')
+  const userName = localStorage.getItem('userName')
+  const userBio = localStorage.getItem('userBio')
+  const userCity = localStorage.getItem('userCity')
+  const userEmail = localStorage.getItem('userEmail')
+  const userAvatar = localStorage.getItem('userAvatar')
 
+  console.log(userId, userName, userBio, userCity, userEmail, userAvatar)
   useEffect(() => {
     axios.get(`/api/locations/${locationId}`)
       .then(resp => {
@@ -113,7 +120,11 @@ const SingleLocation = (props) => {
       </div>
     </div>
   }
-  console.log(location)
+  // console.log(userId)
+  // console.log(location.comments.some(comment => {
+  //   return comment.user._id === userId
+  // }))
+  // console.log(location.comments[0].user._id)
 
   return <div className="container">
     <div className="level">
@@ -246,62 +257,59 @@ const SingleLocation = (props) => {
             </div>
 
             {/* POST comment */}
-            {/* {location.comments && <div className="media-right">
-              <Link to={`/locations/edit-comment/${locationId}/${comment._id}`} className="edit">
-                <FontAwesomeIcon icon={faEdit} />
-              </Link>
-
-              <button className="delete"
-                onClick={() => handleDeleteComment(comment._id)}></button>
-            </div>} */}
-
             <div className="media"></div>
-            <div className="media">
-              <figure className="media-left">
-                <p className="image is-64x64">
-                  <img src="Current User" />
-                </p>
-              </figure>
-              <div className="media-content">
-                <div className="field">
-                  <form className="control"
-                    onSubmit={handleComment}
-                  >
-                    <Rater
-                      total={5}
-                      onRate={setRating}
-                      className="react-rater"
 
-                    />
-                    {errors.rating && <p style={{ color: 'red' }}>
-                      {`There was a problem with your ${errors.rating.path}`}
-                    </p>}
-                    <textarea
-                      className="textarea"
-                      value={formData.text}
-                      name="text"
-                      placeholder="Make a comment.."
-                      onChange={handleChange}
+            {!location.comments.some(comment => {
+              return comment.user._id === userId
+            }) &&
+              <div className="media">
+                <figure className="media-left">
+                  <p className="image is-64x64">
+                    <img src={userAvatar} />
+                  </p>
+                </figure>
+                <div className="media-content">
+                  <div className="field">
+                    <form className="control"
+                      onSubmit={handleComment}
                     >
-                      {errors.text && <p style={{ color: 'red' }}>
-                        {`There was a problem with your ${errors.text.path}`}
+                      <Rater
+                        total={5}
+                        onRate={setRating}
+                        className="react-rater"
+
+                      />
+                      {errors.rating && <p style={{ color: 'red' }}>
+                        {`There was a problem with your ${errors.rating.path}`}
                       </p>}
-                    </textarea>
+                      <textarea
+                        className="textarea"
+                        value={formData.text}
+                        name="text"
+                        placeholder="Make a comment.."
+                        onChange={handleChange}
+                      >
+                        {errors.text && <p style={{ color: 'red' }}>
+                          {`There was a problem with your ${errors.text.path}`}
+                        </p>}
+                      </textarea>
 
-                    <div className="field">
-                      <p className="control">
-                        <button
-                          className="button is-info"
-                        >
-                          Submit
+                      <div className="field">
+                        <p className="control">
+                          <button
+                            className="button is-info"
+                          >
+                            Submit
                         </button>
-                      </p>
-                    </div>
-                  </form>
-                </div>
+                        </p>
+                      </div>
+                    </form>
+                  </div>
 
-              </div>
-            </div>
+                </div>
+              </div>}
+
+
           </article>
         </div>
 

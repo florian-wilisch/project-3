@@ -16,7 +16,7 @@ function secureRoute(req, res, next) {
     if (err) return res.status(401).send({ message: 'Unauthorized - The token isn\'t valid' })
 
     const userId = payload.sub
-
+    console.log(userId)
     User
       .findById(userId)
       .then(user => {
