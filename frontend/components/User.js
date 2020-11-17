@@ -46,6 +46,34 @@ const User = (props) => {
     </div>
     <div className="container is-fluid mt-5">
       <h2 className="subtitle is-3 is-capitalized">{user.username}'s comments:</h2>
+      <div className="content">
+        {/* COMMENTS HERE **************** */}
+        {location.comments && location.comments.map(comment => {
+          return <div key={comment._id} className="media">
+            <figure className="media-left">
+              <p className="subtitle">
+                <strong>{comment.user.username}</strong>
+              </p>
+              <p className="image is-64x64">
+                <img src={comment.user.avatar} />
+              </p>
+            </figure>
+            <div className="media-content">
+              <div className="content">
+                <Rater
+                  total={5}
+                  rating={comment.rating}
+                  interactive={false}
+                  className="react-rater"
+                />
+
+                <p>{comment.text} - I give {comment.rating} stars</p>
+              </div>
+            </div>
+          </div>
+        })}
+      {/* ****************** */}
+      </div>
     </div>
   </div>
 

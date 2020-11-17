@@ -33,6 +33,9 @@ router.route('/users')
 
 router.route('/users/:userId')
   .get(userController.getUser)
+
+router.route('/users/:userId/comments')
+  .get(locationController.getAllComments)
 // !! might need an additional route to pull all comments of one user
 
 module.exports = router
