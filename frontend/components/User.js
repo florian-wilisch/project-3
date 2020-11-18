@@ -63,26 +63,28 @@ const User = (props) => {
       <h2 className="subtitle is-3 is-capitalized">{user.username}'s comments:</h2>
       <div className="content">
         {comments && comments.map(comment => {
-          return <div key={comment._id} className="media">
+          return <div key={comment.comment._id} className="media">
             <figure className="media-left">
-              <p className="subtitle is-capitalized">
-                <strong>{userName}</strong>
-              </p>
               <p className="image is-64x64">
                 <img src={userAvatar} />
               </p>
             </figure>
             <div className="media-content">
-              <div className="content">
-                <Rater
-                  total={5}
-                  rating={comment.rating}
-                  interactive={false}
-                  className="react-rater"
-                />
+              <p>
+                <strong className="is-capitalized">{userName}</strong> <small>rated <Link to={`/locations/${comment.locationId}`}>{comment.location}</Link> {comment.comment.rating} stars</small>
+                <br />
+                <br />
+                {comment.comment.text}
+              </p>
+            </div>
+            <div className="media-right">
+              <Rater
+                total={5}
+                rating={comment.comment.rating}
+                interactive={false}
+                className="react-rater"
+              />
 
-                <p>{comment.text} - I give {comment.rating} stars</p>
-              </div>
             </div>
           </div>
         })}

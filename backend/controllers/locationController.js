@@ -180,14 +180,20 @@ function deleteComment(req, res) {
 function getAllComments(req, res) {
   Locations
     .find()
-    // .populate('comments.user')
     .then(locationList => {
       const allComments = []
       const user = req.params.userId
       locationList.forEach(location => {
         for (let i = 0; i < location.comments.length; i++) {
           if (JSON.stringify(location.comments[i].user) === `"${user}"`) {
-            allComments.push(location.comments[i])
+            const commentObject = {
+              comment: location.comments[i],
+              location: location.name,
+              locationId: location._id
+
+            }
+            
+            allComments.push(commentObject)
           } 
         }
       })
