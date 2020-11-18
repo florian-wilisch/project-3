@@ -7,7 +7,6 @@ import Axios from 'axios'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faEdit } from '@fortawesome/free-solid-svg-icons'
 // import Geocode from 'react-geocode'
-import { Image, Video, Transformation, CloudinaryContext } from 'cloudinary-react'
 
 
 const AddLocation = (props) => {
@@ -133,17 +132,7 @@ const AddLocation = (props) => {
           />
         </div>
       </div>
-{/* cloudinary */}
-      <input name="file" type="file" className="button file-upload" data-cloudinary-field="image_id"
-        data-form-data="{ 'transformation': {'crop':'limit','tags':'samples','width':3000,'height':2000}}"/>
 
-      <button id="upload_widget" className="cloudinary-button" onClick={openWidget}>Upload files</button>
-
-      {/* <CloudinaryContext cloudName="dvkxumau9">
-        <Image publicId="sample" format="jpg">
-          <Transformation crop="fill" gravity="faces" width="300" height="200"/>
-        </Image>
-      </CloudinaryContext> */}
 
 
       <div className="field">
