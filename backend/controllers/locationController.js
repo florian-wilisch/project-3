@@ -186,7 +186,14 @@ function getAllComments(req, res) {
       locationList.forEach(location => {
         for (let i = 0; i < location.comments.length; i++) {
           if (JSON.stringify(location.comments[i].user) === `"${user}"`) {
-            allComments.push(location.comments[i])
+            const commentObject = {
+              comment: location.comments[i],
+              location: location.name,
+              locationId: location._id
+
+            }
+
+            allComments.push(commentObject)
           }
         }
       })

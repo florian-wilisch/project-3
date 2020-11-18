@@ -39,9 +39,9 @@ const MapPage = (props) => {
   const [viewPort, setViewPort] = useState({
     height: '100vh',
     width: '100vw',
-    zoom: 10,
-    latitude: 51.515,
-    longitude: -0.078
+    zoom: 6,
+    latitude: 52.5,
+    longitude: -4
   })
 
   // Updating position of map based on browser location
@@ -50,7 +50,8 @@ const MapPage = (props) => {
     const newViewport = {
       ...viewPort,
       latitude: latitude,
-      longitude: longitude
+      longitude: longitude,
+      zoom: 12
     }
     setViewPort(newViewport)
   }
