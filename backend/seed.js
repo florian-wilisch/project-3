@@ -5,16 +5,6 @@ const axios = require('axios')
 require('dotenv').config()
 const globalArray = []
 let globalUsers = []
-// const categoriesArray = [
-//   { value: 'Farmers Market', label: 'Farmers Market' },
-//   { value: 'Farm Shop', label: 'Farm Shop' },
-//   { value: 'Zero Waste Shop', label: 'Sustainable Groceries' },
-//   { value: 'Restaurant', label: 'Restaurant' },
-//   { value: 'EV Charging Station', label: 'EV Charging Station' },
-//   { value: 'Upcycling/Repair', category: 'Upcycling/Repair' },
-//   { value: 'Charity Shop', label: 'Circular Economy' }
-// ]
-
 const categoriesArray = [
   { alias: 'vegan', category: 'Restaurant' },
   { alias: 'farmersmarket', category: 'Farmers Market' },
@@ -30,7 +20,7 @@ const categoriesArray = [
   { alias: 'shoerepair', category: 'Upcycling/Repair' },
   { alias: 'evchargingstations', category: 'EV Charging Station' },
   { alias: 'vintage', category: 'Circular Economy' },
-  { alias: 'fleamarkets', category: 'Circular Economy '}
+  { alias: 'fleamarkets', category: 'Circular Economy' }
 ]
 
 
@@ -609,55 +599,45 @@ mongoose.connect(
           const timeoutInterval = 1200 * (i + 1)
           const limit = 5
           rawYelpData.push(new Promise((resolve) => {
-          setTimeout(() => {
-            axios.get(`https://api.yelp.com/v3/businesses/search?location=UK&limit=${limit}&offset=${limit * i}&categories=vegan,farmersmarket,vegetarian,salad,bikerepair,bikeshop,organic_stores,ethicgrocery,bike_repair_maintenance,electronicsrepair,furniturerepair,shoerepair,evchargingstations,vintage,fleamarkets`,
-              { headers:
-                { Authorization: 'Bearer iJQeqTtlJvM3W0PioRcpjhE7x-tpZ3wLiMNGDfnsrLYD4yFCQnlJerMSRFJtcw7o6Ww5E9NVNgxuhaHIBWs_Y5LEFMZG2l8YsLAJ1hEaLC7qoS0CJ4mLxmq5NpCyX3Yx' }
-              })
-              .then(resp => {
-                resolve(resp.data.businesses)
-              })
-          }, timeoutInterval)
-        }))
-      }
+            setTimeout(() => {
+              axios.get(`https://api.yelp.com/v3/businesses/search?location=UK&limit=${limit}&offset=${limit * i}&categories=vegan,farmersmarket,vegetarian,salad,bikerepair,bikeshop,organic_stores,ethicgrocery,bike_repair_maintenance,electronicsrepair,furniturerepair,shoerepair,evchargingstations,vintage,fleamarkets`,
+                { headers:
+                  { Authorization: 'Bearer iJQeqTtlJvM3W0PioRcpjhE7x-tpZ3wLiMNGDfnsrLYD4yFCQnlJerMSRFJtcw7o6Ww5E9NVNgxuhaHIBWs_Y5LEFMZG2l8YsLAJ1hEaLC7qoS0CJ4mLxmq5NpCyX3Yx' }
+                })
+                .then(resp => {
+                  resolve(resp.data.businesses)
+                })
+            }, timeoutInterval)
+          }))
+        }
         return Promise.all(rawYelpData)
       })
       .then((rawYelpData) => {
         // const mappedData = []
         rawYelpData.forEach(array => {
           array.map(item => {
-            const yelpCatArray = item.categories.map(cat => cat.alias)
-            const data = {
-              
-              // categoriesObject.filter(option => {
-              //   return data.category.some(category => {
-              //     return category === option.value
+            const yelpCatArray = item.categories.map(cat => cat.alias)           
+            const categoryAliasesArray = []
+            categoriesArray.forEach(i => categoryAliasesArray.push(i.alias))
+            const yelpAlias = categoryAliasesArray.filter(e => yelpCatArray.includes(e))[0]
+            const catObj = categoriesArray.find(o => o.alias === yelpAlias)
+            const data = {          
+              category: catObj['category'],
+
+              // yelpCatArray.forEach(eachCat => {
+              //   // console.log(categoriesArray)
+              //   return categoriesArray.find((o, i, arr) => {
+              //     // console.log(i)
+              //     if (arr.alias === eachCat) {                      
+              //       return arr.category
+              //     }
               //   })
-              // })
-
-          
-              category: 
-              yelpCatArray,
-              // categoriesArray[0].category,
-              
-              // categoriesArray.find(i => {
-              //   i.alias === yelpCatArray[0]
-              //   return i.category
               // }),
-         
-
-                // yelpCatArray.forEach(eachCat => {
-                //   console.log(categoriesArray)
-                //   return categoriesArray.find(i => {
-                //     console.log(i)
-                //     if (i.alias === eachCat) {                      
-                //       return i.category
-                //     }
-                //   })
-                // }),
 
               name: item.name,
-              address: item.location.address1 + ', ' + item.location.address2 + ', ' + item.location.address3,
+              address: item.location.address1 + 
+              (item.location.address2 ? ', ' + item.location.address2 : '')
+               + (item.location.address3 ? ', ' + item.location.address3 : ''),
               city: item.location.city,
               postcode: item.location.zip_code,
               longitude: item.coordinates.longitude,
