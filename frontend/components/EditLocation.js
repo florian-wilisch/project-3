@@ -4,38 +4,13 @@ import LocationForm from './LocationForm'
 
 // import { set } from 'mongoose'
 // import { ProgressPlugin } from 'webpack'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
-import Geocode from 'react-geocode'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faEdit } from '@fortawesome/free-solid-svg-icons'
+// import Geocode from 'react-geocode'
 
-const inputFields = [
-  'name',
-  'timings',
-  // 'startDate',
-  // 'endDate',
-  'address',
-  'city',
-  'postcode',
-  'longitude',
-  'latitude',
-  'website',
-  'email',
-  'phone',
-  'bio',
-  'image'
-]
-
-const categoriesObject = [
-  { value: 'Farmers Market', label: 'Farmers Market' },
-  { value: 'Farm Shop', label: 'Farm Shop' },
-  { value: 'Zero Waste Shop', label: 'Zero Waste Shop' },
-  { value: 'Restaurant', label: 'Restaurant' },
-  { value: 'EV Charging Station', label: 'EV Charging Station' },
-  { value: 'Recycling/Upcycling/Repair', label: 'Recycling/Upcycling/Repair' },
-  { value: 'Charity Shop', label: 'Charity Shop' }
-]
 
 const EditLocation = (props) => {
+
   console.log(props)
   const locationId = props.match.params.locationId
   const [formData, updateFormData] = useState({
@@ -57,31 +32,32 @@ const EditLocation = (props) => {
   })
 
 
+  // const inputFields = [
+  //   'name',
+  //   'timings',
+  //   // 'startDate',
+  //   // 'endDate',
+  //   'address',
+  //   'city',
+  //   'postcode',
+  //   'longitude',
+  //   'latitude',
+  //   'website',
+  //   'email',
+  //   'phone',
+  //   'bio',
+  //   'image'
+  // ]
 
-
-
-  // const [selectedCategories, setSelectedCategories] = useState([])
-  // // console.log(selectedCategories)
-
-
-
-  // useEffect(() => {
-  //   // Map catergories to only keep the value property
-  //   const categoryArray = selectedCategories.map(one => {
-  //     return one.value
-  //   })
-  //   const data = {
-  //     ...formData,
-  //     startDate: startDate,
-  //     endDate: endDate,
-  //     category: categoryArray
-  //   }
-  //   updateFormData(data)
-  //   console.log(data)
-  // }, [selectedCategories, startDate, endDate])
-
-
-
+  const categoriesObject = [
+    { value: 'Farmers Market', label: 'Farmers Market' },
+    { value: 'Farm Shop', label: 'Farm Shop' },
+    { value: 'Zero Waste Shop', label: 'Zero Waste Shop' },
+    { value: 'Restaurant', label: 'Restaurant' },
+    { value: 'EV Charging Station', label: 'EV Charging Station' },
+    { value: 'Recycling/Upcycling/Repair', label: 'Recycling/Upcycling/Repair' },
+    { value: 'Charity Shop', label: 'Charity Shop' }
+  ]
 
   useEffect(() => {
     Axios.get(`/api/locations/${locationId}`)
@@ -108,35 +84,11 @@ const EditLocation = (props) => {
     updateFormData(newData)
   }
 
-  // const [startDate, setStartDate] = useState('')
-  // const [endDate, setEndDate] = useState(null)
-
-
 
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
   console.log(endDate)
   console.log(startDate)
-
-  // const startDate = formData.startDate
-  // const endDate = formData.startDate
-
-
-  // function setStartDate() {
-  //   const newData = {
-  //     ...formData,
-  //     startDate: startDate
-  //   }
-  //   updateFormData(newData)
-  // }
-
-  // function setEndDate() {
-  //   const newData = {
-  //     ...formData,
-  //     endDate: endDate
-  //   }
-  //   updateFormData(newData)
-  // }
 
 
   function handleChange(event) {
@@ -170,24 +122,9 @@ const EditLocation = (props) => {
   }
 
 
-  // Geocode.setApiKey('AIzaSyC6bRnHd5tsxEi2FqVjHSMwAl5sLWMXkL8')
-  // Geocode.fromAddress('London').then(
-  //   response => {
-  //     const { lat, lng } = response.results[0].geometry.location
-  //     console.log(lat, lng)
-  //   },
-  //   error => {
-  //     console.error(error)
-  //   }
-  // )
-
-
-
-  // const [isVisible, setIsVisible] = useState(false)
-
   return <LocationForm
     handleSubmit={handleSubmit}
-    inputFields={inputFields}
+    // inputFields={inputFields}
     formData={formData}
     selectedCategories={formData.category}
     setSelectedCategories={setSelectedCategories}

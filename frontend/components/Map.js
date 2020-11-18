@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import MapGL, { Marker } from 'react-map-gl'
-
+import '../../node_modules/mapbox-gl/dist/mapbox-gl.css'
 const Map = (props) => {
   console.log(props)
 

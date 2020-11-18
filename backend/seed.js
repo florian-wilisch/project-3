@@ -637,13 +637,13 @@ mongoose.connect(
 
           
               category: 
-              // cleanCatArray,
+              yelpCatArray,
               // categoriesArray[0].category,
               
-              categoriesArray.find(i => {
-                i.alias === yelpCatArray[0]
-                return i.category
-              }),
+              // categoriesArray.find(i => {
+              //   i.alias === yelpCatArray[0]
+              //   return i.category
+              // }),
          
 
                 // yelpCatArray.forEach(eachCat => {

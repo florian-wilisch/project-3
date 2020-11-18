@@ -1,35 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 import Datepicker from 'react-datepicker'
 
 
-const LocationForm = ({ handleSubmit, handleChange, inputFields, formData,
-  selectedCategories, setselectedCategories, options,
+const LocationForm = ({ handleSubmit, handleChange, formData,
+  selectedCategories, setSelectedCategories, options,
   setStartDate, setEndDate,
   startDate, endDate
 }) => {
 
+  const [isVisible, setIsVisible] = useState(false)
 
   return <div className="container is-fluid mt-5">
     <form className='' onSubmit={handleSubmit}>
-      {inputFields.map((field, index) => {
-        return <div key={index} className='field'>
-          <label className='label'>{field}</label>
-          <div className="control">
-            <input
-              className='input'
-              type="text"
-              onChange={handleChange}
-              value={formData[field]}
-              name={field}
-            />
-          </div>
+
+      <div className='field'>
+        <label className='label'>Name*</label>
+        <div className="control">
+          <input
+            className='input'
+            type="text"
+            onChange={handleChange}
+            value={formData['name']}
+            name='name'
+          />
         </div>
-
-      })}
-
-
+      </div>
+      <div className="field">
+        <label className='label' onClick={() => setIsVisible(!isVisible)}>Category*</label>
+      </div>
 
       {/* <div className="field">
         <label className='label' onClick={() => setIsVisible(!isVisible)}>Category*</label>
@@ -40,7 +40,7 @@ const LocationForm = ({ handleSubmit, handleChange, inputFields, formData,
         <Select
           closeMenuOnSelect={false}
           value={selectedCategories}
-          onChange={setselectedCategories}
+          onChange={setSelectedCategories}
           components={makeAnimated()}
           options={options}
           isMulti

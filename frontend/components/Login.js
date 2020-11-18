@@ -25,6 +25,14 @@ const Login = (props) => {
       .then(resp => {
 
         localStorage.setItem('token', resp.data.token)
+        localStorage.setItem('userId', resp.data.userId)
+        localStorage.setItem('userName', resp.data.userName)
+        localStorage.setItem('userCity', resp.data.userCity)
+        localStorage.setItem('userEmail', resp.data.userEmail)
+        localStorage.setItem('userAvatar', resp.data.userAvatar)
+        localStorage.setItem('userBio', resp.data.userBio)
+
+
         props.history.push('/locations')
       })
       .catch(error => {

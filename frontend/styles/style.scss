@@ -38,6 +38,19 @@ $navbar-breakpoint: 400px;
   }
 }
 
+//* Hero image background
+// .hero-body {
+//   background: linear-gradient(
+//       0deg,
+//       rgba(218, 204, 11, 0.3),
+//       rgba(121, 0, 6, 0.3)
+//     ),
+//     url("https://lh3.googleusercontent.com/proxy/asL59o0YEPfPFNnbemEJkrOk32jxtybwLOKClIG-MSixsJwS90yRXQbpn4lTipTfvGgLTT74htOapanS9K_P_U4C");
+//   background-size: cover;
+//   background-position: center;
+//   background-repeat: no-repeat;
+// }
+
 // Update some of Bulma's component variables
 $body-background-color: $beige-lighter;
 $control-border-width: 2px;

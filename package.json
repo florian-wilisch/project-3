@@ -38,6 +38,10 @@
     "body-parser": "^1.19.0",
     "buefy": "^0.9.4",
     "bulma-calendar": "^6.0.9",
+<<<<<<< HEAD
+=======
+    "cloudinary-core": "^2.11.3",
+>>>>>>> 6c847a5b28450a5d1f3df19294436539fc1b6d32
     "cloudinary-react": "^1.6.8",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",

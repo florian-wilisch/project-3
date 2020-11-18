@@ -1,8 +1,15 @@
 import React, { useState } from 'react'
+import { CloudinaryContext } from 'cloudinary-react'
+import { fetchPhotos, openUploadWidget } from './CloudinaryService'
+
+import UploadImage from './UploadImage'
+
+import images from './UploadImage'
+
 import axios from 'axios'
 
 const Register = (props) => {
-
+  console.log(images)
   const [formData, updateFormData] = useState({
     username: '',
     email: '',
@@ -23,6 +30,13 @@ const Register = (props) => {
     passwordConfirmation: ''
   })
 
+  function updateImage(images) {
+    const newForm = {
+      ...formData,
+      avatar: images
+    }
+    updateFormData(newForm)
+  }
   function handleChange(event) {
 
     const name = event.target.name
@@ -42,6 +56,7 @@ const Register = (props) => {
     updateErrors(newErrors)
   }
 
+
   function handleSubmit(event) {
 
     event.preventDefault()
@@ -52,12 +67,17 @@ const Register = (props) => {
           updateErrors(resp.data.errors)
           console.log(errors)
         } else {
-          props.history.push('/login')
+          console.log(formData)
+          // props.history.push('/login')
         }
       })
 
   }
   return <div className="container is-fluid mt-5">
+
+
+
+
     <form onSubmit={handleSubmit}>
       <div className="field">
         <label className="label">Username</label>
@@ -123,15 +143,18 @@ const Register = (props) => {
       </div>
       <div className="field">
         <label className="label">Avatar</label>
-        <div className="control">
+        <UploadImage
+          updateImage={updateImage}
+        // value={images[0]}
+        />
+        {/* <div className="control">
           <input
             type="text"
             onChange={handleChange}
-            value={formData.avatar}
             name="avatar"
             className="input"
           />
-        </div>
+        </div> */}
         <p className="help">Insert a link to your profile image</p>
       </div>
       <div className="field">
