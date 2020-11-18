@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Select from 'react-select'
 import Datepicker from 'react-datepicker'
+import makeAnimated from 'react-select/animated'
+
 import Axios from 'axios'
 // import { set } from 'mongoose'
 // import { ProgressPlugin } from 'webpack'
@@ -29,22 +31,22 @@ const AddLocation = (props) => {
     image: ''
   })
 
-  const inputFields = [
-    'name',
-    'timings',
-    // 'startDate',
-    // 'endDate',
-    'address',
-    'city',
-    'postcode',
-    'longitude',
-    'latitude',
-    'website',
-    'email',
-    'phone',
-    'bio',
-    'image'
-  ]
+  // const inputFields = [
+  //   'name',
+  //   'timings',
+  //   // 'startDate',
+  //   // 'endDate',
+  //   'address',
+  //   'city',
+  //   'postcode',
+  //   'longitude',
+  //   'latitude',
+  //   'website',
+  //   'email',
+  //   'phone',
+  //   'bio',
+  //   'image'
+  // ]
 
   const categories = [
     { value: 'Farmers Market', label: 'Farmers Market' },
@@ -133,10 +135,16 @@ const AddLocation = (props) => {
       {/* {isVisible &&  */}
       <div className="control">
         <Select
+          closeMenuOnSelect={false}
+          components={makeAnimated()}
+          autoFocus
           options={categories}
           isMulti
           onChange={setSelectedCategories}
           isSearchable
+          placeholder="Select the category available"
+          className="basic-multi-select"
+
         />
       </div>
       {/* } */}

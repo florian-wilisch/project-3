@@ -32,22 +32,22 @@ const EditLocation = (props) => {
   })
 
 
-  const inputFields = [
-    'name',
-    'timings',
-    // 'startDate',
-    // 'endDate',
-    'address',
-    'city',
-    'postcode',
-    'longitude',
-    'latitude',
-    'website',
-    'email',
-    'phone',
-    'bio',
-    'image'
-  ]
+  // const inputFields = [
+  //   'name',
+  //   'timings',
+  //   // 'startDate',
+  //   // 'endDate',
+  //   'address',
+  //   'city',
+  //   'postcode',
+  //   'longitude',
+  //   'latitude',
+  //   'website',
+  //   'email',
+  //   'phone',
+  //   'bio',
+  //   'image'
+  // ]
 
   const categoriesObject = [
     { value: 'Farmers Market', label: 'Farmers Market' },

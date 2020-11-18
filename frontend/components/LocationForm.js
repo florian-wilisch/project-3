@@ -1,15 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 import Datepicker from 'react-datepicker'
 
 
 const LocationForm = ({ handleSubmit, handleChange, formData,
-  selectedCategories, setselectedCategories, options,
+  selectedCategories, setSelectedCategories, options,
   setStartDate, setEndDate,
   startDate, endDate
 }) => {
 
+  const [isVisible, setIsVisible] = useState(false)
 
   return <div className="container is-fluid mt-5">
     <form className='' onSubmit={handleSubmit}>
@@ -21,7 +22,7 @@ const LocationForm = ({ handleSubmit, handleChange, formData,
             className='input'
             type="text"
             onChange={handleChange}
-            value={formData[name]}
+            value={formData['name']}
             name='name'
           />
         </div>
@@ -39,7 +40,7 @@ const LocationForm = ({ handleSubmit, handleChange, formData,
         <Select
           closeMenuOnSelect={false}
           value={selectedCategories}
-          onChange={setselectedCategories}
+          onChange={setSelectedCategories}
           components={makeAnimated()}
           options={options}
           isMulti

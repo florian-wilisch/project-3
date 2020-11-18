@@ -130,191 +130,218 @@ const SingleLocation = (props) => {
     <div className="level">
       <h1 className="title is-1 is-primary">{location.name}</h1>
 
-      <div className="level-item buttons are-small">
-        {isCreator(location.user) &&
+      {/* <div className="level-item buttons are-small"> */}
+      {/* {isCreator(location.user) &&
           <Link to={`/locations/edit-location/${locationId}`} className="button is-warning is-light">🛠 Edit Location</Link>}
         {isCreator(location.user) &&
-          <button onClick={handleDelete} className="button is-danger is-light">✂️ Delete Shop</button>}
-      </div>
+          <button onClick={handleDelete} className="button is-danger is-light">✂️ Delete Shop</button>} */}
+
+      {isCreator(location.user) && <div className="dropdown is-hoverable is-right">
+        <div className="dropdown-trigger">
+          <button className="button" aria-haspopup="true" aria-controls="dropdown-menu">
+            <span>Edit Options</span>
+            <span className="icon is-small">
+              <i className="fas fa-angle-down" aria-hidden="true"></i>
+            </span>
+          </button>
+        </div>
+        <div className="dropdown-menu" id="dropdown-menu" role="menu">
+          <div className="dropdown-content">
+            <Link to={`/locations/edit-location/${locationId}`} className="dropdown-item">🛠 Edit Location</Link>
+            <button onClick={handleDelete} className="dropdown-item">✂️ Delete Shop</button>
+
+          </div>
+        </div>
+      </div>}
+      {/* </div> */}
+
 
     </div>
 
 
-    <div className="testing" >
 
-      <div className="tile is-ancestor">
-        <div className="tile is-vertical is-8">
-          <div className="tile">
-            <div className="tile is-parent">
-              <article className="tile is-child box">
-                {/* <p className="title"></p>
+    <div className="tile is-ancestor">
+      <div className="tile is-vertical is-8">
+        <div className="tile">
+          <div className="tile is-parent">
+            <article className="tile is-child box">
+              {/* <p className="title"></p>
                 <p className="subtitle"></p>
                 <p className="subtitle"></p> */}
 
-                <figure className="image is-4by3">
-                  <img src={location.image} alt={location.name} />
-                </figure>
+              <figure className="image is-4by3">
+                <img src={location.image} alt={location.name} />
+              </figure>
+              <br />
+              <div className="tags">
                 {location.category.map((category, index) => {
-                  return <div key={index}>
-                    <span className="tag is-warning">{category}</span>
+                  return <div className="tag is-warning" key={index}>
+                    {category}
+                    {/* <br /> <span ></span> */}
                   </div>
                 })}
-              </article>
-            </div>
-            <div className="tile is-parent is-vertical">
-              <article className="tile is-child box">
-                <p className="title">🗺</p>
-                <p className="subtitle">{location.address}</p>
-                <p className="subtitle">{location.postcode}</p>
-                <p className="subtitle">{location.city}</p>
+              </div>
 
-              </article>
-              <article className="tile is-child box">
-                <p className="title">Opening Hours</p>
-                <p className="content">🕰 {location.timings}</p>
-
-              </article>
-            </div>
-
-          </div>
-          <div className="tile is-parent">
-            <article className="tile is-child box">
-              <p className="title">📍</p>
-
-              {location.latitude && <Map location={location} />}
             </article>
           </div>
+          <div className="tile is-parent is-vertical">
+            <article className="tile is-child box">
+              <p className="title">🗺</p>
+              <p className="subtitle">{location.address}</p>
+              <p className="subtitle">{location.postcode}</p>
+              <p className="subtitle">{location.city}</p>
+
+            </article>
+            <article className="tile is-child box">
+              <p className="title">Opening Hours</p>
+              <p className="content">🕰 {location.timings}</p>
+
+            </article>
+          </div>
+
         </div>
         <div className="tile is-parent">
           <article className="tile is-child box">
-            <div className="content">
-              <p className="title">BIO</p>
-              <p className="subtitle">With even more content</p>
-              <div className="content">
-                <p>{location.bio}</p>
-              </div>
-              <div className="content">
-                <p className="title">Events</p>
-                <p>Start date</p>
-                <p>{new Date(location.startDate).toLocaleDateString()}</p>
-                <p>End date</p>
-                <p>{new Date(location.endDate).toLocaleDateString()}</p>
-
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-
-      <div className="tile is-ancestor">
-        <div className="tile is-parent">
-          <article className="tile is-child box">
-            <p className="title">Get in touch</p>
+            {/* <p className="title">📍</p> */}
+            <p className="subtitle">{location.address}</p>
+            <p className="subtitle">{location.postcode}</p>
+            <p className="subtitle">{location.city}</p>
             <p className="content">🌍 {location.website}</p>
             <p className="content">📧 {location.email}</p>
             <p className="content">📲 {location.phone}</p>
+            {location.latitude && <Map location={location} />}
           </article>
         </div>
-
-        {/* Comments box */}
-        <div className="tile is-parent is-8">
-          <article className="tile is-child box">
-            <p className="title">Reviews</p>
-            {/* <p className="subtitle">With some content</p> */}
+      </div>
+      <div className="tile is-parent">
+        <article className="tile is-child box">
+          <div className="content">
+            <p className="title">BIO</p>
+            <p className="subtitle">With even more content</p>
             <div className="content">
-              {location.comments && location.comments.map(comment => {
-                return <div key={comment._id} className="media">
-                  <figure className="media-left">
-                    <p className="subtitle">
-                      <strong>{comment.user.username}</strong>
-                    </p>
-                    <p className="image is-64x64">
-                      <img src={comment.user.avatar} />
-                    </p>
-                  </figure>
-                  <div className="media-content">
-                    <div className="content">
-                      <Rater
-                        total={5}
-                        rating={comment.rating}
-                        interactive={false}
-                        className="react-rater"
-                      />
-
-                      <p>{comment.text} - I give {comment.rating} stars</p>
-                    </div>
-                  </div>
-                  {isCreator(comment.user._id) && <div className="media-right">
-                    <Link to={`/locations/edit-comment/${locationId}/${comment._id}`} className="edit">
-                      <FontAwesomeIcon icon={faEdit} />
-                    </Link>
-
-                    <button className="delete"
-                      onClick={() => handleDeleteComment(comment._id)}></button>
-                  </div>}
-                </div>
-              })}
+              <p>{location.bio}</p>
             </div>
+            <div className="content">
+              <p className="title">Events</p>
+              <p>Start date</p>
+              <p>{new Date(location.startDate).toLocaleDateString()}</p>
+              <p>End date</p>
+              <p>{new Date(location.endDate).toLocaleDateString()}</p>
 
-            {/* POST comment */}
-            <div className="media"></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
 
-            {!location.comments.some(comment => {
-              return comment.user._id === userId
-            }) &&
-              <div className="media">
+    <div className="tile is-ancestor">
+      <div className="tile is-parent">
+        <article className="tile is-child box">
+          <p className="title">Get in touch</p>
+          <p className="content">🌍 {location.website}</p>
+          <p className="content">📧 {location.email}</p>
+          <p className="content">📲 {location.phone}</p>
+        </article>
+      </div>
+
+      {/* Comments box */}
+      <div className="tile is-parent is-8">
+        <article className="tile is-child box">
+          <p className="title">Reviews</p>
+          {/* <p className="subtitle">With some content</p> */}
+          <div className="content">
+            {location.comments && location.comments.map(comment => {
+              return <div key={comment._id} className="media">
                 <figure className="media-left">
+                  <Link to={`/users/${comment.user._id}`} className="subtitle">
+                    <strong className="is-capitalized">{comment.user.username}</strong>
+                  </Link>
                   <p className="image is-64x64">
-                    <img src={userAvatar} />
+                    <img src={comment.user.avatar} />
                   </p>
                 </figure>
                 <div className="media-content">
-                  <div className="field">
-                    <form className="control"
-                      onSubmit={handleComment}
-                    >
-                      <Rater
-                        total={5}
-                        onRate={setRating}
-                        className="react-rater"
+                  <div className="content">
+                    <Rater
+                      total={5}
+                      rating={comment.rating}
+                      interactive={false}
+                      className="react-rater"
+                    />
 
-                      />
-                      {errors.rating && <p style={{ color: 'red' }}>
-                        {`There was a problem with your ${errors.rating.path}`}
-                      </p>}
-                      <textarea
-                        className="textarea"
-                        value={formData.text}
-                        name="text"
-                        placeholder="Make a comment.."
-                        onChange={handleChange}
-                      >
-                        {errors.text && <p style={{ color: 'red' }}>
-                          {`There was a problem with your ${errors.text.path}`}
-                        </p>}
-                      </textarea>
-
-                      <div className="field">
-                        <p className="control">
-                          <button
-                            className="button is-info"
-                          >
-                            Submit
-                        </button>
-                        </p>
-                      </div>
-                    </form>
+                    <p>{comment.text} - I give {comment.rating} stars</p>
                   </div>
-
                 </div>
-              </div>}
+                {isCreator(comment.user._id) && <div className="media-right">
+                  <Link to={`/locations/edit-comment/${locationId}/${comment._id}`} className="edit">
+                    <FontAwesomeIcon icon={faEdit} />
+                  </Link>
+
+                  <button className="delete"
+                    onClick={() => handleDeleteComment(comment._id)}></button>
+                </div>}
+              </div>
+            })}
+          </div>
+
+          {/* POST comment */}
+          <div className="media"></div>
+
+          {!location.comments.some(comment => {
+            return comment.user._id === userId
+          }) &&
+            <div className="media">
+              <figure className="media-left">
+                <p className="image is-64x64">
+                  <img src={userAvatar} />
+                </p>
+              </figure>
+              <div className="media-content">
+                <div className="field">
+                  <form className="control"
+                    onSubmit={handleComment}
+                  >
+                    <Rater
+                      total={5}
+                      onRate={setRating}
+                      className="react-rater"
+
+                    />
+                    {errors.rating && <p style={{ color: 'red' }}>
+                      {`There was a problem with your ${errors.rating.path}`}
+                    </p>}
+                    <textarea
+                      className="textarea"
+                      value={formData.text}
+                      name="text"
+                      placeholder="Write your review"
+                      onChange={handleChange}
+                    >
+                      {errors.text && <p style={{ color: 'red' }}>
+                        {`There was a problem with your ${errors.text.path}`}
+                      </p>}
+                    </textarea>
+
+                    <div className="field">
+                      <p className="control">
+                        <button
+                          className="button is-info"
+                        >
+                          Submit
+                        </button>
+                      </p>
+                    </div>
+                  </form>
+                </div>
+
+              </div>
+            </div>}
 
 
-          </article>
-        </div>
-
+        </article>
       </div>
-    </div >
+
+    </div>
 
   </div >
 }

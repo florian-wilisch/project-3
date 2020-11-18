@@ -43,7 +43,7 @@ const NavBar = (props) => {
 
           {!localStorage.getItem('token') && <Link className='button is-light' to='/register'>Register</Link>}
           {!localStorage.getItem('token') && <Link to="/login" className="button is-light">Login</Link>}
-          {localStorage.getItem('token') && <p>Welcome back <strong>{userName}</strong></p>}
+          {localStorage.getItem('token') && <p>Welcome back <Link className="is-capitalized" to={`/users/${userId}`}><strong className="is-link">{userName}</strong></Link></p>}
           {localStorage.getItem('token') && <Link to='/locations/new-location' className="button is-link">Add Location</Link>}
           {localStorage.getItem('token') && <button
             className="button"
