@@ -31,6 +31,24 @@ const AddLocation = (props) => {
     image: ''
   })
 
+  const [errors, updateErrors] = useState({
+    category: '',
+    address: '',
+    name: '',
+    timings: '',
+    startDate: '',
+    endDate: '',
+    city: '',
+    postcode: '',
+    longitude: '',
+    latitude: '',
+    website: '',
+    email: '',
+    phone: '',
+    bio: '',
+    image: ''
+  })
+
   // const inputFields = [
   //   'name',
   //   'timings',
@@ -63,6 +81,7 @@ const AddLocation = (props) => {
 
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
+  const [postcodeError, updatePostcodeError] = useState('')
 
   useEffect(() => {
     // Map catergories to only keep the value property
@@ -84,8 +103,14 @@ const AddLocation = (props) => {
       ...formData,
       [event.target.name]: event.target.value
     }
-    // console.log(data)
+    const newErrors = {
+      ...errors,
+      [name]: ''
+    }
+
     updateFormData(data)
+    updateErrors(newErrors)
+    // console.log(data)
   }
 
   function handleSubmit(event) {
@@ -93,6 +118,7 @@ const AddLocation = (props) => {
     Axios
       .get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${formData.postcode}.json?access_token=${process.env.MapBoxKey}`)
       .then(resp => {
+
         const data = {
           ...formData,
           longitude: resp.data.features[0].center[0],
@@ -107,10 +133,20 @@ const AddLocation = (props) => {
         })
           .then((resp) => {
             console.log(resp.data)
-            props.history.push('/locations')
+            if (resp.data.errors) {
+              updateErrors(resp.data.errors)
+              console.log(errors)
+            } else {
+              props.history.push('/locations')
+            }
+
           })
+
       })
-      .catch(error => console.log(error.response))
+      .catch(error => {
+        console.log(error.response)
+        updatePostcodeError(error.response)
+      })
   }
 
   const [isVisible, setIsVisible] = useState(false)
@@ -122,11 +158,14 @@ const AddLocation = (props) => {
         <div className="control">
           <input
             className='input'
-            type="text"
+            type="text" ßß
             onChange={handleChange}
             value={formData[name]}
             name='name'
           />
+          {(postcodeError || errors.name) && <p className="help" style={{ color: 'red' }}>
+            {'There was a problem with the Name'}
+          </p>}
         </div>
       </div>
       <div className="field">
@@ -146,6 +185,9 @@ const AddLocation = (props) => {
           className="basic-multi-select"
 
         />
+        {(postcodeError || errors.category) && <p className="help" style={{ color: 'red' }}>
+          {'There was a problem with the Categories'}
+        </p>}
       </div>
       {/* } */}
       <div className='field mt-3'>
@@ -160,6 +202,9 @@ const AddLocation = (props) => {
             placeholder='Street and Number'
           />
         </div>
+        {(postcodeError || errors.address) && <p className="help" style={{ color: 'red' }}>
+          {'There was a problem with the Address'}
+        </p>}
         <div className="control mt-1">
           <input
             label='postcode'
@@ -170,6 +215,9 @@ const AddLocation = (props) => {
             name='postcode'
             placeholder='Postcode'
           />
+          {postcodeError && <p className="help" style={{ color: 'red' }}>
+            {'There was a problem with the Poscode'}
+          </p>}
         </div>
         <div className="control mt-1">
           <input
@@ -180,6 +228,9 @@ const AddLocation = (props) => {
             name='city'
             placeholder='City'
           />
+          {(postcodeError || errors.city) && <p className="help" style={{ color: 'red' }}>
+            {'There was a problem with the City'}
+          </p>}
         </div>
       </div>
 
