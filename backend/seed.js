@@ -17,20 +17,20 @@ let globalUsers = []
 
 const categoriesArray = [
   { alias: 'vegan', category: 'Restaurant' },
-  { alias: 'farmersmarket', categry: 'Farmers Market' },
-  { alias: 'vegetarian', categry: 'Restaurant' },
-  { alias: 'salad', categry: 'Restaurant' },
-  { alias: 'bikerepair', categry: 'Cycling' },
-  { alias: 'bikeshop', categry: 'Cycling' },
-  { alias: 'organic_stores', categry: 'Sustainable Groceries' },
-  { alias: 'ethicgrocery', categry: 'Sustainable Groceries' },
-  { alias: 'bike_repair_maintenance', categry: 'Cycling' },
-  { alias: 'electronicsrepair', categry: 'Upcycling/Repair' },
-  { alias: 'furniturerepair', categry: 'Upcycling/Repair' },
-  { alias: 'shoerepair', categry: 'Upcycling/Repair' },
-  { alias: 'evchargingstations', categry: 'EV Charging Station' },
-  { alias: 'vintage', categry: 'Circular Economy' },
-  { alias: 'fleamarkets', categry: 'Circular Economy '}
+  { alias: 'farmersmarket', category: 'Farmers Market' },
+  { alias: 'vegetarian', category: 'Restaurant' },
+  { alias: 'salad', category: 'Restaurant' },
+  { alias: 'bikerepair', category: 'Cycling' },
+  { alias: 'bikeshop', category: 'Cycling' },
+  { alias: 'organic_stores', category: 'Sustainable Groceries' },
+  { alias: 'ethicgrocery', category: 'Sustainable Groceries' },
+  { alias: 'bike_repair_maintenance', category: 'Cycling' },
+  { alias: 'electronicsrepair', category: 'Upcycling/Repair' },
+  { alias: 'furniturerepair', category: 'Upcycling/Repair' },
+  { alias: 'shoerepair', category: 'Upcycling/Repair' },
+  { alias: 'evchargingstations', category: 'EV Charging Station' },
+  { alias: 'vintage', category: 'Circular Economy' },
+  { alias: 'fleamarkets', category: 'Circular Economy '}
 ]
 
 
@@ -626,7 +626,7 @@ mongoose.connect(
         // const mappedData = []
         rawYelpData.forEach(array => {
           array.map(item => {
-            const cleanCatArray = item.categories.map(cat => cat.alias)
+            const yelpCatArray = item.categories.map(cat => cat.alias)
             const data = {
               
               // categoriesObject.filter(option => {
@@ -637,18 +637,20 @@ mongoose.connect(
 
           
               category: 
-              cleanCatArray[0],
+              // cleanCatArray,
               // categoriesArray[0].category,
               
-              // categoriesArray.find(i => {
-              //   if (i.alias === categoriesArray[0]) {
-              //     return i.category
-              //   }
-              // }),
+              categoriesArray.find(i => {
+                i.alias === yelpCatArray[0]
+                return i.category
+              }),
+         
 
-                // cleanCatArray.forEach(eachCat => {
+                // yelpCatArray.forEach(eachCat => {
+                //   console.log(categoriesArray)
                 //   return categoriesArray.find(i => {
-                //     if (i.alias === eachCat) {
+                //     console.log(i)
+                //     if (i.alias === eachCat) {                      
                 //       return i.category
                 //     }
                 //   })
