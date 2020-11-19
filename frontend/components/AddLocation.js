@@ -156,7 +156,7 @@ const AddLocation = (props) => {
 
   return <div className="container is-fluid my-5">
     <form className='' 
-    // onSubmit={handleSubmit}
+      onSubmit={handleSubmit}
     >
       <div className='field'>
         <label className='label'>Name*</label>
