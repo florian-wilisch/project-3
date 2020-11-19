@@ -592,9 +592,9 @@ mongoose.connect(
           globalArray.push(item)
         })        
         const rawYelpData = []        
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0; i < 17; i++) {
           const timeoutInterval = 1200 * (i + 1)
-          const limit = 5
+          const limit = 50
           rawYelpData.push(new Promise((resolve) => {
             setTimeout(() => {
               axios.get(`https://api.yelp.com/v3/businesses/search?location=UK&limit=${limit}&offset=${limit * i}&categories=vegan,farmersmarket,vegetarian,salad,bikerepair,bikeshop,organic_stores,ethicgrocery,bike_repair_maintenance,electronicsrepair,furniturerepair,shoerepair,evchargingstations,vintage,fleamarkets`,
@@ -632,11 +632,11 @@ mongoose.connect(
               // }),
 
               name: item.name,
-              address: item.location.address1 + 
+              address: (item.location.address1 ? item.location.address1 : '**Not provided**') + 
               (item.location.address2 ? ', ' + item.location.address2 : '')
                + (item.location.address3 ? ', ' + item.location.address3 : ''),
-              city: item.location.city,
-              postcode: item.location.zip_code,
+              city: (item.location.city ? item.location.city : '**Not provided**'),
+              postcode: (item.location.zip_code ? item.location.zip_code : '**Not provided**'),
               longitude: item.coordinates.longitude,
               latitude: item.coordinates.latitude,
               website: item.url,
