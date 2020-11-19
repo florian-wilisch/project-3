@@ -156,14 +156,14 @@ const AddLocation = (props) => {
 
   return <div className="container is-fluid my-5">
     <form className='' 
-    // onSubmit={handleSubmit}
+      onSubmit={handleSubmit}
     >
       <div className='field'>
         <label className='label'>Name*</label>
         <div className="control">
           <input
             className='input'
-            type="text" ßß
+            type="text"
             onChange={handleChange}
             value={formData[name]}
             name='name'
