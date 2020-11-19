@@ -10,7 +10,7 @@ const EditComment = (props) => {
     rating: 0
   })
 
-  const inputFields = ['text', 'rating']
+  // const inputFields = ['text', 'rating']
 
   useEffect(() => {
     axios.get(`/api/locations/${props.match.params.locationId}/comments/${props.match.params.commentId}`)
@@ -39,7 +39,7 @@ const EditComment = (props) => {
     })
       .then(resp => {
         console.log(resp)
-        props.history.push('/locations')
+        props.history.push(`/locations/${props.match.params.locationId}`)
       })
   }
 
@@ -53,26 +53,36 @@ const EditComment = (props) => {
       </div>
     </div>
   }
-  return <div className="container is-fluid mt-5">
+  return <div className="container is-fluid my-5">
     <form onSubmit={handleSubmit}>
-      {inputFields.map(field => {
-        return <div className="field" key={field}>
-          <label className="label">{field}</label>
-          <div className="control">
-            <input
-              type="text"
-              onChange={handleChange}
-              value={formData[field]}
-              name={field}
-              className="input"
-            />
-          </div>
-
+      <div className="field">
+        <label className="label">Comment</label>
+        <div className="control">
+          <textarea
+            type="textarea"
+            onChange={handleChange}
+            value={formData['text']}
+            name='text'
+            className="textarea"
+          />
         </div>
-      })}
+      </div>
+
+      <div className="field" >
+        <label className="label">Rating</label>
+        <div className="control">
+          <textarea
+            type="text"
+            onChange={handleChange}
+            value={formData['rating']}
+            name='rating'
+            className="input"
+          />
+        </div>
+      </div>
       <div className="field is-grouped is-grouped-right">
         <p className="control">
-          <button className="button is-primary">
+          <button className="button is-link">
             Submit
           </button>
         </p>

@@ -13,22 +13,24 @@ $react-rater-hover: rgb(110, 235, 79) !default; // color of star on hover
 $react-rater-active: rgb(123, 251, 4) !default; // color of star rated
 
 // Set your brand colors
-$purple: #8a4d76;
+$purple: #66bfbf;
 $pink: #fa7c91;
-$brown: #757763;
-$green: rgb(0, 99, 0);
-$beige-light: #d0d1cd;
-$beige-lighter: #eff0eb;
+$brown: #ff4b5c;
+$green: #056674;
+$beige-light: #e0ece4;
+$beige-lighter: #e0ece4;
 
 // Update Bulma's global variables
 $family-sans-serif: "Nunito", sans-serif;
 $grey-dark: $brown;
 $grey-light: $beige-light;
 $primary: $purple;
+$secondary: $brown;
 $link: $green;
 $widescreen-enabled: false;
 $fullhd-enabled: false;
 $navbar-breakpoint: 400px;
+// $desktop: 500px;
 
 #navbar {
   .button {
@@ -39,17 +41,17 @@ $navbar-breakpoint: 400px;
 }
 
 //* Hero image background
-// .hero-body {
-//   background: linear-gradient(
-//       0deg,
-//       rgba(218, 204, 11, 0.3),
-//       rgba(121, 0, 6, 0.3)
-//     ),
-//     url("https://lh3.googleusercontent.com/proxy/asL59o0YEPfPFNnbemEJkrOk32jxtybwLOKClIG-MSixsJwS90yRXQbpn4lTipTfvGgLTT74htOapanS9K_P_U4C");
-//   background-size: cover;
-//   background-position: center;
-//   background-repeat: no-repeat;
-// }
+.hero-body {
+  background: linear-gradient(
+      0deg,
+     $purple,
+      $grey-light
+    ),
+    url("https://lh3.googleusercontent.com/proxy/asL59o0YEPfPFNnbemEJkrOk32jxtybwLOKClIG-MSixsJwS90yRXQbpn4lTipTfvGgLTT74htOapanS9K_P_U4C");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
 // Update some of Bulma's component variables
 $body-background-color: $beige-lighter;
