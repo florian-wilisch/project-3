@@ -13,7 +13,7 @@ const LocationForm = ({ handleSubmit, handleChange, formData,
 
   const [isVisible, setIsVisible] = useState(false)
 
-  return <div className="container is-fluid mt-5">
+  return <div className="container is-fluid my-5">
     <form className='' onSubmit={handleSubmit}>
 
       <div className='field'>
@@ -144,7 +144,7 @@ const LocationForm = ({ handleSubmit, handleChange, formData,
       <div className='field'>
         <label className='label'>Description</label>
         <div className="control">
-          <input
+          <textarea
             className='textarea'
             type="text"
             onChange={handleChange}
@@ -211,7 +211,7 @@ const LocationForm = ({ handleSubmit, handleChange, formData,
         </div>
       </div>
     })}       */}
-      <button type='submit' className='button'>Submit</button>
+      <button type='submit' className='button is-link'>Submit</button>
     </form>
   </div>
 

@@ -142,7 +142,7 @@ const SingleLocation = (props) => {
         {isCreator(location.user) &&
           <button onClick={handleDelete} className="button is-danger is-light">✂️ Delete Shop</button>} */}
 
-      {isCreator(location.user) && <div className="dropdown is-hoverable is-right">
+      {isCreator(location.user) && <div className="dropdown is-hoverable is-right is-mobile">
         <div className="dropdown-trigger">
           <button className="button" aria-haspopup="true" aria-controls="dropdown-menu">
             <span>Edit Options</span>
@@ -278,11 +278,14 @@ const SingleLocation = (props) => {
                     <p>{comment.text} - I give {comment.rating} stars</p>
                   </div>
                 </div>
-                {isCreator(comment.user._id) && <div className="media-right">
-                  <Link to={`/locations/edit-comment/${locationId}/${comment._id}`} className="edit">
-                    <FontAwesomeIcon icon={faEdit} />
+                {isCreator(comment.user._id) && <div className="media-right is-justify-content-center">
+                  
+                  <Link to={`/locations/edit-comment/${locationId}/${comment._id}`} className="edit mr-1">
+                  
+                    <FontAwesomeIcon icon={faEdit} color='#CECECE'/>
                   </Link>
-
+                  
+                  
                   <button className="delete"
                     onClick={() => handleDeleteComment(comment._id)}></button>
                 </div>}

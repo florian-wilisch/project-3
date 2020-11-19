@@ -79,7 +79,7 @@ const Register = (props) => {
 
 
 
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='mb-5'>
       <div className="field">
         <label className="label">Username</label>
         <div className="control">
@@ -184,7 +184,7 @@ const Register = (props) => {
       </div>
       <div className="field is-grouped is-grouped-right">
         <p className="control">
-          <button className="button is-primary">
+          <button className="button is-link">
             Sign Up
           </button>
         </p>

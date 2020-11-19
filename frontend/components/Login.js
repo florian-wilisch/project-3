@@ -40,7 +40,7 @@ const Login = (props) => {
       })
   }
 
-  return <div className="container is-fluid mt-5">
+  return <div className="container is-fluid my-5">
     <form onSubmit={handleSubmit}>
       <div className="field">
         <label className="label">Email</label>
@@ -73,7 +73,7 @@ const Login = (props) => {
       </div>
       <div className="field is-grouped is-grouped-right">
         <p className="control">
-          <button className="button is-primary">
+          <button className="button is-link">
             Log In
           </button>
         </p>
