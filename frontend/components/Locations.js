@@ -39,53 +39,63 @@ const Locations = () => {
   return <div className="section">
     <div className="container">
       <input
-        className="locationsSearchBar"
+        className="input mb-2"
         placeholder="Search..."
         onChange={(event) => updateLocationFilter(event.target.value)}
         value={locationFilter}
       />
-      <div className="buttons">
-        {getCategories().map((category, index) => {
-          return <button
-            key={index}
-            onClick={(event) => updateSelectedCategory(event.target.innerHTML)}
-            className="button" className="locationsTopButtons"
-          >
-            {category}
-          </button>
+      {/* <div className="level is-mobile"> */}
+      {getCategories().map((category, index) => {
+        return <button
+        // <div className="level-item">
+        
+          key={index}
+          onClick={(event) => updateSelectedCategory(event.target.innerHTML)}
+          className="button is-link m-1"
+        >
+          {category}
+        </button>
+        // </div>
+      })}
+      {/* </div> */}
+      {/*<div className="container">*/}
+      <div className="notifications is-primary">
+        {filterLocations().map((location, index) => {
+          return <div key={index} >
+            <Link to={`/locations/${location._id}`}>
+              <div className="tile is-parent px-0">
+                <div className="tile is-child box">
+                  {/*<div className="">*/}
+                  {/*<div className="">*/}
+                  <p className="title is-4">{location.name}</p>
+                  {/*<p className="subtitle is-6" className="locationsTitle">{'Category: ' + location.category}</p>*/}
+                  <div className="tags">
+                    {location.category.map((category, index) => {
+                      return <div className="tag is-warning" key={index}>
+                        {category}
+                      </div>
+                    })}
+                  </div>
+                  {/*<p className="subtitle is-6">{'Address: ' + location.address}</p>*/}
+                  <p className="subtitle is-6">{'City: ' + location.city}</p>
+                  {/*<p className="subtitle is-6">{'Postcode: ' + location.postcode}</p>*/}
+                  {/*<p className="subtitle is-6">{'Timings: ' + location.timings}</p>*/}
+                  {/*<p className="subtitle is-6">{'Website: ' + location.website}</p>*/}
+                  {location.bio && <p className="subtitle is-6">{'About: ' + location.bio}</p>}
+                </div>
+                {/*</div>*/}
+                {/*</div>*/}
+                {/*<div className="tile is-child box">*/}
+                {/*<figure className="image is-4by3">*/}
+                {location.image && <img className="locationsImage" src={location.image} alt={location.name} />}
+                {/*</figure>*/}
+                {/*</div>*/}
+              </div>
+            </Link>
+          </div>
         })}
       </div>
-      <div className="container">
-        <div className="notifications is-primary">
-          {filterLocations().map((location, index) => {
-            return <div key={index} >
-              <Link to={`/locations/${location._id}`}>
-                <div className="tile is-parent">
-                  <div className="tile is-child box">
-                    <div className="media">
-                      <div className="media-content">
-                        <p className="title is-4">{location.name}</p>
-                        <p className="subtitle is-6">{'Category: ' + location.category}</p>
-                        <p className="subtitle is-6">{'Address: ' + location.address}</p>
-                        <p className="subtitle is-6">{'Postcode: ' + location.postcode}</p>
-                        <p className="subtitle is-6">{'Timings: ' + location.timings}</p>
-                        <button type="button" className="locationsWebButton" to={location.website}>Website</button>
-                        {/*<p className="subtitle is-6">{'Website: ' + location.website}</p>*/}
-                        <p className="subtitle is-6">{'About: ' + location.bio}</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="tile is-child box">
-                    <figure className="image is-4by3">
-                      <img src={location.image} alt={location.name} />
-                    </figure>
-                  </div>
-                </div>
-              </Link>
-            </div>
-          })}
-        </div>
-      </div>
+      {/* </div> */}
     </div>
   </div>
 }

@@ -150,7 +150,7 @@ mongoose.connect(
             website: 'http://www.hoylakezerowaste.co.uk/',
             email: '',
             phone: '07792502180',
-            bio: '',
+            bio: 'We use the finest ingredients to ensure our produce is sustainable and delicious.',
             image: 'https://www.thezerowastenetwork.com/pictures/profile/pimage-185-469-photo.jpg',
             user: users[0]
           },
@@ -186,7 +186,7 @@ mongoose.connect(
             website: '',
             email: 'info@hampshirefarmersmarkets.co.uk',
             phone: '',
-            bio: '',
+            bio: 'Wonderful Farmers Market that attracts sellers from all around the local countryside.',
             image: 'https://i.imgur.com/Rx0B0fS.jpg',
             user: users[0]
           },
@@ -204,7 +204,7 @@ mongoose.connect(
             website: '',
             email: '',
             phone: '',
-            bio: '',
+            bio: 'Whatever produce you are looking for, we have it here. From locally grown vegetables to fresh eggs, this is the place to shop sustainably.,
             image: 'https://i.imgur.com/mcQ5FSX.jpg',
             user: users[0]
           },
@@ -222,7 +222,7 @@ mongoose.connect(
             website: '',
             email: 'info@hampshirefarmersmarkets.co.uk',
             phone: '',
-            bio: '',
+            bio: 'A delightful market that will give you all the fresh food you could want.',
             image: 'https://i.imgur.com/uevt3lW.jpg',
             user: users[0]
           },
@@ -240,7 +240,7 @@ mongoose.connect(
             website: '',
             email: 'info@hampshirefarmersmarkets.co.uk',
             phone: '',
-            bio: '',
+            bio: 'All of the local farmers help to make this a delightful market. Yum yum yum!',
             image: 'https://i.imgur.com/pK83J4j.jpg',
             user: users[0]
           },
@@ -258,7 +258,7 @@ mongoose.connect(
             website: '',
             email: 'info@hampshirefarmersmarkets.co.uk',
             phone: '',
-            bio: '',
+            bio: 'Romsey farmers market is a beautiful place to shop fresh produce - especially when Terry turns off his diesel generator.',
             image: 'https://i.imgur.com/kc22xdP.jpg',
             user: users[0]
           },
@@ -276,7 +276,7 @@ mongoose.connect(
             website: '',
             email: 'info@hampshirefarmersmarkets.co.uk',
             phone: '',
-            bio: '',
+            bio: 'The best local farmers market in Hampshire. Fresh food and fresh people!',
             image: 'https://i.imgur.com/6IOOJ8a.jpg',
             user: users[0]
           },
@@ -294,7 +294,7 @@ mongoose.connect(
             website: '',
             email: 'info@hampshirefarmersmarkets.co.uk',
             phone: '',
-            bio: '',
+            bio: 'When in Winchester come to the market and enjoy the wonderful food that is available for you to buy. Go local, Go Winchester!',
             image: 'https://i.imgur.com/yihkmgM.jpg',
             user: users[0]
           },
@@ -312,7 +312,7 @@ mongoose.connect(
             website: '',
             email: 'info@hampshirefarmersmarkets.co.uk',
             phone: '',
-            bio: '',
+            bio: 'When in Winchester come to the market and enjoy the wonderful food that is available for you to buy. Go local, Go Winchester!',
             image: 'https://i.imgur.com/kOdlsys.jpg',
             user: users[0]
           },
@@ -557,7 +557,7 @@ mongoose.connect(
             address: '64 Essex Road, Islington, London, UNITED KINGDOM',
             postcode: 'N1 8LR',
             phone: '0207 288 9460',
-            city: 'london',
+            city: 'London',
             email: '',
             timings: 'Open Monday to Saturday from 8am to 9pm, Sundays from 9am to 9pm',
             latitude: 51.537880,

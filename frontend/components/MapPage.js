@@ -11,6 +11,8 @@ import { usePosition } from 'use-position'
 
 const MapPage = (props) => {
 
+  const homeLat = Number(localStorage.getItem('lat'))
+  const homeLong = Number(localStorage.getItem('long'))
   //  Data from our API
 
   const [locationData, updateLocationData] = useState([])
@@ -40,11 +42,9 @@ const MapPage = (props) => {
   const [viewPort, setViewPort] = useState({
     height: '100vh',
     width: '100vw',
-    zoom: 14,
-    latitude: 51.5033,
-    longitude: -0.1196
-    // .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'))
-
+    zoom: (homeLat ? 12 : 14),
+    latitude: (homeLat ? homeLat : 51.515),
+    longitude: (homeLong ? homeLong : -0.078)
   })
 
   // Updating position of map based on browser location
