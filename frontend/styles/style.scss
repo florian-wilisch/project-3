@@ -64,19 +64,26 @@ $react-rater-active: rgb(123, 251, 4) !default; // color of star rated
 @import "../../node_modules/bulma/bulma.sass";
 
 .locationsTopButtons {
+  height: 30px;
   margin: 15px 15px 5px 15px;
-}
-
-.locationsWebButton {
-  margin: 0px 0px 15px 0px;
-  background-color: rgb(137, 160, 137);
-  border: 1px solid grey;
+  background-color: $green;
+  border: 1px solid $brown;
+  border-radius: 3px;
+  color: white;
 }
 
 .locationsSearchBar {
   width: 98%;
   height: 30px;
   margin: 0px 15px 0px 15px;
-  border: 1px solid grey;
+  border: 1px solid $brown;
   border-radius: 5px;
+}
+
+.locationsTitle {
+  margin: 0px 0px 20px 0px;
+}
+
+.locationsImage {
+  width: 400px;
 }
