@@ -7,6 +7,8 @@ import Map from './Map'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { far, faEdit } from '@fortawesome/free-solid-svg-icons'
 
+import { CloudinaryContext, Image, Transformation } from 'cloudinary-react'
+
 import '../../node_modules/react-rater/lib/react-rater.css'
 
 const SingleLocation = (props) => {
@@ -37,7 +39,7 @@ const SingleLocation = (props) => {
   const userCity = localStorage.getItem('userCity')
   const userEmail = localStorage.getItem('userEmail')
   const userAvatar = localStorage.getItem('userAvatar')
-
+  console.log(userAvatar)
   console.log(userId, userName, userBio, userCity, userEmail, userAvatar)
   useEffect(() => {
     axios.get(`/api/locations/${locationId}`)
@@ -296,9 +298,22 @@ const SingleLocation = (props) => {
           }) &&
             <div className="media">
               <figure className="media-left">
+
+                {/* <CloudinaryContext
+                  cloudName="greenupload"> */}
                 <p className="image is-64x64">
-                  <img src={userAvatar} />
+
+                  <img
+                    // publicId={userAvatar}
+                    src={userAvatar}
+                  />
+                  {/* <Transformation width="400" height="300" crop="pad" />
+
+
+                    </Image> */}
                 </p>
+
+                {/* </CloudinaryContext> */}
               </figure>
               <div className="media-content">
                 <div className="field">

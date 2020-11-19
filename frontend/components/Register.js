@@ -4,12 +4,12 @@ import { fetchPhotos, openUploadWidget } from './CloudinaryService'
 
 import UploadImage from './UploadImage'
 
-import images from './UploadImage'
+// import images from './UploadImage'
 
 import axios from 'axios'
 
 const Register = (props) => {
-  console.log(images)
+  // console.log(props)
   const [formData, updateFormData] = useState({
     username: '',
     email: '',
@@ -30,10 +30,10 @@ const Register = (props) => {
     passwordConfirmation: ''
   })
 
-  function updateImage(images) {
+  function updateImage(image) {
     const newForm = {
       ...formData,
-      avatar: images
+      avatar: image
     }
     updateFormData(newForm)
   }
@@ -68,11 +68,12 @@ const Register = (props) => {
           console.log(errors)
         } else {
           console.log(formData)
-          // props.history.push('/login')
+          props.history.push('/login')
         }
       })
 
   }
+  console.log(formData)
   return <div className="container is-fluid mt-5">
 
 
@@ -145,17 +146,9 @@ const Register = (props) => {
         <label className="label">Avatar</label>
         <UploadImage
           updateImage={updateImage}
-        // value={images[0]}
         />
-        {/* <div className="control">
-          <input
-            type="text"
-            onChange={handleChange}
-            name="avatar"
-            className="input"
-          />
-        </div> */}
-        <p className="help">Insert a link to your profile image</p>
+
+        <p className="help">Add a picture to your profile image</p>
       </div>
       <div className="field">
         <label className="label">Password</label>
