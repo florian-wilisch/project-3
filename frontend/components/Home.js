@@ -7,14 +7,14 @@ import { usePosition } from 'use-position'
 const Home = () => {
   const { latitude, longitude, error } = usePosition()
 
-  
+
 
   localStorage.setItem('lat', latitude)
   localStorage.setItem('long', longitude)
-  
+
   return <section className="hero is-fullheight-with-navbar">
-    <div className="hero-body">
-      <div className="container has-text-centered mx-4">
+    <div className="hero-body is-align-items-center has-text-centered">
+      <div className="container has-text-centered ">
         <p className="title is-spaced">
           GreenWorld
         </p>

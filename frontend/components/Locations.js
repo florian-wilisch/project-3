@@ -36,6 +36,17 @@ const Locations = () => {
     return arrayLocations
   }
 
+  if (!locationData) {
+    return <div className="section">
+      <div className="container">
+        <div className="title">
+          Loading ...
+        </div>
+        <progress className="progress is-small is-link" max="100">60%</progress>
+      </div>
+    </div>
+  }
+
   return <div className="section">
     <div className="container">
       <input
@@ -47,8 +58,8 @@ const Locations = () => {
       {/* <div className="level is-mobile"> */}
       {getCategories().map((category, index) => {
         return <button
-        // <div className="level-item">
-        
+          // <div className="level-item">
+
           key={index}
           onClick={(event) => updateSelectedCategory(event.target.innerHTML)}
           className="button is-link m-1"
