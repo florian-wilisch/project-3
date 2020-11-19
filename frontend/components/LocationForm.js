@@ -2,12 +2,13 @@ import React, { useState } from 'react'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 import Datepicker from 'react-datepicker'
+import UploadImage from './UploadImage'
 
 
 const LocationForm = ({ handleSubmit, handleChange, formData,
   selectedCategories, setSelectedCategories, options,
   setStartDate, setEndDate,
-  startDate, endDate
+  startDate, endDate, updateImage
 }) => {
 
   const [isVisible, setIsVisible] = useState(false)
@@ -125,7 +126,21 @@ const LocationForm = ({ handleSubmit, handleChange, formData,
           />
         </div>
       </div>
-
+      <div className='field'>
+        <label className='label'>Photo</label>
+        <div className="control">
+          <UploadImage
+            updateImage={updateImage}
+          />
+          {/* <input
+            className='input'
+            type="text"
+            onChange={handleChange}
+            value={formData['image']}
+            name='image'
+          /> */}
+        </div>
+      </div>
       <div className='field'>
         <label className='label'>Description</label>
         <div className="control">
@@ -139,19 +154,8 @@ const LocationForm = ({ handleSubmit, handleChange, formData,
         </div>
       </div>
 
-      <div className='field'>
-        <label className='label'>Photo</label>
-        <div className="control">
-          <input
-            className='input'
-            type="text"
-            onChange={handleChange}
-            value={formData['image']}
-            name='image'
-          />
-        </div>
-      </div>
 
+      {/* 
       <label className='label'>Dates</label>
 
       <div className="tile is-ancestor is-centered">
@@ -192,7 +196,7 @@ const LocationForm = ({ handleSubmit, handleChange, formData,
           </div>
 
         </div>
-      </div>
+      </div> */}
       {/* {inputFields.map((field, i) => {
       return <div className='field' key={i}>
         <label className='label'>{field}</label>
@@ -207,7 +211,7 @@ const LocationForm = ({ handleSubmit, handleChange, formData,
         </div>
       </div>
     })}       */}
-      <button className='button'>Submit</button>
+      <button type='submit' className='button'>Submit</button>
     </form>
   </div>
 

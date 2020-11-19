@@ -1,6 +1,7 @@
 import { Cloudinary as CoreCloudinary, Util } from 'cloudinary-core'
 
 export const url = (publicId, options) => {
+  console.log(publicId)
   const scOptions = Util.withSnakeCaseKeys(options)
   const cl = CoreCloudinary.new()
   return cl.url(publicId, scOptions)

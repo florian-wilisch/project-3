@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Axios from 'axios'
 import LocationForm from './LocationForm'
+import UploadImage from './UploadImage'
 
 // import { set } from 'mongoose'
 // import { ProgressPlugin } from 'webpack'
@@ -76,6 +77,14 @@ const EditLocation = (props) => {
       })
   }, [])
 
+  function updateImage(image) {
+    const newForm = {
+      ...formData,
+      image: image
+    }
+    updateFormData(newForm)
+  }
+
   function setSelectedCategories(categories) {
     const newData = {
       ...formData,
@@ -126,6 +135,7 @@ const EditLocation = (props) => {
     handleSubmit={handleSubmit}
     // inputFields={inputFields}
     formData={formData}
+    updateImage={updateImage}
     selectedCategories={formData.category}
     setSelectedCategories={setSelectedCategories}
     startDate={startDate}

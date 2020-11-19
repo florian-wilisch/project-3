@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Select from 'react-select'
-import Datepicker from 'react-datepicker'
+// import Datepicker from 'react-datepicker'
 import makeAnimated from 'react-select/animated'
+import UploadImage from './UploadImage'
+
 
 import Axios from 'axios'
 // import { set } from 'mongoose'
@@ -18,8 +20,8 @@ const AddLocation = (props) => {
     address: '',
     name: '',
     timings: '',
-    startDate: '',
-    endDate: '',
+    // startDate: '',
+    // endDate: '',
     city: '',
     postcode: '',
     longitude: '',
@@ -36,8 +38,8 @@ const AddLocation = (props) => {
     address: '',
     name: '',
     timings: '',
-    startDate: '',
-    endDate: '',
+    // startDate: '',
+    // endDate: '',
     city: '',
     postcode: '',
     longitude: '',
@@ -79,8 +81,8 @@ const AddLocation = (props) => {
   const [selectedCategories, setSelectedCategories] = useState([])
   // console.log(selectedCategories)
 
-  const [startDate, setStartDate] = useState('')
-  const [endDate, setEndDate] = useState('')
+  // const [startDate, setStartDate] = useState('')
+  // const [endDate, setEndDate] = useState('')
   const [postcodeError, updatePostcodeError] = useState('')
 
   useEffect(() => {
@@ -90,14 +92,22 @@ const AddLocation = (props) => {
     })
     const data = {
       ...formData,
-      startDate: startDate,
-      endDate: endDate,
+      // startDate: startDate,
+      // endDate: endDate,
       category: categoryArray
     }
     updateFormData(data)
     // console.log(data)
-  }, [selectedCategories, startDate, endDate])
+  }, [selectedCategories])
+  // , startDate, endDate
 
+  function updateImage(image) {
+    const newForm = {
+      ...formData,
+      image: image
+    }
+    updateFormData(newForm)
+  }
   function handleChange(event) {
     const data = {
       ...formData,
@@ -110,7 +120,7 @@ const AddLocation = (props) => {
 
     updateFormData(data)
     updateErrors(newErrors)
-    // console.log(data)
+    console.log(data)
   }
 
   function handleSubmit(event) {
@@ -124,7 +134,7 @@ const AddLocation = (props) => {
           longitude: resp.data.features[0].center[0],
           latitude: resp.data.features[0].center[1]
         }
-        // updateFormData(data)
+        updateFormData(data)
         console.log(data)
         const token = localStorage.getItem('token')
 
@@ -149,27 +159,29 @@ const AddLocation = (props) => {
       })
   }
 
-  const [isVisible, setIsVisible] = useState(false)
+  // const [isVisible, setIsVisible] = useState(false)
 
   return <div className="container is-fluid my-5">
-    <form className='' onSubmit={handleSubmit}>
-      <div className='field'>
-        <label className='label'>Name*</label>
+    <form className="" onSubmit={handleSubmit}>
+      <div className="field">
+        <label className="label">Name*</label>
         <div className="control">
           <input
-            className='input'
-            type="text" ßß
+            className="input"
+            type="text"
             onChange={handleChange}
             value={formData[name]}
-            name='name'
+            name="name"
           />
-          {(postcodeError || errors.name) && <p className="help" style={{ color: 'red' }}>
+          {(errors.name) && <p className="help" style={{ color: "red" }}>
             {'There was a problem with the Name'}
           </p>}
         </div>
       </div>
       <div className="field">
-        <label className='label' onClick={() => setIsVisible(!isVisible)}>Category*</label>
+        <label className="label"
+        // onClick={() => setIsVisible(!isVisible)}
+        >Category*</label>
       </div>
       {/* {isVisible &&  */}
       <div className="control">
@@ -185,122 +197,125 @@ const AddLocation = (props) => {
           className="basic-multi-select"
 
         />
-        {(postcodeError || errors.category) && <p className="help" style={{ color: 'red' }}>
+        {(errors.category) && <p className="help" style={{ color: "red" }}>
           {'There was a problem with the Categories'}
         </p>}
       </div>
       {/* } */}
-      <div className='field mt-3'>
-        <label className='label'>Address*</label>
+      <div className="field mt-3">
+        <label className="label">Address*</label>
         <div className="control">
           <input
-            className='input'
+            className="input"
             type="text"
             onChange={handleChange}
             value={formData['address']}
-            name='address'
-            placeholder='Street and Number'
+            name="address"
+            placeholder="Street and Number"
           />
         </div>
-        {(postcodeError || errors.address) && <p className="help" style={{ color: 'red' }}>
-          {'There was a problem with the Address'}
+        {errors.address && <p className="help" style={{ color: "red" }}>
+          {"There was a problem with the Address"}
         </p>}
         <div className="control mt-1">
           <input
-            label='postcode'
-            className='input'
+            label="postcode"
+            className="input"
             type="text"
             onChange={handleChange}
             value={formData['postcode']}
-            name='postcode'
-            placeholder='Postcode'
+            name="postcode"
+            placeholder="Postcode"
           />
-          {postcodeError && <p className="help" style={{ color: 'red' }}>
-            {'There was a problem with the Poscode'}
+          {postcodeError && <p className="help" style={{ color: "red" }}>
+            {"There was a problem with the Poscode"}
           </p>}
         </div>
         <div className="control mt-1">
           <input
-            className='input'
+            className="input"
             type="text"
             onChange={handleChange}
             value={formData['city']}
-            name='city'
-            placeholder='City'
+            name="city"
+            placeholder="City"
           />
-          {(postcodeError || errors.city) && <p className="help" style={{ color: 'red' }}>
-            {'There was a problem with the City'}
+          {(errors.city) && <p className="help" style={{ color: "red" }}>
+            {"There was a problem with the City"}
           </p>}
         </div>
       </div>
 
-      <div className='field'>
-        <label className='label'>Phone</label>
+      <div className="field">
+        <label className="label">Phone</label>
         <div className="control">
           <input
-            className='input'
+            className="input"
             type="text"
             onChange={handleChange}
             value={formData['phone']}
-            name='phone'
+            name="phone"
           />
         </div>
       </div>
 
-      <div className='field'>
-        <label className='label'>Email</label>
+      <div className="field">
+        <label className="label">Email</label>
         <div className="control">
           <input
-            className='input'
+            className="input"
             type="text"
             onChange={handleChange}
             value={formData['email']}
-            name='email'
+            name="email"
           />
         </div>
       </div>
 
-      <div className='field'>
-        <label className='label'>Website</label>
+      <div className="field">
+        <label className="label">Website</label>
         <div className="control">
           <input
-            className='input'
+            className="input"
             type="text"
             onChange={handleChange}
             value={formData['website']}
-            name='website'
+            name="website"
           />
         </div>
       </div>
-
-      <div className='field'>
-        <label className='label'>Description</label>
+      <div className="field">
+        <label className="label">Photo</label>
         <div className="control">
-          <input
-            className='textarea'
-            type="text"
-            onChange={handleChange}
-            value={formData['bio']}
-            name='bio'
+          <UploadImage
+            updateImage={updateImage}
           />
-        </div>
-      </div>
-
-      <div className='field'>
-        <label className='label'>Photo</label>
-        <div className="control">
-          <input
-            className='input'
+          {/* <input
+            className="input"
             type="text"
             onChange={handleChange}
             value={formData['image']}
-            name='image'
+            name="image"
+          /> */}
+        </div>
+      </div>
+      <div className="field">
+        <label className="label">Description</label>
+        <div className="control">
+          <textarea
+            className="textarea"
+            type="text"
+            onChange={handleChange}
+            value={formData['bio']}
+            name="bio"
           />
         </div>
       </div>
 
 
-      <div className="field">
+
+
+      {/* <div className="field">
         <label className='label'>Dates</label>
         <div className="control">
           <Datepicker
@@ -324,22 +339,9 @@ const AddLocation = (props) => {
             className='input ml-2'
           />
         </div>
-      </div>
-      {/* {inputFields.map((field, i) => {
-        return <div className='field' key={i}>
-          <label className='label'>{field}</label>
-          <div className="control">
-            <input
-              className='input'
-              type="text"
-              onChange={handleChange}
-              value={formData[field]}
-              name={field}
-            />
-          </div>
-        </div>
-      })}       */}
-      <button className='button'>Submit</button>
+      </div> */}
+
+      <button className="button">Submit</button>
     </form>
   </div>
 }
