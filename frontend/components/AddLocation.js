@@ -357,7 +357,7 @@ const AddLocation = (props) => {
         </div>
       </div> */}
 
-      <button className="button">Submit</button>
+      <button className="button is-link">Submit</button>
     </form >
   </div >
 }
