@@ -163,7 +163,7 @@ const AddLocation = (props) => {
         <div className="control">
           <input
             className='input'
-            type="text" ßß
+            type="text"
             onChange={handleChange}
             value={formData[name]}
             name='name'
