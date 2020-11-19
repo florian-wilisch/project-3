@@ -5,7 +5,7 @@ import { isCreator } from '../lib/auth'
 import Rater from 'react-rater'
 import Map from './Map'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { far, faEdit } from '@fortawesome/free-solid-svg-icons'
+import { far, faEdit, faMapPin } from '@fortawesome/free-solid-svg-icons'
 
 import { CloudinaryContext, Image, Transformation } from 'cloudinary-react'
 
@@ -169,6 +169,7 @@ const SingleLocation = (props) => {
     <div className="tile is-ancestor">
       <div className="tile is-vertical is-8">
         <div className="tile">
+
           <div className="tile is-parent">
             <article className="tile is-child box">
               {/* <p className="title"></p>
@@ -363,7 +364,10 @@ const SingleLocation = (props) => {
 
     </div>
 
+
+
   </div >
+
 }
 
 export default SingleLocation

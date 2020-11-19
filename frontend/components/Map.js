@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { far, faEdit, faMapPin } from '@fortawesome/free-solid-svg-icons'
 import MapGL, { Marker } from 'react-map-gl'
 import '../../node_modules/mapbox-gl/dist/mapbox-gl.css'
 const Map = (props) => {
@@ -24,8 +25,8 @@ const Map = (props) => {
       longitude={props.location.longitude}
     >
       <div>
-        <img width={20} height={20} src="https://cdn.pixabay.com/photo/2016/04/22/14/31/mouse-1345876_960_720.png" alt="" />
-        <span>{props.location.name}</span>
+        <FontAwesomeIcon color="green" icon={faMapPin} />
+        <span>` {props.location.name} `</span>
 
       </div>
     </Marker>

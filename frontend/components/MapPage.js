@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 
 import MapGL, { Marker } from 'react-map-gl'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { far, faEdit, faMapPin } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 
 import { Link } from 'react-router-dom'
@@ -39,9 +40,11 @@ const MapPage = (props) => {
   const [viewPort, setViewPort] = useState({
     height: '100vh',
     width: '100vw',
-    zoom: 6,
-    latitude: 52.5,
-    longitude: -4
+    zoom: 14,
+    latitude: 51.5033,
+    longitude: -0.1196
+    // .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'))
+
   })
 
   // Updating position of map based on browser location
@@ -103,8 +106,11 @@ const MapPage = (props) => {
             latitude={location.latitude}
             longitude={location.longitude}
           >
-            <Link className="card" to={`/locations/${location._id}`}>
-              <div className="card">
+            <Link
+              className="card is-warning"
+              to={`/locations/${location._id}`}>
+              <FontAwesomeIcon color="green" icon={faMapPin} /> <span> {location.name} </span>
+              {/* <div className="card">
                 <div className="card-content p-2">
                   <div className="media">
                     <div className="media-left">
@@ -119,7 +125,7 @@ const MapPage = (props) => {
                   </div>
 
                 </div>
-              </div>
+              </div> */}
             </Link>
           </Marker>
         }
