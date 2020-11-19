@@ -53,11 +53,12 @@ const EditLocation = (props) => {
   const categoriesObject = [
     { value: 'Farmers Market', label: 'Farmers Market' },
     { value: 'Farm Shop', label: 'Farm Shop' },
-    { value: 'Zero Waste Shop', label: 'Zero Waste Shop' },
+    { value: 'Sustainable Groceries', label: 'Sustainable Groceries' },
     { value: 'Restaurant', label: 'Restaurant' },
     { value: 'EV Charging Station', label: 'EV Charging Station' },
-    { value: 'Recycling/Upcycling/Repair', label: 'Recycling/Upcycling/Repair' },
-    { value: 'Charity Shop', label: 'Charity Shop' }
+    { value: 'Upcycling/Repair', label: 'Upcycling/Repair' },
+    { value: 'Circular Economy', label: 'Circular Economy' },
+    { value: 'Cycling', label: 'Cycling' }
   ]
 
   useEffect(() => {

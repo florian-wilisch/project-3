@@ -3,6 +3,27 @@ const Locations = require('./models/locations')
 const User = require('./models/user')
 const axios = require('axios')
 require('dotenv').config()
+const globalArray = []
+let globalUsers = []
+const categoriesArray = [
+  { alias: 'vegan', category: 'Restaurant' },
+  { alias: 'farmersmarket', category: 'Farmers Market' },
+  { alias: 'vegetarian', category: 'Restaurant' },
+  { alias: 'salad', category: 'Restaurant' },
+  { alias: 'bikerepair', category: 'Cycling' },
+  { alias: 'bikeshop', category: 'Cycling' },
+  { alias: 'organic_stores', category: 'Sustainable Groceries' },
+  { alias: 'ethicgrocery', category: 'Sustainable Groceries' },
+  { alias: 'bike_repair_maintenance', category: 'Cycling' },
+  { alias: 'electronicsrepair', category: 'Upcycling/Repair' },
+  { alias: 'furniturerepair', category: 'Upcycling/Repair' },
+  { alias: 'shoerepair', category: 'Upcycling/Repair' },
+  { alias: 'evchargingstations', category: 'EV Charging Station' },
+  { alias: 'vintage', category: 'Circular Economy' },
+  { alias: 'fleamarkets', category: 'Circular Economy' }
+]
+
+
 
 mongoose.connect(
   'mongodb://localhost/greenWorldDb',
@@ -37,13 +58,14 @@ mongoose.connect(
         ])
       })
       .then(users => {
+        globalUsers = users
         console.log(`${users.length} users have been created!`)
         return users
       })
       .then((users) => {
         const seedData = [
           {
-            category: ['Zero Waste Shop'],
+            category: ['Sustainable Groceries'],
             name: 'Dash Vegan',
             timings: 'Tues-Fri 12-6pm | Sat 10-6pm | Sun 12-5pm',
             startDate: '',
@@ -61,7 +83,7 @@ mongoose.connect(
             user: users[0]
           },
           {
-            category: ['Zero Waste Shop'],
+            category: ['Sustainable Groceries'],
             name: 'Shop Zero',
             timings: 'THURSDAYS , FRIDAYS , SATURDAYS & MONDAYS : 12-3PM',
             startDate: '',
@@ -79,7 +101,7 @@ mongoose.connect(
             user: users[0]
           },
           {
-            category: ['Zero Waste Shop'],
+            category: ['Sustainable Groceries'],
             name: 'Want not Waste',
             timings: 'Mon - Fri : 10am - 5pm, Saturday: 10am - 6pm',
             startDate: '',
@@ -97,7 +119,7 @@ mongoose.connect(
             user: users[0]
           },
           {
-            category: ['Zero Waste Shop'],
+            category: ['Sustainable Groceries'],
             name: 'By The Gram',
             timings: 'Mon-Closed, Tues-Closed, Wed-9.30am-5.00pm, Thur -9.30am-5.00pm, Fri -9.30am -5 .00pm, Sat -10.00am-5.00pm, Sun -10.00am-4.00pm',
             startDate: '',
@@ -115,7 +137,7 @@ mongoose.connect(
             user: users[0]
           },
           {
-            category: ['Zero Waste Shop'],
+            category: ['Sustainable Groceries'],
             name: 'The Hoylake Pantry',
             timings: 'Open Tuesday to Saturday from 10am to 5pm',
             startDate: '',
@@ -133,7 +155,7 @@ mongoose.connect(
             user: users[0]
           },
           {
-            category: ['Zero Waste Shop'],
+            category: ['Sustainable Groceries'],
             name: 'Ernie s Zero Waste Shop',
             timings: 'Sunday - Closed, Monday - Closed, Tuesday - 10 - 6.30, Wednesday - 10 - 5.30, Thursday - 10 - 7, Friday - 10 - 5.30, Saturday - 9.30 - 5',
             startDate: '',
@@ -384,7 +406,7 @@ mongoose.connect(
             user: users[0]
           },
           {
-            category: 'Zero Waste Shop',
+            category: 'Sustainable Groceries',
             name: 'All Good Things',
             timings: 'Mon-Weds 9.30am to 4pm, Friday and Saturday 10.00am to 5pm',
             startDate: '',
@@ -402,7 +424,7 @@ mongoose.connect(
             user: users[0]
           },
           {
-            category: 'Zero Waste Shop',
+            category: 'Sustainable Groceries',
             name: 'Earthian Zero Waste',
             timings: 'Tue-Fri 10.00am to 5.00pm, Sat 9.00am to 5.30pm, Sun 10.00am to 4.00pm',
             address: '9A Parchment St, Winchester',
@@ -418,7 +440,7 @@ mongoose.connect(
             user: users[0]
           },
           {
-            category: 'Zero Waste Shop',
+            category: 'Sustainable Groceries',
             name: 'Eco Freaks Emporium',
             timings: 'Mon, Tue, Thur & Friday – 10am to 12pm, Saturday 10:30am - 12:30pm',
             address: '14-16 South Street, Gosport',
@@ -434,7 +456,7 @@ mongoose.connect(
             user: users[0]
           },
           {
-            category: 'Vegan Restaurant',
+            category: 'Restaurant',
             name: 'ONeills Winchester',
             timings: 'Mon-Sat 9.00am to 9.00pm, Sun 10.00am to 6.00pm',
             address: '90-91 High Street, Winchester, Hampshire',
@@ -450,7 +472,7 @@ mongoose.connect(
             user: users[0]
           },
           {
-            category: 'Vegan Restaurant',
+            category: 'Restaurant',
             name: 'Offbeet',
             timings: 'Weds to Sun 11.00am to 5.00pm',
             address: 'Sunnyfields Farm, Jacobs Gutter Lane, Totten, Hampshire',
@@ -466,7 +488,7 @@ mongoose.connect(
             user: users[0]
           },
           {
-            category: 'Charity Shop',
+            category: 'Circular Economy',
             name: 'British Heart Foundation',
             timings: 'Mon - Sat 9.00am to 5.30pm',
             address: '172 Fleet Road, Fleet, Hampshire',
@@ -482,7 +504,7 @@ mongoose.connect(
             user: users[0]
           },
           {
-            category: 'Charity Shop',
+            category: 'Circular Economy',
             name: 'Blue Cross Charity Shop',
             timings: 'Mon - Sat 9.00am to 5.30pm',
             address: '187 Fleet Road, Fleet, Hampshire',
@@ -498,7 +520,7 @@ mongoose.connect(
             user: users[0]
           },
           {
-            category: 'Cycling Shop',
+            category: 'Cycling',
             name: 'Pedal Heaven',
             timings: 'Mon - Sat 9.00am to 5.30pm, Sun 10.00am to 4.00pm',
             address: '311 Fleet Rd, Fleet, Hampshire',
@@ -514,7 +536,7 @@ mongoose.connect(
             user: users[0]
           },
           {
-            category: 'Cycling Shop',
+            category: 'Cycling',
             name: 'East Street Cycles',
             timings: 'Mon - Sat 9.00am to 5.30pm, Sun 10.00am to 4.00pm',
             address: 'Seven Stars House, 88 East St, Farnham, Surrey',
@@ -530,10 +552,7 @@ mongoose.connect(
             user: users[0]
           },
           {
-            category: [
-              'Zero waste shop',
-              'Organic Food'
-            ],
+            category: ['Sustainable Groceries'],
             name: 'Planet Organic',
             address: '64 Essex Road, Islington, London, UNITED KINGDOM',
             postcode: 'N1 8LR',
@@ -550,7 +569,7 @@ mongoose.connect(
         ]
         const newData = []
         for (let i = 0; i < seedData.length; i++) {
-          const timeoutInterval = 500 * (i + 1)
+          const timeoutInterval = 250 * (i + 1)
           newData.push(new Promise((resolve) => {
             setTimeout(() => {
               axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${seedData[i].postcode}.json?access_token=${process.env.MapBoxKey}`)
@@ -568,8 +587,71 @@ mongoose.connect(
         }
         return Promise.all(newData)
       })
-      // ! Chaining a second then, once the users have been created
+      .then((newData) => {
+        newData.map(item => {
+          globalArray.push(item)
+        })        
+        const rawYelpData = []        
+        for (let i = 0; i < 2; i++) {
+          const timeoutInterval = 1200 * (i + 1)
+          const limit = 5
+          rawYelpData.push(new Promise((resolve) => {
+            setTimeout(() => {
+              axios.get(`https://api.yelp.com/v3/businesses/search?location=UK&limit=${limit}&offset=${limit * i}&categories=vegan,farmersmarket,vegetarian,salad,bikerepair,bikeshop,organic_stores,ethicgrocery,bike_repair_maintenance,electronicsrepair,furniturerepair,shoerepair,evchargingstations,vintage,fleamarkets`,
+                { headers:
+                  { Authorization: `Bearer ${process.env.YelpKey}` }
+                })
+                .then(resp => {
+                  resolve(resp.data.businesses)
+                })
+            }, timeoutInterval)
+          }))
+        }
+        return Promise.all(rawYelpData)
+      })
+      .then((rawYelpData) => {
+        // const mappedData = []
+        rawYelpData.forEach(array => {
+          array.map(item => {
+            const yelpCatArray = item.categories.map(cat => cat.alias)           
+            const categoryAliasesArray = []
+            categoriesArray.forEach(i => categoryAliasesArray.push(i.alias))
+            const yelpAlias = categoryAliasesArray.filter(e => yelpCatArray.includes(e))[0]
+            const catObj = categoriesArray.find(o => o.alias === yelpAlias)
+            const data = {          
+              category: [catObj['category']],
+
+              // yelpCatArray.forEach(eachCat => {
+              //   // console.log(categoriesArray)
+              //   return categoriesArray.find((o, i, arr) => {
+              //     // console.log(i)
+              //     if (arr.alias === eachCat) {                      
+              //       return arr.category
+              //     }
+              //   })
+              // }),
+
+              name: item.name,
+              address: item.location.address1 + 
+              (item.location.address2 ? ', ' + item.location.address2 : '')
+               + (item.location.address3 ? ', ' + item.location.address3 : ''),
+              city: item.location.city,
+              postcode: item.location.zip_code,
+              longitude: item.coordinates.longitude,
+              latitude: item.coordinates.latitude,
+              website: item.url,
+              phone: item.display_phone,
+              image: item.image_url,
+              user: globalUsers[0]          
+            }
+            globalArray.push(data)
+          })
+        })
+        console.log(globalArray)
+        return globalArray
+      })
       .then((fullData) => {
+        // console.log(fullData)
         return Locations.create(fullData)
       })
       .then(location => {

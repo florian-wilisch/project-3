@@ -136,7 +136,7 @@ const Register = (props) => {
             name="city"
             className="input"
           />
-          {errors.email && <p className="help" style={{ color: 'red' }}>
+          {errors.city && <p className="help" style={{ color: 'red' }}>
             {'There was a problem with your City'}
           </p>}
         </div>

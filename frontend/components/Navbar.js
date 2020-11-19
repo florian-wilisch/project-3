@@ -20,7 +20,7 @@ const NavBar = (props) => {
   return <nav className="navbar" id="navbar">
     <div className="navbar-brand">
       <a className="navbar-item" href="/">
-        <img src="../styles/favicon.png" alt="Bulma: a modern CSS framework based on Flexbox" height="28" />
+        <img src="../styles/favicon.png" alt="GreenWorld" height="28" />
       </a>
       <a role="button" className={`navbar-burger burger ${isActive ? 'is-active' : ''}`} aria-label="menu" aria-expanded="false" data-target='navbar-menu'
         onClick={() => setisActive(!isActive)}>
