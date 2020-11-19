@@ -148,7 +148,7 @@ const SingleLocation = (props) => {
         <div className="dropdown-menu" id="dropdown-menu" role="menu">
           <div className="dropdown-content">
             <Link to={`/locations/edit-location/${locationId}`} className="dropdown-item">🛠 Edit Location</Link>
-            <button onClick={handleDelete} className="dropdown-item">✂️ Delete Shop</button>
+            <button onClick={handleDelete} className="dropdown-item">✂️ Delete Location</button>
 
           </div>
         </div>
@@ -206,7 +206,7 @@ const SingleLocation = (props) => {
             <p className="subtitle">{location.address}</p>
             <p className="subtitle">{location.postcode}</p>
             <p className="subtitle">{location.city}</p>
-            <p className="content">🌍 {location.website}</p>
+            <p className="content">🌍 <a href={location.website}>Website</a></p>
             <p className="content">📧 {location.email}</p>
             <p className="content">📲 {location.phone}</p>
             {location.latitude && <Map location={location} />}
@@ -216,8 +216,8 @@ const SingleLocation = (props) => {
       <div className="tile is-parent">
         <article className="tile is-child box">
           <div className="content">
-            <p className="title">BIO</p>
-            <p className="subtitle">With even more content</p>
+            <p className="title">Description</p>
+            <p className="subtitle"></p>
             <div className="content">
               <p>{location.bio}</p>
             </div>
@@ -238,7 +238,7 @@ const SingleLocation = (props) => {
       <div className="tile is-parent">
         <article className="tile is-child box">
           <p className="title">Get in touch</p>
-          <p className="content">🌍 {location.website}</p>
+          <p className="content">🌍 <a href={location.website}>Website</a></p>
           <p className="content">📧 {location.email}</p>
           <p className="content">📲 {location.phone}</p>
         </article>

@@ -69,11 +69,12 @@ const AddLocation = (props) => {
   const categories = [
     { value: 'Farmers Market', label: 'Farmers Market' },
     { value: 'Farm Shop', label: 'Farm Shop' },
-    { value: 'Zero Waste Shop', label: 'Zero Waste Shop' },
+    { value: 'Sustainable Groceries', label: 'Sustainable Groceries' },
     { value: 'Restaurant', label: 'Restaurant' },
     { value: 'EV Charging Station', label: 'EV Charging Station' },
-    { value: 'Recycling/Upcycling/Repair', label: 'Recycling/Upcycling/Repair' },
-    { value: 'Charity Shop', label: 'Charity Shop' }
+    { value: 'Upcycling/Repair', label: 'Upcycling/Repair' },
+    { value: 'Circular Economy', label: 'Circular Economy' },
+    { value: 'Cycling', label: 'Cycling' }
   ]
 
   const [selectedCategories, setSelectedCategories] = useState([])
@@ -115,6 +116,13 @@ const AddLocation = (props) => {
 
   function handleSubmit(event) {
     event.preventDefault()
+    if (!formData.postcode) {
+      const newErrors = {
+        ...errors,
+        postcode: 'Postcode missing'
+      }
+      return updateErrors(newErrors)
+    }
     Axios
       .get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${formData.postcode}.json?access_token=${process.env.MapBoxKey}`)
       .then(resp => {
@@ -132,18 +140,20 @@ const AddLocation = (props) => {
           headers: { Authorization: `Bearer ${token}` }
         })
           .then((resp) => {
-            console.log(resp.data)
+            console.log(resp.data.errors)
             if (resp.data.errors) {
+              
               updateErrors(resp.data.errors)
-              console.log(errors)
+              
             } else {
               props.history.push('/locations')
             }
-
+            console.log(errors)
           })
 
       })
       .catch(error => {
+        
         console.log(error.response)
         updatePostcodeError(error.response)
       })
@@ -155,20 +165,18 @@ const AddLocation = (props) => {
 
 
   return <div className="container is-fluid my-5">
-    <form className='' 
-    // onSubmit={handleSubmit}
-    >
+    <form className='' onSubmit={handleSubmit}>
       <div className='field'>
         <label className='label'>Name*</label>
         <div className="control">
           <input
             className='input'
-            type="text" ßß
+            type="text"
             onChange={handleChange}
             value={formData[name]}
             name='name'
           />
-          {(postcodeError || errors.name) && <p className="help" style={{ color: 'red' }}>
+          {(errors.name) && <p className="help" style={{ color: 'red' }}>
             {'There was a problem with the Name'}
           </p>}
         </div>
@@ -193,7 +201,7 @@ const AddLocation = (props) => {
           className="basic-multi-select"
 
         />
-        {(postcodeError || errors.category) && <p className="help" style={{ color: 'red' }}>
+        {( errors.category) && <p className="help" style={{ color: 'red' }}>
           {'There was a problem with the Categories'}
         </p>}
       </div>
@@ -210,7 +218,7 @@ const AddLocation = (props) => {
             placeholder='Street and Number'
           />
         </div>
-        {(postcodeError || errors.address) && <p className="help" style={{ color: 'red' }}>
+        {( errors.address) && <p className="help" style={{ color: 'red' }}>
           {'There was a problem with the Address'}
         </p>}
         <div className="control mt-1">
@@ -223,7 +231,7 @@ const AddLocation = (props) => {
             name='postcode'
             placeholder='Postcode'
           />
-          {postcodeError && <p className="help" style={{ color: 'red' }}>
+          {(postcodeError || errors.postcode) && <p className="help" style={{ color: 'red' }}>
             {'There was a problem with the Poscode'}
           </p>}
         </div>
@@ -236,7 +244,7 @@ const AddLocation = (props) => {
             name='city'
             placeholder='City'
           />
-          {(postcodeError || errors.city) && <p className="help" style={{ color: 'red' }}>
+          {( errors.city) && <p className="help" style={{ color: 'red' }}>
             {'There was a problem with the City'}
           </p>}
         </div>
