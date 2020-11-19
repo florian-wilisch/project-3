@@ -13,6 +13,7 @@ const SingleLocation = (props) => {
   console.log(props)
   const locationId = props.match.params.locationId
   console.log(locationId)
+  console.log(currentRating)
 
   const [location, updateLocation] = useState([])
 
@@ -20,6 +21,8 @@ const SingleLocation = (props) => {
     text: '',
     rating: null
   })
+
+  const [currentRating, updateCurrentRating] = useState(3)
 
 
   const [errors, updateErrors] = useState({
@@ -58,6 +61,7 @@ const SingleLocation = (props) => {
       rating: rating.rating
     }
     updateFormData(newData)
+    updateCurrentRating(rating.rating)
     console.log(newData)
   }
 
@@ -305,6 +309,7 @@ const SingleLocation = (props) => {
                       total={5}
                       onRate={setRating}
                       className="react-rater"
+                      rating={currentRating}
 
                     />
                     {errors.rating && <p style={{ color: 'red' }}>
