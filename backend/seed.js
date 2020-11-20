@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const { port, dbURI } = require('./config/environment')
 const Locations = require('./models/locations')
 const User = require('./models/user')
 const axios = require('axios')
@@ -26,7 +27,7 @@ const categoriesArray = [
 
 
 mongoose.connect(
-  'mongodb://localhost/greenWorldDb',
+  dbURI,
   { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
   (err) => {
     if (err) return console.log(err)
