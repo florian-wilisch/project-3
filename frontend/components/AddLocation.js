@@ -172,8 +172,6 @@ const AddLocation = (props) => {
   // const [isVisible, setIsVisible] = useState(false)
 
 
-
-
   return <div className="container is-fluid my-5">
     <form className="" onSubmit={handleSubmit}>
       <div className="field">
@@ -191,7 +189,6 @@ const AddLocation = (props) => {
           </p>}
         </div>
       </div>
-
 
 
       <div className="field">
