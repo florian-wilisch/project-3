@@ -205,7 +205,7 @@ mongoose.connect(
             website: '',
             email: '',
             phone: '',
-            bio: 'Whatever produce you are looking for, we have it here. From locally grown vegetables to fresh eggs, this is the place to shop sustainably.,
+            bio: 'Whatever produce you are looking for, we have it here. From locally grown vegetables to fresh eggs, this is the place to shop sustainably.',
             image: 'https://i.imgur.com/mcQ5FSX.jpg',
             user: users[0]
           },
