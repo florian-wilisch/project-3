@@ -6,7 +6,7 @@ const NavBar = (props) => {
 
   function handleLogout() {
     localStorage.removeItem('token')
-    props.history.push('/locations')
+    props.history.push('/')
   }
 
   const token = localStorage.getItem('token')

@@ -39,7 +39,7 @@ const User = (props) => {
     </div>
   }
 
-
+  console.log(comments)
 
   return <div className="container is-fluid mt-5">
     <div className="columns">
@@ -47,7 +47,7 @@ const User = (props) => {
 
       </div>
       <div className="column">
-        <figure className="image is-square">
+        <figure className="image ">
           <img className=" is-rounded" src={user.avatar} />
         </figure>
       </div>
@@ -59,10 +59,10 @@ const User = (props) => {
       <h2 className="subtitle is-3">Bio:</h2>
       <p>{user.bio}</p>
     </div>
-    <div className="container is-fluid mt-5">
-      <h2 className="subtitle is-3 is-capitalized">{user.username}'s comments:</h2>
+    {comments[0] && <div className="container is-fluid mt-5">
+      <h2 className="subtitle is-3">{user.username}'s comments:</h2>
       <div className="content">
-        {comments && comments.map(comment => {
+        {comments.map(comment => {
           return <div key={comment.comment._id} className="media">
             <figure className="media-left">
               <p className="image is-64x64">
@@ -89,7 +89,7 @@ const User = (props) => {
           </div>
         })}
       </div>
-    </div>
+    </div>}
   </div>
 
 }

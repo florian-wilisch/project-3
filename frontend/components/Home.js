@@ -24,7 +24,7 @@ const Home = () => {
         <p className='subtitle'>
           Search your area for <strong>shops</strong> and <strong>services</strong> that will help you make the first steps.
         </p>
-        <Link className="button is-link mt-2" to='/map' latitude={latitude}>Find Nearby Locations</Link>
+        <Link className="button is-link mt-2" to='/map' >Start Locally</Link>
       </div>
     </div>
   </section>

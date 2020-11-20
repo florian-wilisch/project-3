@@ -24,7 +24,7 @@ const SingleLocation = (props) => {
     rating: null
   })
 
-  const [currentRating, updateCurrentRating] = useState(3)
+  const [currentRating, updateCurrentRating] = useState(0)
 
 
   const [errors, updateErrors] = useState({
@@ -378,7 +378,7 @@ const SingleLocation = (props) => {
                       className="react-rater"
                     />
 
-                    <p>{comment.text} - I give {comment.rating} stars</p>
+                    <p>{comment.text}</p>
                   </div>
                 </div>
                 {isCreator(comment.user._id) && <div className="media-right is-justify-content-center">
@@ -433,6 +433,7 @@ const SingleLocation = (props) => {
                       rating={currentRating}
 
                     />
+                    {(currentRating === 0) && <p > {'Please enter a rating'} </p>}
                     {errors.rating && <p style={{ color: 'red' }}>
                       {`There was a problem with your ${errors.rating.path}`}
                     </p>}
@@ -451,10 +452,14 @@ const SingleLocation = (props) => {
                     <div className="field">
                       <p className="control">
                         <button
-                          className="button is-link"
+                          className="button is-link  my-1"
+
                         >
+
+
                           Submit
                         </button>
+
                       </p>
                     </div>
                   </form>
