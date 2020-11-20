@@ -5,7 +5,7 @@ import { isCreator } from '../lib/auth'
 import Rater from 'react-rater'
 import Map from './Map'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { far, faEdit, faMapPin } from '@fortawesome/free-solid-svg-icons'
+import { far, faEdit, faAddressCard, faClock, faPhoneAlt, faGlobeEurope, faGlobe, faMapMarkedAlt, faComments } from '@fortawesome/free-solid-svg-icons'
 
 import { CloudinaryContext, Image, Transformation } from 'cloudinary-react'
 
@@ -132,66 +132,92 @@ const SingleLocation = (props) => {
   // }))
   // console.log(location.comments[0].user._id)
 
-  return <div className="container">
-    <div className="level">
-      <h1 className="title is-1 is-primary">{location.name}</h1>
+  return <div className="container my-3">
 
-      {/* <div className="level-item buttons are-small"> */}
-      {/* {isCreator(location.user) &&
+
+    <div className="tile is-ancestor is-align-items-center has-text-start">
+
+      <div className="tile is-parent">
+        <article className="tile is-child box is-centered">
+          <div className="columns is-mobile">
+            <div className="column is-9 pb-0 pt-0 is-mobile">
+              <h1 className="title is-1 is-primary is-capitalized mb-0">{location.name}</h1>
+              {location.bio && <p className="is-subtitle">{location.bio}</p>}
+
+            </div>
+            <div className="column is-2 pb-0 is-hidden-mobile">
+              {isCreator(location.user) && <div className="dropdown is-hoverable is-right is-mobile">
+                <div className="dropdown-trigger">
+                  <button className="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                    <span>Edit Options</span>
+                    <span className="icon is-small">
+                      <i className="fas fa-angle-down" aria-hidden="true"></i>
+                    </span>
+                  </button>
+                </div>
+                <div className="dropdown-menu" id="dropdown-menu" role="menu">
+                  <div className="dropdown-content">
+                    <Link to={`/locations/edit-location/${locationId}`} className="dropdown-item">🛠 Edit Location</Link>
+                    <button onClick={handleDelete} className="dropdown-item">✂️ Delete Location</button>
+
+                  </div>
+                </div>
+              </div>}
+            </div>
+            <div className="column is-1 pb-0">
+              {location.website && <div className="is-right is-mobile"><a href={location.website} alt="Website" target="_blank" rel='noreferrer'><FontAwesomeIcon icon={faGlobe} color='#056674' size='3x' /></a></div>}
+            </div>
+
+
+          </div>
+
+
+
+        </article>
+
+      </div>
+    </div>
+
+    {/* <div className="level-item buttons are-small"> */}
+    {/* {isCreator(location.user) &&
           <Link to={`/locations/edit-location/${locationId}`} className="button is-warning is-light">🛠 Edit Location</Link>}
         {isCreator(location.user) &&
           <button onClick={handleDelete} className="button is-danger is-light">✂️ Delete Shop</button>} */}
 
-      {isCreator(location.user) && <div className="dropdown is-hoverable is-right is-mobile">
-        <div className="dropdown-trigger">
-          <button className="button" aria-haspopup="true" aria-controls="dropdown-menu">
-            <span>Edit Options</span>
-            <span className="icon is-small">
-              <i className="fas fa-angle-down" aria-hidden="true"></i>
-            </span>
-          </button>
-        </div>
-        <div className="dropdown-menu" id="dropdown-menu" role="menu">
-          <div className="dropdown-content">
-            <Link to={`/locations/edit-location/${locationId}`} className="dropdown-item">🛠 Edit Location</Link>
-            <button onClick={handleDelete} className="dropdown-item">✂️ Delete Location</button>
-
-          </div>
-        </div>
-      </div>}
-      {/* </div> */}
 
 
-    </div>
-
+    {/* <p className="title">Description</p> */}
 
 
     <div className="tile is-ancestor">
-      <div className="tile is-vertical is-8">
-        <div className="tile">
+      <div className="tile is-vertical is-7">
+        {/* <div className="tile"> */}
 
-          <div className="tile is-parent">
-            <article className="tile is-child box">
-              {/* <p className="title"></p>
+        <div className="tile is-parent">
+          <article className="tile is-child box">
+            {/* <p className="title"></p>
                 <p className="subtitle"></p>
                 <p className="subtitle"></p> */}
+            <figure className="image is-4by3">
+              <img src={location.image} alt={location.name} />
+            </figure>
 
-              <figure className="image is-4by3">
-                <img src={location.image} alt={location.name} />
-              </figure>
-              <br />
-              <div className="tags">
-                {location.category.map((category, index) => {
-                  return <div className="tag is-warning" key={index}>
-                    {category}
-                    {/* <br /> <span ></span> */}
-                  </div>
-                })}
-              </div>
+            <div className="tags my-3">
+              {location.category.map((category, index) => {
+                return <div className="tag is-warning" key={index}>
+                  {category}
+                  {/* <br /> <span ></span> */}
+                </div>
+              })}
+            </div>
 
-            </article>
-          </div>
-          <div className="tile is-parent is-vertical">
+
+            {/* <br /> */}
+
+
+          </article>
+        </div>
+        {/* <div className="tile is-parent is-vertical">
             <article className="tile is-child box">
               <p className="title">🗺</p>
               <p className="subtitle">{location.address}</p>
@@ -204,58 +230,134 @@ const SingleLocation = (props) => {
               <p className="content">🕰 {location.timings}</p>
 
             </article>
+          </div> */}
+
+        {/* </div> */}
+
+      </div>
+      <div className="tile is-parent is-vertical">
+        <article className="tile is-child box">
+          <div className="columns">
+            <div className="column is-2">
+              <FontAwesomeIcon icon={faAddressCard} color='#056674' size='3x' />
+            </div>
+            <div className="column">
+              <p className="title ">Where to find it</p>
+              <p className="content mb-0">{location.address}</p>
+              <span className="content mb-0">{location.postcode}, </span>
+              <span className="content mb-0">{location.city}</span>
+            </div>
+          </div>
+        </article>
+
+        {location.timings && <article className="tile is-child box">
+          <div className="columns">
+            <div className="column is-2">
+              <FontAwesomeIcon icon={faClock} color='#056674' size='3x' />
+            </div>
+            <div className="column">
+              <p className="title ">Opening Hours</p>
+              <p className="content is-capitalized mb-0">{location.timings}</p>
+            </div>
           </div>
 
-        </div>
-        <div className="tile is-parent">
-          <article className="tile is-child box">
-            {/* <p className="title">📍</p> */}
-            <p className="subtitle">{location.address}</p>
-            <p className="subtitle">{location.postcode}</p>
-            <p className="subtitle">{location.city}</p>
-            <p className="content">🌍 <a href={location.website}>Website</a></p>
-            <p className="content">📧 {location.email}</p>
-            <p className="content">📲 {location.phone}</p>
-            {location.latitude && <Map location={location} />}
-          </article>
-        </div>
-      </div>
-      <div className="tile is-parent">
-        <article className="tile is-child box">
-          <div className="content">
-            <p className="title">Description</p>
-            <p className="subtitle"></p>
-            <div className="content">
-              <p>{location.bio}</p>
+        </article>}
+        {location.phone && <article className="tile is-child box">
+          <div className="columns">
+            <div className="column is-2">
+              <FontAwesomeIcon icon={faPhoneAlt} color='#056674' size='3x' />
             </div>
+            <div className="column">
+              <p className="title ">
+                Contact</p>
+              {/* <p className="content mb-0">{location.email}</p> */}
+              <p className="content mb-0">{location.phone}</p>
+            </div>
+          </div>
+        </article>}
+
+        {/* <article className="tile is-child box">
+          <div className="content"> */}
+        {/* <p className="subtitle"></p>
             <div className="content">
+              <p className="title">Opening Hours</p>
+              <p className="content">🕰 {location.timings}</p>
+              <p className="content">🌍 <a href={location.website}>Website</a></p>
+              <p className="content">📧 {location.email}</p>
+              <p className="content">📲 {location.phone}</p>
+
+            </div> */}
+        {/* <div className="content">
               <p className="title">Events</p>
               <p>Start date</p>
               <p>{new Date(location.startDate).toLocaleDateString()}</p>
               <p>End date</p>
               <p>{new Date(location.endDate).toLocaleDateString()}</p>
 
+            </div> */}
+        {/* </div>
+        </article> */}
+      </div>
+    </div >
+
+    <div className="tile is-ancestor">
+      {/* <div className="tile is-parent is-1 is-invisible is-desktop">
+
+      </div> */}
+      <div className="tile is-parent ">
+        <article className="tile is-child box is-centered">
+          {/* <p className="title">📍</p> */}
+
+          <div className="columns">
+            <div className="column is-1  is-narrow">
+              {/* <div>
+                <FontAwesomeIcon icon={faGlobe} color='#056674' size='3x' />
+
+              </div> */}
+              <div className="is-align-self-center">
+                <FontAwesomeIcon icon={faMapMarkedAlt} color='#056674' size='3x' />
+
+              </div>
+
+            </div>
+            <div className="column">
+              {location.latitude && <div className="columns is-centered m-1 is-mobile"><Map location={location} /></div>}
+
             </div>
           </div>
+
+
+
         </article>
       </div>
     </div>
 
     <div className="tile is-ancestor">
-      <div className="tile is-parent">
-        <article className="tile is-child box">
-          <p className="title">Get in touch</p>
-          <p className="content">🌍 <a href={location.website}>Website</a></p>
-          <p className="content">📧 {location.email}</p>
-          <p className="content">📲 {location.phone}</p>
-        </article>
-      </div>
+      {/* <div className="tile is-parent is-1 is-invisible is-desktop">
+
+      </div> */}
 
       {/* Comments box */}
-      <div className="tile is-parent is-8">
+      <div className="tile is-parent">
         <article className="tile is-child box">
-          <p className="title">Reviews</p>
-          {/* <p className="subtitle">With some content</p> */}
+          <div className="columns">
+            <div className="column is-1  is-narrow">
+              {/* <div>
+                <FontAwesomeIcon icon={faGlobe} color='#056674' size='3x' />
+
+              </div> */}
+              <div className="is-align-self-center">
+                <FontAwesomeIcon icon={faComments} color='#056674' size='3x' />
+
+              </div>
+
+            </div>
+            <div className="column">
+
+              <p className="title">Reviews</p>
+              {/* <p className="subtitle">With some content</p> */}
+            </div>
+          </div>
           <div className="content">
             {location.comments && location.comments.map(comment => {
               return <div key={comment._id} className="media">
@@ -280,13 +382,13 @@ const SingleLocation = (props) => {
                   </div>
                 </div>
                 {isCreator(comment.user._id) && <div className="media-right is-justify-content-center">
-                  
+
                   <Link to={`/locations/edit-comment/${locationId}/${comment._id}`} className="edit mr-1">
-                  
-                    <FontAwesomeIcon icon={faEdit} color='#CECECE'/>
+
+                    <FontAwesomeIcon icon={faEdit} color='#CECECE' />
                   </Link>
-                  
-                  
+
+
                   <button className="delete"
                     onClick={() => handleDeleteComment(comment._id)}></button>
                 </div>}
@@ -349,7 +451,7 @@ const SingleLocation = (props) => {
                     <div className="field">
                       <p className="control">
                         <button
-                          className="button is-info"
+                          className="button is-link"
                         >
                           Submit
                         </button>

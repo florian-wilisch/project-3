@@ -53,6 +53,7 @@ const UploadImage = (props) => {
         <div className="button" onClick={() => beginUpload()}>Upload Image</div>
         <section>
           {images && images.map(index => <div key={index}>
+            <br />
             <Image
               publicId={index}
             // fetch-format="auto"
