@@ -1,9 +1,14 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const DotEnv = require('dotenv-webpack')
+const Dotenv = require('dotenv-webpack')
+const env = process.env.NODE_ENV === 'production' ? (
+  new webpack.EnvironmentPlugin({ ...process.env })
+) : (
+  new Dotenv()
+)
 
-module.exports = env => {
+module.exports = () => {
   return {
     entry: './frontend/index.js',
     output: {
@@ -24,7 +29,7 @@ module.exports = env => {
       contentBase: path.resolve('frontend'),
       hot: true,
       open: true,
-      port: 8001,
+      port: 8000,
       watchContentBase: true,
       historyApiFallback: true,
       proxy: {
@@ -35,13 +40,14 @@ module.exports = env => {
       }
     },
     plugins: [
-      new DotEnv(),
+      new Dotenv(),
       new webpack.HotModuleReplacementPlugin(),
       new HtmlWebpackPlugin({
         template: 'frontend/index.html',
         filename: 'index.html',
         inject: 'body'
-      })
+      }),
+      env
     ]
   }
 }
