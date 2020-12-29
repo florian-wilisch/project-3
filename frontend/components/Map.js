@@ -17,7 +17,7 @@ const Map = (props) => {
   })
 
   return <MapGL
-    mapboxApiAccessToken={'pk.eyJ1Ijoibmlja2hheWVzIiwiYSI6ImNrYmh2dW56NDA5ZnIyenB2MHJ4MGFnaWYifQ.IHXzZRvdxBtuH9Ro6nLKmQ'}
+    mapboxApiAccessToken={process.env.MapBoxKey}
     scrollZoom={false}
     {...viewPort}
     onViewportChange={(viewPort) => setViewPort(viewPort)}
