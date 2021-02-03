@@ -118,8 +118,6 @@ return Axios.post('/api/locations', data, {
   })
 [...]
 ```
-
-### (Navbar)
 ### Seed.js
 For seeding, we send our 30 hardcoded locations to *mapbox* and return the coordinates (similarly to what's done on AddLocation.js). Then these get added to a global variable.
 
@@ -186,7 +184,7 @@ Each *Yelp* item then gets tweeked to match our model, before being store in our
   })
 ```
 
-## Challenges
+## Challenges / Victories
 
 The biggest challenge certainly was to get Seed.js setup in a way where we could merge various sources of data (ie hardcoded data and external data via the API).
 We ultimately solved this by using `globalArray`.
@@ -226,6 +224,12 @@ Another challenge was the amount of data we were trying to retrieve from the Yel
 	  [...]
 ```
 This works great but could still be improved. For ex by checking the length of the response in the first request and then calculate the number of loops necessary dynamically from there.
+
+## Key Learnings
+* Learned to create our own database via MongoDB.
+* Learned to add items to our database while running them through an external API first.
+* Learned to combine seeding sources (local and API) and integrate a loop to get 850 entries with a single call limit of 50.
+* Learned to implement the (bulma) hamburger menu for mobile view.
 
 ## Improvements
 
